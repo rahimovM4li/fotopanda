@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FDFAFA" />
+
+    <title>Foto Panda | Professionelle Fotografie &amp; lebendige Erinnerungen</title>
+    <meta
+      name="description"
+      content="Professionelle Fotoshootings, Videos und lebendige Foto- und Printprodukte von Foto Panda. Erinnerungen und Unternehmen modern in Szene gesetzt."
+    />
+    <link rel="canonical" href="https://fotopandastudio.de/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Foto Panda" />
+    <meta property="og:title" content="Foto Panda | Professionelle Fotografie &amp; lebendige Erinnerungen" />
+    <meta
+      property="og:description"
+      content="Professionelle Fotoshootings, Videos und lebendige Foto- und Printprodukte von Foto Panda. Erinnerungen und Unternehmen modern in Szene gesetzt."
+    />
+    <meta property="og:url" content="https://fotopandastudio.de/" />
+    <meta property="og:image" content="https://fotopandastudio.de/assets/photos/wedding-stairs-1320.jpg" />
+    <meta property="og:image:width" content="1320" />
+    <meta property="og:image:height" content="1631" />
+    <meta
+      property="og:image:alt"
+      content="Braut und Bräutigam auf einer Freitreppe, dicht beieinander, kurz vor einem Kuss"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Foto Panda | Professionelle Fotografie &amp; lebendige Erinnerungen" />
+    <meta
+      name="twitter:description"
+      content="Professionelle Fotoshootings, Videos und lebendige Foto- und Printprodukte von Foto Panda."
+    />
+    <meta name="twitter:image" content="https://fotopandastudio.de/assets/photos/wedding-stairs-1320.jpg" />
+
+    <!-- Der Vektor zuerst: Browser, die ihn koennen, zeichnen ihn in jeder
+         Kachelgroesse scharf. Die PNG bleiben als Rueckfallebene. -->
+    <link rel="icon" href="/assets/brand/mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/brand/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/assets/brand/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/brand/favicon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+      Das Hero-Poster ist das LCP-Bild der Startseite. Der Preload startet den
+      Download parallel zum JavaScript-Bundle, also deutlich früher, als React
+      das Bild rendern könnte.
+
+      Nur auf der Startseite: Auf /impressum und /datenschutz käme das Bild nie
+      zum Einsatz, und der Browser meldete zu Recht einen ungenutzten Preload.
+      Das Skript läuft im Head und damit früh genug, um den Vorsprung zu halten.
+    -->
+    <script>
+      if (location.pathname === '/') {
+        var l = document.createElement('link')
+        l.rel = 'preload'
+        l.as = 'image'
+        l.type = 'image/avif'
+        l.href = '/assets/posters/wedding.avif'
+        l.setAttribute('fetchpriority', 'high')
+        document.head.appendChild(l)
+      }
+    </script>
+
+    <!--
+      Strukturierte Daten. Es stehen ausschliesslich belegte Werte darin:
+      Anschrift und Bewertungen fehlen, weil sie nicht vorliegen, und werden
+      nicht erfunden. Nach Erhalt der rechtlichen Daten hier ergaenzen.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "additionalType": "https://schema.org/PhotographyBusiness",
+        "name": "Foto Panda",
+        "slogan": "Fotos. Videos. Erlebnisse.",
+        "description": "Fotografie und Videoproduktion für Hochzeiten, Porträts, Gastronomie, Immobilien und Unternehmen.",
+        "url": "https://fotopandastudio.de/",
+        "telephone": "+4917641799016",
+        "email": "info@fotopandastudio.de",
+        "image": "https://fotopandastudio.de/assets/photos/wedding-stairs-1320.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Osnabrück",
+          "addressCountry": "DE"
+        },
+        "areaServed": "Osnabrück und Umgebung",
+        "sameAs": [
+          "https://www.instagram.com/fotopanda.de/",
+          "https://www.tiktok.com/@fotopanda.de"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

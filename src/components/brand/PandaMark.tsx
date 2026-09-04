@@ -1,0 +1,105 @@
+import { useId } from 'react'
+import { cn } from '@/lib/cn'
+
+/**
+ * Die Bildmarke: Blende und Pandakopf.
+ *
+ * Als SVG und nicht als Rasterdatei, weil das Zeichen an sehr unterschiedlichen
+ * Groessen steht -- 20 Pixel in der Fusszeile, mehrere hundert im Seitenkopf --
+ * und weil die Blendenspalte durchsichtig sein muessen. Dadurch traegt dasselbe
+ * Zeichen auf dunklem wie auf hellem Grund, ohne zweite Fassung.
+ *
+ * Die Farbe kommt aus `--color-brand`, damit die Marke jeder Anpassung der
+ * Markenfarbe folgt.
+ *
+ * Geometrie der Blende: sechs Lamellenkanten, jede eine Tangente an den
+ * Kreis r=35, also genau an der Kante des Kopfes. Gezeichnet wird ab dem
+ * Beruehrpunkt nach aussen bis zum Rand, und zwar bei allen sechs in
+ * derselben Drehrichtung. Nur so entsteht das Windrad einer Blende: die
+ * ganze Sehne ergaebe einen Sechsstern, der Start an der Sechseckecke
+ * dagegen nur kurze Striche.
+ */
+export function PandaMark({
+  className,
+  title,
+}: {
+  className?: string
+  /** Nur setzen, wenn das Zeichen allein steht. Neben dem Schriftzug ist es Dekor. */
+  title?: string
+}) {
+  /* Eigene ID je Instanz: Kopf- und Fusszeile zeigen dieselbe Marke, und zwei
+     gleiche `id` in einem Dokument sind ungueltiges HTML. */
+  const maskId = `panda-iris-${useId()}`
+
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      role={title ? 'img' : 'presentation'}
+      aria-hidden={title ? undefined : true}
+      aria-label={title}
+      className={cn('block', className)}
+    >
+      <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+        <circle cx="50" cy="50" r="46" fill="#fff" />
+        <g stroke="#000" strokeWidth="3.6" strokeLinecap="round">
+          <line x1="80.31" y1="67.50" x2="65.38" y2="93.35" />
+          <line x1="50.00" y1="85.00" x2="20.15" y2="85.00" />
+          <line x1="19.69" y1="67.50" x2="4.76" y2="41.65" />
+          <line x1="19.69" y1="32.50" x2="34.62" y2="6.65" />
+          <line x1="50.00" y1="15.00" x2="79.85" y2="15.00" />
+          <line x1="80.31" y1="32.50" x2="95.24" y2="58.35" />
+        </g>
+      </mask>
+
+      <circle cx="50" cy="50" r="46" fill="var(--color-brand)" mask={`url(#${maskId})`} />
+
+      {/* Der Kopf ist gegenueber der Blende bewusst gross: in der Vorlage
+          fuellt er gut zwei Drittel des Kreises. Als Gruppe skaliert,
+          damit die Binnenzeichnung ihre Proportionen behaelt. */}
+      <g transform="translate(50 51) scale(1.18) translate(-50 -51)">
+        {/* Kopf: weisse Flaeche mit Saum um die Ohren, damit der Kopf auch dort
+            abgesetzt bleibt, wo eine Lamelle dahinterliegt. */}
+        <path
+          fill="#fff"
+          d="M50 22.5c-4.9 0-9.4 1.0-13.3 2.8a11.6 11.6 0 0 0-9.6-1.6c-5.0 1.5-7.7 6.6-6.4 11.7l1.3 5.1A28.5 28.5 0 0 0 20.5 53c0 15.2 13.2 26.5 29.5 26.5S79.5 68.2 79.5 53c0-4.4-1.0-8.6-2.9-12.3l1.4-5.3c1.3-5.1-1.4-10.2-6.4-11.7a11.6 11.6 0 0 0-9.7 1.7A31.6 31.6 0 0 0 50 22.5Z"
+        />
+
+        {/* Ohren */}
+        <path
+          fill="#0B0B0D"
+          d="M33.6 27.8c3.5 0 6.6 1.9 8.7 4.9L30.2 43.4c-2.8-2.0-4.8-4.9-5.6-8.2-1.0-3.9 1.1-7.7 4.9-8.8 1.4-.4 2.8-.5 4.1-.6Z"
+        />
+        <path
+          fill="#0B0B0D"
+          d="M66.4 27.8c-3.5 0-6.6 1.9-8.7 4.9l12.1 10.7c2.8-2.0 4.8-4.9 5.6-8.2 1.0-3.9-1.1-7.7-4.9-8.8-1.4-.4-2.8-.5-4.1-.6Z"
+        />
+
+        {/* Augenflecken: nach aussen gekippte Tropfen wie in der Vorlage */}
+        <path
+          fill="#0B0B0D"
+          d="M41.6 44.2c2.9 0 5.2 2.0 5.8 4.9l1.0 5.0c.7 3.6-1.4 7.2-4.8 8.5l-2.6 1.0c-3.5 1.3-7.4-.3-9.0-3.7l-2.2-4.6c-1.5-3.2-.4-7.0 2.6-8.9l4.0-2.5a7.9 7.9 0 0 1 4.2-1.2Z"
+        />
+        <path
+          fill="#0B0B0D"
+          d="M58.4 44.2c-2.9 0-5.2 2.0-5.8 4.9l-1.0 5.0c-.7 3.6 1.4 7.2 4.8 8.5l2.6 1.0c3.5 1.3 7.4-.3 9.0-3.7l2.2-4.6c1.5-3.2.4-7.0-2.6-8.9l-4.0-2.5a7.9 7.9 0 0 0-4.2-1.2Z"
+        />
+
+        {/* Lichter in den Augen */}
+        <circle cx="41.3" cy="51.2" r="2.1" fill="#fff" />
+        <circle cx="58.7" cy="51.2" r="2.1" fill="#fff" />
+
+        {/* Nase */}
+        <path
+          fill="#0B0B0D"
+          d="M45.2 61.6h9.6c1.9 0 3.1 2.0 2.2 3.6l-2.4 4.2c-1.0 1.7-3.4 1.7-4.4 0l-.2-.3-.2.3c-1.0 1.7-3.4 1.7-4.4 0l-2.4-4.2c-.9-1.6.3-3.6 2.2-3.6Z"
+        />
+
+        {/* Mund */}
+        <path
+          fill="#0B0B0D"
+          d="M50 68.6c.8 0 1.5.6 1.6 1.4.2 1.6 1.6 2.8 3.2 2.8.9 0 1.7-.3 2.3-.9.7-.6 1.7-.6 2.3.1.6.7.5 1.7-.2 2.3a7.0 7.0 0 0 1-4.4 1.6c-2.0 0-3.8-.8-5.1-2.2a6.8 6.8 0 0 1-5.1 2.2 7.0 7.0 0 0 1-4.4-1.6c-.7-.6-.8-1.6-.2-2.3.6-.7 1.6-.7 2.3-.1.6.6 1.4.9 2.3.9 1.6 0 3.0-1.2 3.2-2.8.1-.8.8-1.4 1.6-1.4Z"
+        />
+      </g>
+    </svg>
+  )
+}

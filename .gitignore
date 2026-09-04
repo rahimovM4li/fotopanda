@@ -1,0 +1,43 @@
+# Abhängigkeiten
+node_modules/
+.pnp/
+.pnp.js
+
+# Build
+dist/
+dist-ssr/
+*.local
+
+# Umgebung
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Rohmaterial des Kunden (wird über scripts/prepare-assets.mjs aufbereitet,
+# die Ergebnisse unter public/assets/ sind eingecheckt)
+assets-source/
+
+# Ausgabe der Browser-Pruefungen
+.playwright-mcp/

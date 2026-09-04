@@ -1,0 +1,381 @@
+@import 'tailwindcss';
+
+/* Selbst gehostete variable Schriften: kein Request an einen Drittanbieter,
+   damit die Seite ohne Einwilligungsbanner auskommt. */
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/manrope';
+
+/* ==================================================================
+   Tokens. In Tailwind v4 ist @theme die Konfiguration.
+
+   Die Seite hat zwei Tonlagen: Ink (dunkel, für Hero, Medienbühnen und
+   Abschluss) und Ivory (hell, für Lesestrecken). Sie wechseln sich im
+   Rhythmus ab. Deshalb gibt es zwei Textrampen statt einer, und jede
+   Sektion sagt über `data-tone`, welche gilt.
+
+   Alle Kontrastwerte sind gerechnet. Die Tabelle steht in DESIGN.md.
+   ================================================================== */
+@theme {
+  /* --- Marke ------------------------------------------------------ */
+  --color-brand: oklch(0.6677 0.2235 37); /* #FF4D00 */
+  --color-brand-soft: oklch(0.7258 0.1782 43.2); /* #FF7A3D, auf Ink 7,59:1 */
+  --color-brand-hover: oklch(0.63 0.225 38); /* #F13E00, Ink darauf 5,08:1 */
+  --color-brand-deep: oklch(0.54 0.205 38); /* #C92800, kleine Schrift auf Ivory */
+
+  /* --- Ink: dunkle Tonlage ---------------------------------------- */
+  --color-ink: oklch(0.1505 0.0042 285.9); /* #0B0B0D */
+  --color-ink-2: oklch(0.175 0.0055 45); /* #13100F */
+  --color-ink-3: oklch(0.225 0.0075 45); /* #1F1B19 */
+  --color-ink-line: oklch(0.29 0.009 45); /* #2F2A28 */
+  --color-ink-line-2: oklch(0.37 0.011 45); /* #453E3B */
+
+  --color-on-ink: oklch(0.97 0.006 60); /* 18,01:1 */
+  --color-on-ink-soft: oklch(0.83 0.009 60); /* 11,63:1 */
+  --color-on-ink-muted: oklch(0.715 0.011 60); /* 7,77:1 */
+  --color-on-ink-faint: oklch(0.61 0.011 60); /* 5,17:1 */
+
+  /* --- Ivory: helle Tonlage --------------------------------------- */
+  --color-ivory: oklch(0.9681 0.0074 80.7); /* #F7F4EF */
+  --color-ivory-2: oklch(0.945 0.006 70); /* #EFECE9 */
+  --color-ivory-3: oklch(0.91 0.008 70); /* #E5E0DC */
+  --color-ivory-line: oklch(0.87 0.009 70); /* #D8D3CE */
+  --color-ivory-line-2: oklch(0.79 0.011 70); /* #BFB9B3 */
+
+  --color-on-ivory: oklch(0.1505 0.0042 285.9); /* 17,92:1 */
+  --color-on-ivory-soft: oklch(0.355 0.007 70); /* 10,11:1 */
+  --color-on-ivory-muted: oklch(0.465 0.007 70); /* 6,36:1 */
+  --color-on-ivory-faint: oklch(0.505 0.007 70); /* 5,36:1 */
+
+  --color-danger: oklch(0.62 0.2 27);
+  --color-danger-ink: oklch(0.5 0.19 27);
+
+  /* --- Tonlage ------------------------------------------------------
+     Diese Namen benutzen alle Komponenten. Die Werte hier sind die Ink-
+     Fassung; `[data-tone="ivory"]` schreibt dieselben Namen um. Wichtig:
+     Die Umschaltung muss auf denselben Variablennamen passieren. Eine
+     Indirektion (`--color-tone-text: var(--tone-text)`) würde nicht
+     funktionieren, weil ein var() innerhalb einer Custom Property schon
+     dort aufgelöst wird, wo die Property steht, und nicht dort, wo sie
+     benutzt wird. ------------------------------------------------- */
+  --color-tone-bg: oklch(0.1505 0.0042 285.9);
+  --color-tone-surface: oklch(0.175 0.0055 45);
+  --color-tone-surface-2: oklch(0.225 0.0075 45);
+  --color-tone-line: oklch(0.29 0.009 45);
+  --color-tone-line-2: oklch(0.37 0.011 45);
+  --color-tone-text: oklch(0.97 0.006 60);
+  --color-tone-text-soft: oklch(0.83 0.009 60);
+  --color-tone-text-muted: oklch(0.715 0.011 60);
+  --color-tone-text-faint: oklch(0.61 0.011 60);
+  --color-tone-accent: oklch(0.6677 0.2235 37);
+
+  /* --- Schriften --------------------------------------------------- */
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Skala ------------------------------------------------------- */
+  --text-mega: clamp(3rem, 1.1rem + 7.4vw, 7rem);
+  /* 4,25rem statt 5rem: darüber bricht „Der Moment wird" in der
+     Textspalte des Hero um und die Zeile zerfällt. */
+  --text-display: clamp(2.375rem, 1.35rem + 3.4vw, 4.25rem);
+  --text-h2: clamp(2.125rem, 1.35rem + 3.2vw, 3.75rem);
+  --text-h3: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  --text-lead: clamp(1.0625rem, 1rem + 0.42vw, 1.3125rem);
+
+  /* --- Rhythmus ----------------------------------------------------- */
+  --spacing-section: clamp(5rem, 3rem + 7vw, 11rem);
+  --spacing-section-tight: clamp(3.5rem, 2.4rem + 4vw, 6.5rem);
+
+  --radius-card: 0.625rem;
+  --radius-media: 1rem;
+  --radius-frame: 1.5rem;
+
+  /* Ausklingend, kein Bounce */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    --z-sticky: 30;
+    --z-mobilecta: 40;
+    --z-drawer: 50;
+    --z-overlay: 60;
+    --z-modal: 70;
+
+    /* Von Header.tsx zur Laufzeit gesetzt. */
+    --header-h: 76px;
+
+    color-scheme: dark;
+  }
+
+  /* Ink ist die Vorgabe und steht bereits im @theme. Hier nur, damit eine
+     Ink-Sektion innerhalb einer Ivory-Sektion wieder zurückschaltet. */
+  [data-tone='ink'] {
+    --color-tone-bg: var(--color-ink);
+    --color-tone-surface: var(--color-ink-2);
+    --color-tone-surface-2: var(--color-ink-3);
+    --color-tone-line: var(--color-ink-line);
+    --color-tone-line-2: var(--color-ink-line-2);
+    --color-tone-text: var(--color-on-ink);
+    --color-tone-text-soft: var(--color-on-ink-soft);
+    --color-tone-text-muted: var(--color-on-ink-muted);
+    --color-tone-text-faint: var(--color-on-ink-faint);
+    /* Orange erreicht auf Ink 5,91:1 und trägt dort auch kleine Schrift. */
+    --color-tone-accent: var(--color-brand);
+    color-scheme: dark;
+  }
+
+  [data-tone='ivory'] {
+    --color-tone-bg: var(--color-ivory);
+    --color-tone-surface: var(--color-ivory-2);
+    --color-tone-surface-2: var(--color-ivory-3);
+    --color-tone-line: var(--color-ivory-line);
+    --color-tone-line-2: var(--color-ivory-line-2);
+    --color-tone-text: var(--color-on-ivory);
+    --color-tone-text-soft: var(--color-on-ivory-soft);
+    --color-tone-text-muted: var(--color-on-ivory-muted);
+    --color-tone-text-faint: var(--color-on-ivory-faint);
+    /* Auf Ivory erreicht #FF4D00 nur 3,03:1: für kleine Schrift zu wenig,
+       deshalb hier die dunklere Variante. */
+    --color-tone-accent: var(--color-brand-deep);
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-ink);
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+    color: var(--color-tone-text);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+    font-weight: 800;
+    letter-spacing: -0.038em;
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.022em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-soft);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  [data-tone='ivory'] :focus-visible {
+    outline-color: var(--color-brand-deep);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: var(--color-ink);
+  }
+
+  ::placeholder {
+    color: var(--color-tone-text-faint);
+    opacity: 1;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    display: block;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Die Kachel, auf der jedes Medium sitzt. Auf Ink trennt ein heller
+     Innenrand das Bild vom Grund, auf Ivory ein dunkler: In beiden Fällen
+     bekommt auch eine sehr helle oder sehr dunkle Aufnahme eine Kante. */
+  .media-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-tone-surface-2);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-tone-text) 12%, transparent);
+  }
+
+  /* Warmes Streulicht hinter einem Medium. Ersetzt harte Schatten, die auf
+     dunklem Grund ohnehin nicht sichtbar wären. */
+  .glow-warm {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-brand) 70%, transparent) 0%,
+      transparent 68%
+    );
+    filter: blur(90px);
+  }
+
+  /* Feines Korn über den dunklen Bühnen. Nimmt großen Flächen das Digitale,
+     ohne dass eine Bilddatei geladen werden muss. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.30'/%3E%3C/svg%3E");
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Waagerechte Snap-Strecke für mobile Kompositionen. */
+  .snap-rail {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.25rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .snap-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-rail > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}
+
+@layer utilities {
+  /* Maskiertes Aufziehen einer Zeile. Die Zeile ist im Ausgangszustand
+     sichtbar; die Animation kommt additiv dazu (siehe MaskReveal.tsx). */
+  @keyframes mask-rise {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.94);
+      opacity: 0.85;
+    }
+    70%,
+    100% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+  }
+
+  @keyframes scroll-hint {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.35;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+}
+
+/* Reduzierte Bewegung. Alle Inhalte sind im Ausgangszustand sichtbar,
+   deshalb kann hier alles abgeschaltet werden, ohne dass etwas fehlt. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -12,7 +12,7 @@ import { cn } from '@/lib/cn'
 export function Magnetic({
   children,
   className,
-  strength = 0.28,
+  strength = 0.08,
   radius = 90,
 }: {
   children: ReactNode
@@ -25,7 +25,7 @@ export function Magnetic({
 
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
-  const spring = { stiffness: 260, damping: 20, mass: 0.4 }
+  const spring = { stiffness: 220, damping: 30, mass: 0.4 }
   const x = useSpring(mx, spring)
   const y = useSpring(my, spring)
 
@@ -37,22 +37,23 @@ export function Magnetic({
     const dy = event.clientY - (rect.top + rect.height / 2)
     const distance = Math.hypot(dx, dy)
     if (distance > radius + Math.max(rect.width, rect.height) / 2) return
-    mx.set(dx * strength)
-    my.set(dy * strength)
+    mx.set(Math.max(-4, Math.min(4, dx * strength)))
+    my.set(Math.max(-4, Math.min(4, dy * strength)))
   }
 
   return (
-    <motion.span
+    <span
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={() => {
         mx.set(0)
         my.set(0)
       }}
-      style={{ x, y }}
       className={cn('inline-flex', className)}
     >
-      {children}
-    </motion.span>
+      <motion.span className="inline-flex" style={reduce ? { x: 0, y: 0 } : { x, y }}>
+        {children}
+      </motion.span>
+    </span>
   )
 }

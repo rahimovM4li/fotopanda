@@ -1,5 +1,6 @@
 import { Container } from '@/components/ui/Container'
 import { PendingData } from '@/components/PendingData'
+import { Reveal } from '@/components/motion/Reveal'
 import { hasLegalData, siteConfig } from '@/config/siteConfig'
 import { useSeo } from '@/hooks/useSeo'
 
@@ -15,17 +16,21 @@ export function Datenschutz() {
     <article data-tone="ink"
       className="relative isolate bg-ink pt-32 pb-section text-on-ink lg:pt-40">
       <Container width="text">
-        <h1 className="font-display text-h2 leading-[1] font-extrabold tracking-[-0.038em]">Datenschutzerklärung</h1>
+        <Reveal>
+          <h1 className="font-display text-h2 leading-[1] font-extrabold tracking-[-0.038em]">Datenschutzerklärung</h1>
+        </Reveal>
 
         {!hasLegalData && (
-          <p className="mt-8 rounded-card border border-brand/40 bg-ink-2 p-5 text-[0.9375rem] text-on-ink-soft">
-            Die technischen Angaben auf dieser Seite beschreiben den tatsächlichen Stand der
-            Website. Die Angaben zum Verantwortlichen fehlen noch und müssen vor dem Livegang
-            eingetragen werden.
-          </p>
+          <Reveal delay={70}>
+            <p className="mt-8 rounded-card border border-brand/40 bg-ink-2 p-5 text-[0.9375rem] text-on-ink-soft">
+              Die technischen Angaben auf dieser Seite beschreiben den tatsächlichen Stand der
+              Website. Die Angaben zum Verantwortlichen fehlen noch und müssen vor dem Livegang
+              eingetragen werden.
+            </p>
+          </Reveal>
         )}
 
-        <section className="mt-12">
+        <Reveal as="section" className="mt-12">
           <h2 className="text-h3">Verantwortlicher</h2>
           <address className="mt-4 not-italic text-on-ink-soft">
             {siteConfig.legal.legalName ?? <PendingData>Vollständiger Firmenname</PendingData>}
@@ -39,9 +44,9 @@ export function Datenschutz() {
               {siteConfig.email}
             </a>
           </address>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Keine Dienste von Dritten</h2>
           <p className="mt-4 text-on-ink-soft">
             Diese Website lädt zur Laufzeit keine Inhalte von fremden Servern. Schriften, Bilder
@@ -49,9 +54,9 @@ export function Datenschutz() {
             Google Fonts, keine Einbindung von Karten, Videoportalen oder Social-Media-Widgets
             statt.
           </p>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Keine Analyse, kein Tracking, keine Cookies</h2>
           <p className="mt-4 text-on-ink-soft">
             Es werden keine Analyse- oder Trackingwerkzeuge eingesetzt. Die Website setzt keine
@@ -59,9 +64,9 @@ export function Datenschutz() {
             gibt es auch kein Einwilligungsbanner: Es besteht nichts, worin eingewilligt werden
             müsste.
           </p>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Server-Logfiles</h2>
           <p className="mt-4 text-on-ink-soft">
             Der Anbieter des Webspace erhebt technisch bedingt Zugriffsdaten wie IP-Adresse,
@@ -70,9 +75,9 @@ export function Datenschutz() {
             sicheren und störungsfreien Betrieb der Website.{' '}
             <PendingData>Hosting-Anbieter und Speicherdauer der Logfiles ergänzen</PendingData>
           </p>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Anfrageformular</h2>
           <p className="mt-4 text-on-ink-soft">
             Über das Formular auf der Kontaktseite können Sie eine Anfrage stellen. Verarbeitet
@@ -90,9 +95,9 @@ export function Datenschutz() {
               Speicherdauer ergänzen
             </PendingData>
           </p>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Ihre Rechte</h2>
           <p className="mt-4 text-on-ink-soft">
             Sie haben das Recht auf Auskunft über die zu Ihrer Person gespeicherten Daten
@@ -105,16 +110,16 @@ export function Datenschutz() {
             Ihnen steht außerdem ein Beschwerderecht bei einer Aufsichtsbehörde zu. Zuständig ist
             in der Regel die Behörde Ihres gewöhnlichen Aufenthaltsorts.
           </p>
-        </section>
+        </Reveal>
 
-        <section className="mt-10">
+        <Reveal as="section" className="mt-10">
           <h2 className="text-h3">Bild- und Videoaufnahmen</h2>
           <p className="mt-4 text-on-ink-soft">
             Aufnahmen aus Aufträgen werden nur mit Einwilligung der abgebildeten Personen
             veröffentlicht. Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die
             Zukunft widerrufen; schreiben Sie dazu an die oben genannte E-Mail-Adresse.
           </p>
-        </section>
+        </Reveal>
       </Container>
     </article>
   )

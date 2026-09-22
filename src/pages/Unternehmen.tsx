@@ -4,6 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
 import { MaskReveal } from '@/components/motion/MaskReveal'
+import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
 import { MediaStill } from '@/components/ui/MediaStill'
 import { CONTACT_PATH, CTA_PRIMARY } from '@/data/content'
@@ -50,17 +51,19 @@ export function Unternehmen() {
           </div>
 
           <Reveal delay={220} className="lg:justify-self-end">
-            <div className="media-frame aspect-[4/5] rounded-frame lg:w-[26rem]">
-              <MediaStill
-                media={page.hero as MediaRef}
-                sizes="(min-width:1024px) 26rem, 100vw"
-                priority
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-ink/45 to-transparent"
-              />
-            </div>
+            <MotionSurface variant="hero" index={1}>
+              <div className="media-frame aspect-[4/5] rounded-frame lg:w-[26rem]">
+                <MediaStill
+                  media={page.hero as MediaRef}
+                  sizes="(min-width:1024px) 26rem, 100vw"
+                  priority
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-ink/45 to-transparent"
+                />
+              </div>
+            </MotionSurface>
           </Reveal>
         </div>
       </section>
@@ -88,24 +91,26 @@ export function Unternehmen() {
               Die Richtung ist damit ablesbar, ohne dass ein Pfeil sie erklärt. */}
           <div className="mt-14 grid items-stretch gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-10">
             <Reveal className="relative lg:h-full">
-              <div className="media-frame aspect-[4/5] rounded-frame lg:h-full lg:aspect-auto">
-                <MediaStill
-                  media={page.oneShoot.center as MediaRef}
-                  sizes="(min-width:1024px) 44vw, 100vw"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                  <p className="font-display text-[0.6875rem] font-bold tracking-[0.16em] text-brand uppercase">
-                    Ein Termin
-                  </p>
-                  <p className="mt-2 max-w-[22ch] font-display text-h3 leading-tight text-on-ink">
-                    Ein Tag bei Ihnen oder im Studio.
-                  </p>
+              <MotionSurface variant="media" className="h-full">
+                <div className="media-frame aspect-[4/5] rounded-frame lg:h-full lg:aspect-auto">
+                  <MediaStill
+                    media={page.oneShoot.center as MediaRef}
+                    sizes="(min-width:1024px) 44vw, 100vw"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                    <p className="font-display text-[0.6875rem] font-bold tracking-[0.16em] text-brand uppercase">
+                      Ein Termin
+                    </p>
+                    <p className="mt-2 max-w-[22ch] font-display text-h3 leading-tight text-on-ink">
+                      Ein Tag bei Ihnen oder im Studio.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </MotionSurface>
             </Reveal>
 
             {/* Fünf Formate, bewusst ungleich groß. */}
@@ -116,26 +121,28 @@ export function Unternehmen() {
                   delay={i * 70}
                   className={cn('group/out', i === 0 && 'col-span-2')}
                 >
-                  <div
-                    className={cn(
-                      'media-frame rounded-media',
-                      i === 0 ? 'aspect-[16/9]' : 'aspect-[4/5]',
-                    )}
-                  >
-                    <MediaStill
-                      media={out.media as MediaRef}
-                      sizes="(min-width:1024px) 26vw, 46vw"
-                      className="transition-transform duration-[900ms] ease-out group-hover/out:scale-[1.05]"
-                    />
+                  <MotionSurface variant="card" index={i}>
                     <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"
-                    />
-                    <span className="absolute top-3 left-3 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
-                      {out.label}
-                    </span>
-                  </div>
-                  <p className="mt-2.5 text-[0.875rem] text-tone-text-muted">{out.body}</p>
+                      className={cn(
+                        'media-frame rounded-media',
+                        i === 0 ? 'aspect-[16/9]' : 'aspect-[4/5]',
+                      )}
+                    >
+                      <MediaStill
+                        media={out.media as MediaRef}
+                        sizes="(min-width:1024px) 26vw, 46vw"
+                        className="transition-transform duration-[900ms] ease-out group-hover/out:scale-[1.05]"
+                      />
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"
+                      />
+                      <span className="absolute top-3 left-3 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
+                        {out.label}
+                      </span>
+                    </div>
+                    <p className="mt-2.5 text-[0.875rem] text-tone-text-muted">{out.body}</p>
+                  </MotionSurface>
                 </Reveal>
               ))}
             </div>

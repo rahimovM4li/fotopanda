@@ -14,12 +14,12 @@ import { portfolio } from '@/data/content'
  */
 export function SelectedWorks() {
   return (
-    <Section tone="ivory" id="arbeiten">
+    <Section tone="ink" id="arbeiten">
       <Container width="wide">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <MaskReveal
             as="h2"
-            lines={['Arbeiten aus', <>dem <span className="text-brand">Alltag</span>.</>]}
+            lines={['Augenblicke,', <>die <span className="text-brand">erzählen.</span></>]}
             className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
           />
           <Reveal variant="fade">
@@ -31,7 +31,7 @@ export function SelectedWorks() {
         </div>
 
         <div className="mt-14">
-          <PortfolioGrid items={portfolio.slice(0, 9)} />
+          <PortfolioGrid items={portfolio.slice(0, 6)} />
         </div>
       </Container>
     </Section>

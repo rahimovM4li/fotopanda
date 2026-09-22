@@ -48,8 +48,8 @@ export function Reveal({
 
   const anim =
     variant === 'rise'
-      ? 'motion-safe:animate-[rise-in_680ms_var(--ease-out-quart)_both]'
-      : 'motion-safe:animate-[fade-in_680ms_var(--ease-out-quart)_both]'
+      ? 'motion-safe:animate-[gentle-rise_360ms_var(--ease-out-quart)_both]'
+      : 'motion-safe:animate-[gentle-fade_360ms_var(--ease-out-quart)_both]'
 
   return (
     <Tag

@@ -192,3 +192,9 @@ steigt.
 
 Dasselbe Video erscheint nicht zweimal auf derselben Seite. Das wirkt wie ein Fehler,
 nicht wie ein Beleg.
+
+## Redesign September 2026 – aktuelle Ergänzungen
+
+Die Kundenanweisung vom September ersetzt frühere Vorgaben zu Tilt-Stapeln und langen Scroll-Bühnen. Die Startseite nutzt jetzt eine ruhige Foto-Komposition, eine kompakte Leistungsübersicht, kuratierte Arbeiten, App-Präsentation, vier Ablauf-Schritte und FAQ. Kein automatischer Videostart; Motion bleibt dezent und Inhalte bleiben während Einblendungen lesbar.
+
+Das neue Kundenlogo wird direkt aus der gelieferten Datei aufbereitet. Die Bildauswahl und Ausschlüsse stehen in docs/MEDIA-AUDIT.md. Aktuelle Browser- und Build-Prüfungen sowie Betriebsgrenzen stehen in docs/QA.md.

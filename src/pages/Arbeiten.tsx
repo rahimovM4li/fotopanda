@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
 import { MaskReveal } from '@/components/motion/MaskReveal'
+import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
 import { PortfolioGrid } from '@/components/portfolio/PortfolioGrid'
 import { portfolio, portfolioFilters } from '@/data/content'
@@ -21,7 +22,7 @@ export function Arbeiten() {
   useSeo({
     title: 'Arbeiten | Foto Panda',
     description:
-      'Ausgewählte Foto- und Videoarbeiten von Foto Panda: Hochzeiten, Porträts, Gastronomie, Business und Immobilien.',
+      'Ausgewählte Foto- und Videoarbeiten von Foto Panda: Hochzeiten, Porträts, Gastronomie, Unternehmen und lebendige Medien.',
     path: '/arbeiten',
   })
 
@@ -66,7 +67,7 @@ export function Arbeiten() {
             />
             <Reveal delay={400} className="lg:max-w-[36ch] lg:text-right">
               <p className="text-on-ink-muted">
-                Hochzeiten, Porträts, Gerichte, Räume und Unternehmen. Antippen öffnet die große
+                Hochzeiten, Porträts, Gerichte und Unternehmen. Antippen öffnet die große
                 Ansicht; Videoarbeiten sind gekennzeichnet.
               </p>
             </Reveal>
@@ -75,34 +76,36 @@ export function Arbeiten() {
           {/* Filter als Wischstrecke, damit auch bei sieben Reitern nichts
               umbricht oder abgeschnitten wird. */}
           <Reveal delay={500} className="mt-10">
-            <div
-              role="group"
-              aria-label="Arbeiten filtern"
-              className="snap-rail -mx-5 px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:flex-wrap lg:px-0"
-            >
-              {available.map((f) => {
-                const active = filter === f.id
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() => setFilter(f.id)}
-                    aria-pressed={active}
-                    className={cn(
-                      'inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium transition-colors duration-300',
-                      active
-                        ? 'border-brand bg-brand text-ink'
-                        : 'border-ink-line-2 text-on-ink-muted hover:border-on-ink-muted hover:text-on-ink',
-                    )}
-                  >
-                    {f.label}
-                    <span className={cn('text-xs tabular', active ? 'text-ink/60' : 'text-on-ink-faint')}>
-                      {counts.get(f.id)}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
+            <MotionSurface variant="soft">
+              <div
+                role="group"
+                aria-label="Arbeiten filtern"
+                className="snap-rail -mx-5 px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:flex-wrap lg:px-0"
+              >
+                {available.map((f) => {
+                  const active = filter === f.id
+                  return (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => setFilter(f.id)}
+                      aria-pressed={active}
+                      className={cn(
+                        'inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium transition-colors duration-300',
+                        active
+                          ? 'border-brand bg-brand text-ink'
+                          : 'border-ink-line-2 text-on-ink-muted hover:border-on-ink-muted hover:text-on-ink',
+                      )}
+                    >
+                      {f.label}
+                      <span className={cn('text-xs tabular', active ? 'text-ink/60' : 'text-on-ink-faint')}>
+                        {counts.get(f.id)}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </MotionSurface>
           </Reveal>
         </Container>
       </section>

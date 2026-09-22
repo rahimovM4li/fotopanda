@@ -3,6 +3,8 @@ import { Play } from 'lucide-react'
 import { MediaStill } from '@/components/ui/MediaStill'
 import { mediaAlt } from '@/lib/mediaAlt'
 import { Reveal } from '@/components/motion/Reveal'
+import { ScrollDepth } from '@/components/motion/ScrollDepth'
+import { TiltLayer, TiltStage } from '@/components/motion/TiltStage'
 import { livingMedia } from '@/data/media'
 import type { LivingMediaId } from '@/data/media'
 import { cn } from '@/lib/cn'
@@ -54,45 +56,58 @@ export function PortfolioGrid({ items }: { items: MediaRef[] }) {
               delay={(index % 6) * 60}
               className={conf.col}
             >
-              <button
-                ref={(el) => {
-                  triggers.current[index] = el
-                }}
-                type="button"
-                onClick={() => setOpenIndex(index)}
-                className="group/work media-frame block w-full cursor-pointer rounded-media text-left"
+              <ScrollDepth
+                distance={index % 2 === 0 ? 10 : -10}
+                tilt={1.2}
+                yaw={index % 2 === 0 ? .8 : -.8}
+                mobileBoost={2.4}
+                essential
+                contentClassName="h-full"
               >
-                <div className={cn('relative w-full', conf.media)}>
-                  <MediaStill
-                    media={entry}
-                    sizes={conf.sizes}
-                    className="transition-transform duration-[900ms] ease-out group-hover/work:scale-[1.06]"
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-ink/30 opacity-60 transition-opacity duration-500 group-hover/work:opacity-90"
-                  />
-                </div>
+                <TiltStage maxTilt={2.4} perspective={1600} className="portfolio-depth-card">
+                  <TiltLayer depth={8}>
+                    <button
+                      ref={(el) => {
+                        triggers.current[index] = el
+                      }}
+                      type="button"
+                      onClick={() => setOpenIndex(index)}
+                      className="group/work media-frame block w-full cursor-pointer rounded-media text-left"
+                    >
+                      <div className={cn('relative w-full', conf.media)}>
+                        <MediaStill
+                          media={entry}
+                          sizes={conf.sizes}
+                          className="transition-transform duration-[900ms] ease-out group-hover/work:scale-[1.06]"
+                        />
+                        <div
+                          aria-hidden
+                          className="absolute inset-0 bg-gradient-to-b from-ink/45 via-transparent to-ink/30 opacity-60 transition-opacity duration-500 group-hover/work:opacity-90"
+                        />
+                      </div>
 
-                {/* Symbol UND Text: auch ohne Farbwahrnehmung erkennbar. */}
-                {isVideo && (
-                  <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
-                    <Play className="h-2.5 w-2.5 fill-brand text-brand" strokeWidth={0} aria-hidden />
-                    Video
-                  </span>
-                )}
+                      {/* Symbol UND Text: auch ohne Farbwahrnehmung erkennbar. */}
+                      {isVideo && (
+                        <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
+                          <Play className="h-2.5 w-2.5 fill-brand text-brand" strokeWidth={0} aria-hidden />
+                          Video
+                        </span>
+                      )}
 
-                <span
-                  aria-hidden
-                  className="absolute right-3 bottom-3 grid h-9 w-9 place-items-center rounded-full bg-ink/70 text-on-ink opacity-0 backdrop-blur-md transition-all duration-400 group-hover/work:opacity-100 lg:right-4 lg:bottom-4"
-                >
-                  <Play className="ml-0.5 h-3.5 w-3.5 fill-current" strokeWidth={0} />
-                </span>
+                      <span
+                        aria-hidden
+                        className="absolute right-3 bottom-3 grid h-9 w-9 place-items-center rounded-full bg-ink/70 text-on-ink opacity-0 backdrop-blur-md transition-all duration-400 group-hover/work:opacity-100 lg:right-4 lg:bottom-4"
+                      >
+                        <Play className="ml-0.5 h-3.5 w-3.5 fill-current" strokeWidth={0} />
+                      </span>
 
-                <span className="sr-only">
-                  {isVideo ? `Videoarbeit: ${label}. Große Ansicht öffnen.` : `${label}. Große Ansicht öffnen.`}
-                </span>
-              </button>
+                      <span className="sr-only">
+                        {isVideo ? `Videoarbeit: ${label}. Große Ansicht öffnen.` : `${label}. Große Ansicht öffnen.`}
+                      </span>
+                    </button>
+                  </TiltLayer>
+                </TiltStage>
+              </ScrollDepth>
             </Reveal>
           )
         })}

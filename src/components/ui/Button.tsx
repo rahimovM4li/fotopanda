@@ -16,7 +16,7 @@ const variants: Record<Variant, string> = {
   /* Ink auf Orange erreicht 5,91:1. Weiß auf Orange nur 3,33:1 und wird
      deshalb nirgends verwendet. */
   primary:
-    'bg-brand text-ink hover:bg-brand-hover shadow-[0_10px_36px_-14px_color-mix(in_oklab,var(--color-brand)_85%,transparent)]',
+    'bg-brand text-ink hover:bg-brand-hover',
   outline: 'border border-tone-line-2 text-tone-text hover:border-tone-text-muted hover:bg-tone-surface',
   ghost: 'text-tone-text-muted hover:text-tone-text',
   onBrand: 'bg-ink text-on-ink hover:bg-ink-2',

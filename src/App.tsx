@@ -33,7 +33,13 @@ const Datenschutz = lazy(() =>
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    if (hash) return
+    if (hash) {
+      const frame = requestAnimationFrame(() => {
+        const id = decodeURIComponent(hash.slice(1))
+        document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      })
+      return () => cancelAnimationFrame(frame)
+    }
     window.scrollTo(0, 0)
   }, [pathname, hash])
   return null

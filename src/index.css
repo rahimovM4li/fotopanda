@@ -82,8 +82,8 @@
   --text-lead: clamp(1.0625rem, 1rem + 0.42vw, 1.3125rem);
 
   /* --- Rhythmus ----------------------------------------------------- */
-  --spacing-section: clamp(5rem, 3rem + 7vw, 11rem);
-  --spacing-section-tight: clamp(3.5rem, 2.4rem + 4vw, 6.5rem);
+  --spacing-section: clamp(4.5rem, 3rem + 5vw, 8.5rem);
+  --spacing-section-tight: clamp(3.5rem, 2.4rem + 3vw, 5.75rem);
 
   --radius-card: 0.625rem;
   --radius-media: 1rem;
@@ -248,7 +248,7 @@
     pointer-events: none;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-brand) 70%, transparent) 0%,
+      color-mix(in oklab, var(--color-brand) 32%, transparent) 0%,
       transparent 68%
     );
     filter: blur(90px);
@@ -261,7 +261,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.2;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.30'/%3E%3C/svg%3E");
   }
@@ -379,3 +379,30 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Brand navigation uses a constant header height, avoiding layout movement
+   at the scroll threshold. Radix keeps focus and background inertness in sync
+   with the short open/close animations. */
+@layer components {
+  .menu-backdrop[data-state='open'] { animation: menu-fade-in 220ms ease-out; }
+  .menu-backdrop[data-state='closed'] { animation: menu-fade-out 180ms ease-in; }
+  .menu-panel[data-state='open'] { animation: menu-enter 300ms var(--ease-out-expo); }
+  .menu-panel[data-state='closed'] { animation: menu-exit 180ms ease-in; }
+  .menu-panel { overscroll-behavior: contain; }
+  .brand-lockup { vertical-align: middle; }
+}
+
+@keyframes menu-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes menu-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes menu-enter {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes menu-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(16px); }
+}
+
+/* Content remains readable throughout its entrance. */
+@keyframes gentle-rise { from { opacity: .85; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes gentle-fade { from { opacity: .85; } to { opacity: 1; } }

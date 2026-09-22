@@ -4,8 +4,8 @@ import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
 import { MaskReveal } from '@/components/motion/MaskReveal'
+import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
-import { Parallax } from '@/components/motion/Parallax'
 import { MediaStill } from '@/components/ui/MediaStill'
 import { benefits, CONTACT_PATH, CTA_PRIMARY } from '@/data/content'
 import { ueberUns as page } from '@/data/pages'
@@ -49,25 +49,27 @@ export function UeberUns() {
           </div>
 
           <Reveal delay={260} className="lg:justify-self-end">
-            <figure className="lg:w-[23rem]">
-              <div className="media-frame aspect-[4/5] rounded-frame">
-                <MediaStill
-                  media={page.atWork.media}
-                  sizes="(min-width:1024px) 23rem, 100vw"
-                  priority
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"
-                />
-              </div>
-              <figcaption className="mt-3 flex items-baseline gap-3 text-[0.8125rem] text-on-ink-muted">
-                <span className="font-display font-bold tracking-[0.14em] text-brand uppercase">
-                  {page.atWork.label}
-                </span>
-                {page.atWork.caption}
-              </figcaption>
-            </figure>
+            <MotionSurface variant="hero" index={1}>
+              <figure className="lg:w-[23rem]">
+                <div className="media-frame aspect-[4/5] rounded-frame">
+                  <MediaStill
+                    media={page.atWork.media}
+                    sizes="(min-width:1024px) 23rem, 100vw"
+                    priority
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"
+                  />
+                </div>
+                <figcaption className="mt-3 flex items-baseline gap-3 text-[0.8125rem] text-on-ink-muted">
+                  <span className="font-display font-bold tracking-[0.14em] text-brand uppercase">
+                    {page.atWork.label}
+                  </span>
+                  {page.atWork.caption}
+                </figcaption>
+              </figure>
+            </MotionSurface>
           </Reveal>
         </div>
       </section>
@@ -104,10 +106,10 @@ export function UeberUns() {
         <Container width="wide">
           <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
             {page.gallery.map((item, i) => (
-              <Parallax
+              <MotionSurface
                 key={item.media.ref}
-                distance={i === 1 ? 44 : 22}
-                direction={i === 1 ? 'down' : 'up'}
+                variant="media"
+                index={i}
                 className={i === 2 ? 'col-span-2 lg:col-span-1' : undefined}
               >
                 <figure>
@@ -124,7 +126,7 @@ export function UeberUns() {
                     {item.label}
                   </figcaption>
                 </figure>
-              </Parallax>
+              </MotionSurface>
             ))}
           </div>
         </Container>

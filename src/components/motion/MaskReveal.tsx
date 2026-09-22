@@ -16,7 +16,7 @@ export function MaskReveal({
   className,
   lineClassName,
   delay = 0,
-  stagger = 90,
+  stagger = 60,
   immediate = false,
 }: {
   /** Eine Zeile je Eintrag. Der Umbruch ist damit gesetzt, nicht zufällig. */
@@ -59,8 +59,8 @@ export function MaskReveal({
         <span key={i} className="block overflow-hidden pb-[0.09em]">
           <span
             className={cn(
-              'block will-change-transform',
-              run && 'motion-safe:animate-[mask-rise_900ms_var(--ease-out-expo)_both]',
+              'block',
+              run && 'motion-safe:animate-[gentle-rise_360ms_var(--ease-out-expo)_both]',
               lineClassName,
             )}
             style={run ? { animationDelay: `${delay + i * stagger}ms` } : undefined}

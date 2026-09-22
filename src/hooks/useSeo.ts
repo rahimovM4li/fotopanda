@@ -39,6 +39,9 @@ export function useSeo({
     const restoreDescription = setMeta('meta[name="description"]', 'content', description)
     const restoreOgTitle = setMeta('meta[property="og:title"]', 'content', title)
     const restoreOgDescription = setMeta('meta[property="og:description"]', 'content', description)
+    const restoreOgUrl = setMeta('meta[property="og:url"]', 'content', `${siteConfig.domain}${path}`)
+    const restoreTwitterTitle = setMeta('meta[name="twitter:title"]', 'content', title)
+    const restoreTwitterDescription = setMeta('meta[name="twitter:description"]', 'content', description)
 
     const canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     const previousCanonical = canonical?.getAttribute('href') ?? null
@@ -57,6 +60,9 @@ export function useSeo({
       restoreDescription()
       restoreOgTitle()
       restoreOgDescription()
+      restoreOgUrl()
+      restoreTwitterTitle()
+      restoreTwitterDescription()
       if (previousCanonical) canonical?.setAttribute('href', previousCanonical)
       robots?.remove()
     }

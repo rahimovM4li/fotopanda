@@ -25,13 +25,13 @@ export const hero = {
   eyebrow: 'Fotografie & Videoproduktion',
   headlineLines: ['Das Foto bleibt.', 'Der Moment wird'],
   headlineAccent: 'lebendig.',
-  lead: 'Wir halten deine Momente als Foto fest und im selben Termin als Film. Zwei Ergebnisse, eine Bildsprache.',
+  lead: 'Fotos, Filme und digitale Erlebnisse für eure Hochzeit, euer Unternehmen und die Momente dazwischen. Aus Osnabrück. Für euch bundesweit.',
   mediaHint: 'Foto zum Leben erwecken',
   secondary: { label: 'Arbeiten ansehen', to: '/arbeiten' },
   markers: [
     { title: 'Foto & Video', detail: 'im selben Termin' },
     { title: 'Persönlich', detail: 'vom ersten Gespräch an' },
-    { title: 'Privat & Business', detail: 'dieselbe Sorgfalt' },
+    { title: 'Bundesweit', detail: 'an eurem Wunschort' },
   ],
 }
 
@@ -57,7 +57,7 @@ export const livingStory = {
     {
       number: '03',
       title: 'Erinnerung',
-      body: 'Beides gehört zusammen und wird als Paar ausgeliefert. Antippen genügt.',
+      body: 'Im Fotobuch, auf einer Karte oder im Menü: Mit der passenden App wird aus einem Bild ein Erlebnis.',
     },
   ],
   cta: { label: 'Lebendige Medien ansehen', to: '/lebendige-medien' },
@@ -87,45 +87,39 @@ export const serviceEntries = [
     title: 'Business & Team',
     tagline: 'Einheitlich für die ganze Mannschaft',
     to: '/unternehmen',
-    media: { kind: 'living', ref: 'business-shoot' } as const,
+    media: { kind: 'photo', ref: 'business-portrait-01' } as const,
   },
   {
     id: 'gastronomie',
     title: 'Gastronomie',
     tagline: 'Gerichte, die Appetit machen',
     to: '/gastronomie',
-    media: { kind: 'living', ref: 'gastronomy-plating' } as const,
+    media: { kind: 'living', ref: 'gastronomy-kitchen' } as const,
   },
   {
-    id: 'immobilien',
-    title: 'Immobilien',
-    tagline: 'Räume, die ihre Wege zeigen',
-    to: '/unternehmen',
-    media: { kind: 'living', ref: 'real-estate' } as const,
+    id: 'lebendige-medien',
+    title: 'Lebendige Medien',
+    tagline: 'Fotobücher, Karten und neue Möglichkeiten',
+    to: '/lebendige-medien',
+    media: { kind: 'photo', ref: 'digital-card' } as const,
   },
 ]
 
 export const processSteps: ProcessStep[] = [
-  {
-    number: '01',
-    title: 'Fotografieren',
-    description: 'Wir halten den Moment, das Produkt oder den Raum fest. Ruhig, mit Zeit für Wiederholungen.',
-  },
-  {
-    number: '02',
-    title: 'Video erstellen',
-    description: 'Aus demselben Termin und denselben Motiven entsteht eine kurze bewegte Fassung.',
-  },
-  {
-    number: '03',
-    title: 'Verbinden',
-    description: 'Foto und Video gehören zum selben Augenblick und werden als Paar zusammengestellt.',
-  },
-  {
-    number: '04',
-    title: 'Erleben',
-    description: 'Antippen, und aus dem Standbild wird die Szene. Genau so, wie auf dieser Seite.',
-  },
+  { number: '01', title: 'Besprechen', description: 'Wir besprechen gemeinsam, was ihr braucht und welche Momente oder Inhalte wichtig sind.' },
+  { number: '02', title: 'Fotografieren & Filmen', description: 'Wir erstellen professionelle Fotos und Videos – direkt bei euch vor Ort.' },
+  { number: '03', title: 'Bearbeiten & Gestalten', description: 'Wir machen aus euren Aufnahmen fertige Inhalte für Website, Social Media, Flyer, Menü und mehr.' },
+  { number: '04', title: 'Lebendig machen', description: 'Mit unseren digitalen Erlebnissen werden eure Fotos und Inhalte interaktiv und lebendig.' },
+]
+
+export const faq = [
+  { q: 'Was bietet Foto Panda an?', a: 'Wir machen professionelle Fotos, Videos und lebendige Erlebnisse für Hochzeiten, Restaurants, Unternehmen, Schulen, Kindergärten und besondere Veranstaltungen.' },
+  { q: 'Fotografiert ihr auch Schulen und Kindergärten?', a: 'Ja. Wir fotografieren Schulen, Kindergärten, Tanzveranstaltungen, Abschlussbälle und weitere besondere Events – auf Wunsch mit Foto und Video.' },
+  { q: 'Macht ihr auch Hochzeitsfotos und Hochzeitsvideos?', a: 'Ja. Wir begleiten eure Hochzeit mit professionellen Fotos und Videos und halten die wichtigsten Momente für euch fest.' },
+  { q: 'Was ist ein lebendiges Fotobuch?', a: 'Wir verbinden eure schönsten Fotos mit Videos. So könnt ihr besondere Momente später wieder zum Leben erwecken – direkt über das Fotobuch.' },
+  { q: 'Kann ich mein Restaurant mit Foto Panda präsentieren?', a: 'Ja. Wir fotografieren eure Gerichte und erstellen appetitliche Fotos und kurze Videos für Speisekarten, Flyer, Social Media und QR-Menüs.' },
+  { q: 'Kann ich Flyer, Visitenkarten oder Speisekarten mit QR-Code bekommen?', a: 'Ja. Wir gestalten eure Flyer, Visitenkarten und Speisekarten und können sie mit einem QR-Code verbinden. So werden Fotos, Videos und Informationen direkt erlebbar.' },
+  { q: 'Arbeitet ihr bundesweit?', a: 'Ja. Wir arbeiten bundesweit und kommen gerne zu eurem Wunschort – egal ob Hochzeit, Restaurant, Schule, Kindergarten oder Unternehmen.' },
 ]
 
 export const benefits: Benefit[] = [
@@ -142,8 +136,8 @@ export const benefits: Benefit[] = [
     description: 'Ein Ort, ein Tag, zwei Ergebnisse. Das spart Zeit und hält die Bildsprache einheitlich.',
   },
   {
-    title: 'Aus Osnabrück',
-    description: 'Kurze Wege in der Region, Termine außerhalb nach Absprache.',
+    title: 'Bundesweit für euch da',
+    description: 'Unser Ausgangspunkt ist Osnabrück. Euer Wunschort bestimmt, wohin die Reise geht.',
   },
 ]
 
@@ -157,24 +151,18 @@ export const finalCta = {
  * ------------------------------------------------------------------ */
 
 export const portfolio: PortfolioItem[] = [
+  { kind: 'photo', ref: 'bridal-palace' },
+  { kind: 'photo', ref: 'bridal-closeup' },
   { kind: 'living', ref: 'wedding' },
-  { kind: 'photo', ref: 'wedding-stairs' },
-  { kind: 'photo', ref: 'portrait-court-knees' },
-  { kind: 'living', ref: 'gastronomy-plating' },
-  { kind: 'photo', ref: 'wedding-closeup' },
-  { kind: 'living', ref: 'real-estate' },
-  { kind: 'photo', ref: 'portrait-fence' },
   { kind: 'photo', ref: 'business-portrait-01' },
-  { kind: 'living', ref: 'living-album' },
-  { kind: 'photo', ref: 'portrait-court-seated' },
+  { kind: 'living', ref: 'gastronomy-kitchen' },
+  { kind: 'photo', ref: 'portrait-court-knees' },
+  { kind: 'photo', ref: 'bridal-full-length' },
+  { kind: 'photo', ref: 'digital-card' },
   { kind: 'photo', ref: 'business-office-01' },
-  { kind: 'living', ref: 'gastronomy-serving' },
-  { kind: 'photo', ref: 'wedding-facade' },
-  { kind: 'photo', ref: 'portrait-court-full' },
-  { kind: 'living', ref: 'business-shoot' },
-  { kind: 'photo', ref: 'business-office-02' },
-  { kind: 'photo', ref: 'portrait-court-standing' },
-  { kind: 'photo', ref: 'business-portrait-02' },
+  { kind: 'photo', ref: 'portrait-fence' },
+  { kind: 'photo', ref: 'school-album' },
+  { kind: 'photo', ref: 'bridal-editorial' },
 ]
 
 export const portfolioFilters = [
@@ -183,7 +171,6 @@ export const portfolioFilters = [
   { id: 'portrait', label: 'Porträt' },
   { id: 'business', label: 'Business' },
   { id: 'gastronomie', label: 'Gastronomie' },
-  { id: 'immobilien', label: 'Immobilien' },
   { id: 'lebendige-medien', label: 'Lebendige Medien' },
 ] as const
 
@@ -192,12 +179,14 @@ export const portfolioFilters = [
  * ------------------------------------------------------------------ */
 
 export const inquiryTopics: InquiryTopic[] = [
-  { value: 'hochzeit', label: 'Hochzeit' },
+  { value: 'hochzeit-feier', label: 'Hochzeit & Feier' },
+  { value: 'schule-kindergarten', label: 'Schule & Kindergarten' },
+  { value: 'tanz-abschlussball', label: 'Tanz & Abschlussball' },
   { value: 'paar-familie', label: 'Paar & Familie' },
-  { value: 'portrait', label: 'Porträt & Lifestyle' },
-  { value: 'business', label: 'Business & Team' },
-  { value: 'gastronomie', label: 'Gastronomie' },
-  { value: 'immobilien', label: 'Immobilien' },
-  { value: 'lebendige-medien', label: 'Lebendige Medien' },
+  { value: 'business-unternehmen', label: 'Business & Unternehmen' },
+  { value: 'lebendiges-menue', label: 'Lebendiges Menü' },
+  { value: 'visitenkarte-flyer', label: 'Visitenkarte & Flyer' },
+  { value: 'foto-video', label: 'Foto & Video' },
+  { value: 'veranstaltungen', label: 'Veranstaltungen' },
   { value: 'sonstiges', label: 'Sonstiges' },
 ]

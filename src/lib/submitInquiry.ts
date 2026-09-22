@@ -35,15 +35,16 @@ export async function submitInquiry(inquiry: Inquiry): Promise<InquiryResult> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inquiry),
+      signal: AbortSignal.timeout(15000),
     })
     if (!response.ok) {
-      return { status: 'failed', reason: `Serverantwort ${response.status}` }
+      return { status: 'failed', reason: 'Der Empfangsdienst ist momentan nicht erreichbar.' }
     }
     return { status: 'sent' }
-  } catch (error) {
+  } catch {
     return {
       status: 'failed',
-      reason: error instanceof Error ? error.message : 'Netzwerkfehler',
+      reason: 'Die Verbindung konnte nicht hergestellt werden.',
     }
   }
 }

@@ -29,6 +29,7 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import ffmpegPath from 'ffmpeg-static'
 import ffprobeStatic from 'ffprobe-static'
+import { prepareBrand } from './prepare-brand.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
@@ -40,11 +41,6 @@ const SOURCE =
     ? path.resolve(process.argv[argSource + 1])
     : 'C:\\Users\\rahimm\\Downloads'
 
-/* Die Bildmarke ist die einzige Grafik, die nicht aus dem Quellordner stammt.
-   Sie liegt als Vektor im Repo und wird aus der Komponente PandaMark.tsx
-   erzeugt. Aus dem Vektor entstehen alle Favicon-Groessen scharf; die
-   fruehere Rastervorlage aus der Kunden-PDF war nur 65 px breit. */
-const MARK_SOURCE = path.join(ROOT, 'src', 'assets', 'panda-mark.svg')
 
 const PHOTO_WIDTHS = [640, 960, 1320]
 
@@ -411,29 +407,8 @@ async function buildVideos() {
  * ------------------------------------------------------------------ */
 
 async function buildFavicon() {
-  console.log('\nFavicon')
-  if (!existsSync(MARK_SOURCE)) {
-    console.log('  uebersprungen: src/assets/panda-mark.svg fehlt')
-    return
-  }
-  const dir = path.join(OUT, 'brand')
-  await ensureDir(dir)
-
-  /* Die Marke bringt ihren eigenen Grund mit -- der orangene Kreis traegt sie
-     auf hellen wie dunklen Tableaus. Der Rand ringsum bleibt durchsichtig,
-     damit iOS und Android sie in ihre eigene Kachelform setzen koennen. */
-  const svg = await readFile(MARK_SOURCE)
-  for (const size of [32, 48, 180, 512]) {
-    await sharp(svg, { density: Math.max(72, Math.round((size / 100) * 72 * 4)) })
-      .resize({ width: size, height: size, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png()
-      .toFile(path.join(dir, `favicon-${size}.png`))
-  }
-
-  /* Zusaetzlich der Vektor selbst: moderne Browser bevorzugen ihn und
-     zeichnen ihn in jeder Kachelgroesse scharf. */
-  await writeFile(path.join(dir, 'mark.svg'), svg)
-  console.log('  favicon-32 / 48 / 180 / 512 und mark.svg')
+  await prepareBrand()
+  console.log('  Neue Foto-Panda-Marke und Favicons erstellt')
 }
 
 /* ------------------------------------------------------------------ *

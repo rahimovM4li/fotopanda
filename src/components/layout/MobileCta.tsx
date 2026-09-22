@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useLocation } from 'react-router-dom'
 import { ArrowUpRight, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -16,6 +16,7 @@ import { CTA_PRIMARY, CONTACT_PATH } from '@/data/content'
  */
 export function MobileCta() {
   const [visible, setVisible] = useState(false)
+  const reducedMotion = useReducedMotion()
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -25,12 +26,19 @@ export function MobileCta() {
       const progress = height > 0 ? scrolled / height : 0
       /* Ab einem Achtel der Seite, aber nicht ganz unten: Dort steht der
          Abschluss-CTA, ein zweiter daneben wäre Doppelung. */
-      setVisible(scrolled > 620 && progress < 0.9)
+      // Separate enter/leave thresholds prevent flicker near the boundary.
+      setVisible((current) => current
+        ? scrolled > 580 && progress < 0.92
+        : scrolled > 660 && progress < 0.88)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [pathname])
 
   if (pathname === CONTACT_PATH) return null
 
@@ -39,11 +47,11 @@ export function MobileCta() {
       {visible && (
         <motion.div
           data-tone="ink"
-          initial={{ y: 90, opacity: 0 }}
+          initial={{ y: reducedMotion ? 0 : 16, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 90, opacity: 0 }}
-          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-x-0 bottom-0 z-[40] border-t border-ink-line bg-ink/92 px-4 pt-3 backdrop-blur-xl xl:hidden"
+          exit={{ y: reducedMotion ? 0 : 16, opacity: 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-x-0 bottom-0 z-[40] border-t border-ink-line bg-ink/97 px-4 pt-3 xl:hidden"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
         >
           <div className="flex items-center gap-3">

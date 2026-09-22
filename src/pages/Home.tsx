@@ -3,7 +3,7 @@ import { LivingStory } from '@/sections/LivingStory'
 import { ServicesEditorial } from '@/sections/ServicesEditorial'
 import { Process } from '@/sections/Process'
 import { SelectedWorks } from '@/sections/SelectedWorks'
-import { WhyStrip } from '@/sections/WhyStrip'
+import { Faq } from '@/sections/Faq'
 
 /**
  * Die Startseite ist eine Auswahl, kein Inhaltsverzeichnis.
@@ -16,11 +16,11 @@ export function Home() {
   return (
     <>
       <Hero />
-      <LivingStory />
       <ServicesEditorial />
-      <Process />
       <SelectedWorks />
-      <WhyStrip />
+      <LivingStory />
+      <Process />
+      <Faq />
     </>
   )
 }

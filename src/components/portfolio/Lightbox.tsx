@@ -120,10 +120,10 @@ export function Lightbox({
             <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center">
               {photo && (
                 <picture className="flex max-h-full max-w-full items-center justify-center">
-                  <source type="image/avif" srcSet={`${photo.base}-1320.avif`} />
-                  <source type="image/webp" srcSet={`${photo.base}-1320.webp`} />
+                  <source type="image/avif" srcSet={`${photo.base}-${photo.widths.at(-1)}.avif`} />
+                  <source type="image/webp" srcSet={`${photo.base}-${photo.widths.at(-1)}.webp`} />
                   <img
-                    src={`${photo.base}-1320.jpg`}
+                    src={`${photo.base}-${photo.widths.at(-1)}.jpg`}
                     alt={photo.alt}
                     width={photo.intrinsic.width}
                     height={photo.intrinsic.height}
@@ -141,8 +141,8 @@ export function Lightbox({
                   hint="Video ansehen"
                   showCta={false}
                   showStatus={false}
-                  aspectClassName=""
-                  className="w-full max-w-4xl [&_.media-frame]:max-h-[74vh]"
+                  aspectClassName="aspect-[9/16]"
+                  className="w-full max-w-[min(100%,41.625vh)] [&_.media-frame]:max-h-[74vh]"
                 />
               )}
             </div>

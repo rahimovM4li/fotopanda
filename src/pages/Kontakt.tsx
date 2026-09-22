@@ -1,339 +1,154 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowUpRight, ChevronDown, Mail, MapPin, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { MaskReveal } from '@/components/motion/MaskReveal'
+import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
-import { MediaStill } from '@/components/ui/MediaStill'
 import { inquiryTopics } from '@/data/content'
 import { kontakt as page } from '@/data/pages'
 import { siteConfig } from '@/config/siteConfig'
 import { submitInquiry, type Inquiry, type InquiryResult } from '@/lib/submitInquiry'
 import { useSeo } from '@/hooks/useSeo'
-import { cn } from '@/lib/cn'
+import '@/contact.css'
 
 type FieldName = 'name' | 'contact' | 'topic' | 'message' | 'consent'
 type Errors = Partial<Record<FieldName, string>>
-
 const EMAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/
-/** Mindestens sieben Ziffern, optional Pluszeichen, Leerzeichen, Striche. */
 const PHONE = /^\+?[\d\s/()-]{7,}$/
+const empty: Inquiry = { name: '', contact: '', topic: '', message: '', consent: false }
 
 function validate(values: Inquiry): Errors {
   const errors: Errors = {}
-
   if (values.name.trim().length < 2) errors.name = 'Bitte geben Sie Ihren Namen an.'
-
   const contact = values.contact.trim()
-  if (contact.length === 0) {
-    errors.contact = 'Bitte geben Sie eine E-Mail-Adresse oder Telefonnummer an.'
-  } else if (
-    !EMAIL.test(contact) &&
-    !(PHONE.test(contact) && contact.replace(/\D/g, '').length >= 7)
-  ) {
-    errors.contact =
-      'Bitte eine gültige E-Mail-Adresse (name@beispiel.de) oder Telefonnummer mit mindestens sieben Ziffern.'
+  if (!contact) errors.contact = 'Bitte geben Sie eine E-Mail-Adresse oder Telefonnummer an.'
+  else if (!EMAIL.test(contact) && !(PHONE.test(contact) && contact.replace(/\D/g, '').length >= 7)) {
+    errors.contact = 'Bitte geben Sie eine gültige E-Mail-Adresse oder Telefonnummer mit mindestens sieben Ziffern an.'
   }
-
-  if (!values.topic) errors.topic = 'Bitte wählen Sie aus, worum es geht.'
-  if (!values.consent) errors.consent = 'Ohne diese Zustimmung dürfen wir Ihre Anfrage nicht verarbeiten.'
-
+  if (!inquiryTopics.some((topic) => topic.value === values.topic)) errors.topic = 'Bitte wählen Sie aus, worum es geht.'
+  if (!values.consent) errors.consent = 'Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.'
   return errors
 }
 
-const empty: Inquiry = { name: '', contact: '', topic: '', message: '', consent: false }
-
 export function Kontakt() {
   useSeo({ ...page.seo, path: '/kontakt' })
-
   const [values, setValues] = useState<Inquiry>(empty)
   const [errors, setErrors] = useState<Errors>({})
   const [result, setResult] = useState<InquiryResult | null>(null)
   const [pending, setPending] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
+  const hasEndpoint = Boolean(siteConfig.inquiryEndpoint)
 
   const set = <K extends keyof Inquiry>(key: K, value: Inquiry[K]) => {
-    setValues((v) => ({ ...v, [key]: value }))
-    setErrors((e) => ({ ...e, [key]: undefined }))
+    setValues((previous) => ({ ...previous, [key]: value }))
+    setErrors((previous) => ({ ...previous, [key]: undefined }))
     setResult(null)
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (pending) return
     const found = validate(values)
     setErrors(found)
-
     const firstError = (Object.keys(found) as FieldName[])[0]
     if (firstError) {
       const field = formRef.current?.elements.namedItem(firstError)
       if (field instanceof HTMLElement) field.focus()
       return
     }
-
     setPending(true)
     const outcome = await submitInquiry(values)
     setPending(false)
     setResult(outcome)
-    /* Die Eingaben bleiben stehen: Solange kein Empfänger angebunden ist,
-       braucht der Besucher sie noch. */
+    requestAnimationFrame(() => resultRef.current?.focus())
   }
 
-  const describedBy = (field: FieldName) => (errors[field] ? `${field}-error` : undefined)
-
-  const fieldClass = (field: FieldName) =>
-    cn(
-      'w-full rounded-card border bg-ink-2 px-4 py-3.5 text-on-ink transition-colors',
-      'focus:border-brand focus:outline-none',
-      errors[field] ? 'border-danger' : 'border-ink-line',
-    )
+  const describedBy = (field: FieldName) => errors[field] ? `${field}-error` : undefined
+  const error = (field: FieldName) => errors[field] && <p id={`${field}-error`} className="contact-error">{errors[field]}</p>
+  const topic = inquiryTopics.find((item) => item.value === values.topic)?.label ?? 'Foto Panda'
+  const mailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Anfrage: ${topic}`)}&body=${encodeURIComponent(`Guten Tag Foto Panda,\n\n${values.message.trim()}\n\nThema: ${topic}\nName: ${values.name.trim()}\nKontakt: ${values.contact.trim()}`)}`
 
   return (
-    <section
-      data-tone="ink"
-      className="relative isolate overflow-hidden bg-ink pt-28 pb-section-tight text-on-ink grain lg:pt-36"
-    >
-      <div aria-hidden className="glow-warm top-[-14rem] right-[-10rem] h-[42rem] w-[42rem] opacity-30" />
-
-      <Container width="wide" className="relative">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
-          {/* Linke Spalte: Aussage, direkte Wege, ein Bild als Anker. */}
-          <div>
-            <Eyebrow>{page.eyebrow}</Eyebrow>
-            <MaskReveal
-              as="h1"
-              immediate
-              delay={100}
-              lines={[...page.headlineLines, <span className="text-brand">{page.headlineAccent}</span>]}
-              className="mt-6 font-display text-display leading-[0.98] font-extrabold tracking-[-0.042em]"
-            />
-            <Reveal delay={400} className="mt-7">
-              <p className="max-w-[42ch] text-lead text-on-ink-soft">{page.lead}</p>
-            </Reveal>
-
-            <Reveal delay={500} className="mt-10">
-              <ul className="flex flex-col divide-y divide-ink-line border-y border-ink-line">
-                <li>
-                  <a
-                    href={`tel:${siteConfig.phoneHref}`}
-                    className="group/c flex min-h-16 items-center gap-4 transition-colors hover:text-brand"
-                  >
-                    <Phone className="h-4 w-4 shrink-0 text-brand" aria-hidden />
-                    <span className="font-display text-[1.0625rem] font-bold tracking-[-0.02em]">
-                      {siteConfig.phone}
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="group/c flex min-h-16 items-center gap-4 transition-colors hover:text-brand"
-                  >
-                    <Mail className="h-4 w-4 shrink-0 text-brand" aria-hidden />
-                    <span className="font-display text-[1.0625rem] font-bold tracking-[-0.02em]">
-                      {siteConfig.email}
-                    </span>
-                  </a>
-                </li>
-                <li className="flex min-h-16 items-center gap-4 text-on-ink-soft">
-                  <MapPin className="h-4 w-4 shrink-0 text-brand" aria-hidden />
-                  <span className="font-display text-[1.0625rem] font-bold tracking-[-0.02em]">
-                    {siteConfig.city}, {siteConfig.country}
-                  </span>
-                </li>
-              </ul>
-            </Reveal>
-
-            <Reveal delay={600} className="mt-10 hidden lg:block">
-              <div className="media-frame aspect-[16/10] rounded-frame">
-                <MediaStill
-                  media={{ kind: 'photo', ref: 'wedding-closeup' }}
-                  sizes="(min-width:1024px) 32vw, 100vw"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent"
-                />
+    <section data-tone="ink" className="contact-page">
+      <Container width="wide">
+        <div className="contact-layout">
+          <div className="contact-intro">
+            <Reveal>
+              <Eyebrow>{`${page.eyebrow} · Bundesweit`}</Eyebrow>
+              <h1>Erzählen Sie uns<br /><span>von Ihrem Projekt.</span></h1>
+              <p className="contact-lead">{page.lead}</p>
+              <div className="contact-direct">
+                <a href={`tel:${siteConfig.phoneHref}`}><Phone size={19} aria-hidden /><span><small>Rufen Sie uns an</small>{siteConfig.phone}</span><ArrowUpRight size={18} aria-hidden /></a>
+                <a href={`mailto:${siteConfig.email}`}><Mail size={19} aria-hidden /><span><small>Schreiben Sie uns</small>{siteConfig.email}</span><ArrowUpRight size={18} aria-hidden /></a>
+                <div><MapPin size={19} aria-hidden /><span><small>Unser Ausgangspunkt</small>{siteConfig.city}, {siteConfig.country}</span></div>
               </div>
+              <p className="contact-note">Eine Idee reicht für den Anfang.<br />Den Rest finden wir gemeinsam heraus.</p>
             </Reveal>
           </div>
-
-          {/* Formular */}
-          <Reveal delay={200}>
-            <form
-              ref={formRef}
-              onSubmit={onSubmit}
-              noValidate
-              className="flex flex-col gap-6 rounded-frame border border-ink-line bg-ink-2/60 p-6 backdrop-blur-sm sm:p-9"
-            >
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-semibold">
-                    Name <span className="text-brand">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    value={values.name}
-                    onChange={(e) => set('name', e.target.value)}
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={describedBy('name')}
-                    className={fieldClass('name')}
-                  />
-                  {errors.name && (
-                    <p id="name-error" className="mt-2 text-sm text-danger">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="contact" className="mb-2 block text-sm font-semibold">
-                    E-Mail oder Telefon <span className="text-brand">*</span>
-                  </label>
-                  <input
-                    id="contact"
-                    name="contact"
-                    type="text"
-                    inputMode="email"
-                    autoComplete="email"
-                    value={values.contact}
-                    onChange={(e) => set('contact', e.target.value)}
-                    aria-invalid={Boolean(errors.contact)}
-                    aria-describedby={describedBy('contact')}
-                    className={fieldClass('contact')}
-                  />
-                  {errors.contact && (
-                    <p id="contact-error" className="mt-2 text-sm text-danger">
-                      {errors.contact}
-                    </p>
-                  )}
-                </div>
+          <MotionSurface variant="soft" index={1} className="contact-form-motion">
+          <form data-tone="ivory" ref={formRef} onSubmit={onSubmit} noValidate className="contact-form" aria-busy={pending} aria-labelledby="inquiry-title">
+            <div className="contact-form-heading">
+              <p className="contact-kicker">Ihr nächstes Kapitel</p>
+              <h2 id="inquiry-title">Lassen Sie uns anfangen.</h2>
+              <p id="form-method">{hasEndpoint ? 'Erzählen Sie uns von Ihrem Vorhaben.' : 'Hier bereiten Sie Ihre Anfrage als E-Mail vor. Den Versand übernehmen Sie anschließend in Ihrem E-Mail-Programm.'}</p>
+            </div>
+            <div className="contact-field-row">
+              <div className="contact-field">
+                <label htmlFor="name">Ihr Name <span aria-hidden>*</span></label>
+                <input id="name" name="name" autoComplete="name" required maxLength={120} value={values.name} onChange={(event) => set('name', event.target.value)} aria-invalid={Boolean(errors.name)} aria-describedby={describedBy('name')} placeholder="Vor- und Nachname" />
+                {error('name')}
               </div>
-
-              <div>
-                <label htmlFor="topic" className="mb-2 block text-sm font-semibold">
-                  Worum geht es? <span className="text-brand">*</span>
-                </label>
-                <select
-                  id="topic"
-                  name="topic"
-                  value={values.topic}
-                  onChange={(e) => set('topic', e.target.value)}
-                  aria-invalid={Boolean(errors.topic)}
-                  aria-describedby={describedBy('topic')}
-                  className={fieldClass('topic')}
-                >
+              <div className="contact-field">
+                <label htmlFor="contact">E-Mail oder Telefon <span aria-hidden>*</span></label>
+                <input id="contact" name="contact" autoComplete="email" required maxLength={180} value={values.contact} onChange={(event) => set('contact', event.target.value)} aria-invalid={Boolean(errors.contact)} aria-describedby={describedBy('contact')} placeholder="So erreichen wir Sie" />
+                {error('contact')}
+              </div>
+            </div>
+            <div className="contact-field">
+              <label htmlFor="topic">Worum geht es? <span aria-hidden>*</span></label>
+              <div className="contact-select">
+                <select id="topic" name="topic" required value={values.topic} onChange={(event) => set('topic', event.target.value)} aria-invalid={Boolean(errors.topic)} aria-describedby={describedBy('topic')}>
                   <option value="">Bitte wählen</option>
-                  {inquiryTopics.map((topic) => (
-                    <option key={topic.value} value={topic.value}>
-                      {topic.label}
-                    </option>
-                  ))}
+                  {inquiryTopics.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
                 </select>
-                {errors.topic && (
-                  <p id="topic-error" className="mt-2 text-sm text-danger">
-                    {errors.topic}
-                  </p>
-                )}
+                <ChevronDown size={18} aria-hidden />
               </div>
-
-              <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-semibold">
-                  Nachricht
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  value={values.message}
-                  onChange={(e) => set('message', e.target.value)}
-                  placeholder="Datum, Ort, was Ihnen wichtig ist"
-                  className={cn(fieldClass('message'), 'resize-y')}
-                />
+              {error('topic')}
+            </div>
+            <div className="contact-field">
+              <label htmlFor="message">Ihre Idee <span className="contact-optional">(optional)</span></label>
+              <textarea id="message" name="message" rows={4} maxLength={3000} value={values.message} onChange={(event) => set('message', event.target.value)} placeholder="Anlass, Wunschort, Zeitraum – und was Ihnen am Herzen liegt." />
+            </div>
+            <div>
+              <label htmlFor="consent" className="contact-consent">
+                <input id="consent" name="consent" type="checkbox" required checked={values.consent} onChange={(event) => set('consent', event.target.checked)} aria-invalid={Boolean(errors.consent)} aria-describedby={describedBy('consent')} />
+                <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. <span aria-hidden>*</span> <Link to="/datenschutz">Datenschutzerklärung</Link></span>
+              </label>
+              {error('consent')}
+            </div>
+            <div className="contact-submit">
+              <Button type="submit" size="lg" disabled={pending} aria-describedby="form-method">
+                {pending ? 'Wird vorbereitet…' : hasEndpoint ? 'Anfrage absenden' : 'E-Mail vorbereiten'}<ArrowUpRight size={18} aria-hidden />
+              </Button>
+              <p>* Pflichtfelder</p>
+            </div>
+            {result && (
+              <div ref={resultRef} tabIndex={-1} role={result.status === 'failed' ? 'alert' : 'status'} className="contact-result">
+                {result.status === 'no-transport' && <>
+                  <h3>Ihre E-Mail ist vorbereitet.</h3>
+                  <p>Öffnen Sie die Anfrage in Ihrem E-Mail-Programm und senden Sie sie dort ab. Über diese Website wurde noch nichts versendet.</p>
+                  <Button as="a" href={mailHref} variant="outline" className="mt-4">E-Mail-Programm öffnen<ArrowUpRight size={16} aria-hidden /></Button>
+                  <p className="contact-result-note">Kein E-Mail-Programm eingerichtet? Schreiben Sie direkt an <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>. Ihre Angaben bleiben im Formular stehen.</p>
+                </>}
+                {result.status === 'sent' && <><h3>Vielen Dank für Ihre Anfrage.</h3><p>Ihre Nachricht wurde übermittelt. Wir melden uns persönlich bei Ihnen.</p></>}
+                {result.status === 'failed' && <><h3>Die Anfrage konnte nicht versendet werden.</h3><p>{result.reason} Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.</p></>}
               </div>
-
-              <div>
-                <label htmlFor="consent" className="flex cursor-pointer items-start gap-3">
-                  <input
-                    id="consent"
-                    name="consent"
-                    type="checkbox"
-                    checked={values.consent}
-                    onChange={(e) => set('consent', e.target.checked)}
-                    aria-invalid={Boolean(errors.consent)}
-                    aria-describedby={describedBy('consent')}
-                    className="mt-1 h-5 w-5 shrink-0 accent-[var(--color-brand)]"
-                  />
-                  <span className="text-sm text-on-ink-muted">
-                    Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet
-                    werden. <span className="text-brand">*</span>{' '}
-                    <Link
-                      to="/datenschutz"
-                      className="underline decoration-ink-line-2 underline-offset-4 hover:text-on-ink"
-                    >
-                      Datenschutzerklärung
-                    </Link>
-                  </span>
-                </label>
-                {errors.consent && (
-                  <p id="consent-error" className="mt-2 text-sm text-danger">
-                    {errors.consent}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4">
-                <Button type="submit" size="lg" disabled={pending}>
-                  {pending ? 'Wird geprüft…' : 'Anfrage absenden'}
-                </Button>
-                <p className="text-sm text-on-ink-faint">Pflichtfelder sind mit * markiert.</p>
-              </div>
-
-              {/* Ohne angebundenen Empfänger wird kein Versand behauptet. */}
-              {result?.status === 'no-transport' && (
-                <div role="status" className="rounded-card border border-brand/40 bg-ink p-5">
-                  <p className="font-display font-bold">
-                    Der Online-Versand ist noch nicht freigeschaltet.
-                  </p>
-                  <p className="mt-2 text-[0.9375rem] text-on-ink-muted">
-                    Ihre Eingaben stehen noch im Formular. Am schnellsten geht es direkt:
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    <Button as="a" href={`tel:${siteConfig.phoneHref}`} size="md">
-                      {siteConfig.phone}
-                    </Button>
-                    <Button
-                      as="a"
-                      href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(
-                        `Anfrage: ${inquiryTopics.find((t) => t.value === values.topic)?.label ?? 'Foto Panda'}`,
-                      )}&body=${encodeURIComponent(`${values.message}\n\n${values.name}\n${values.contact}`)}`}
-                      variant="outline"
-                      size="md"
-                    >
-                      E-Mail schreiben
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {result?.status === 'sent' && (
-                <p role="status" className="rounded-card border border-ink-line bg-ink p-5">
-                  Danke, die Anfrage ist angekommen. Wir melden uns.
-                </p>
-              )}
-
-              {result?.status === 'failed' && (
-                <p role="alert" className="rounded-card border border-danger/50 bg-ink p-5">
-                  Das Absenden hat nicht geklappt ({result.reason}). Bitte versuchen Sie es erneut
-                  oder rufen Sie an: {siteConfig.phone}
-                </p>
-              )}
-            </form>
-          </Reveal>
+            )}
+          </form>
+          </MotionSurface>
         </div>
       </Container>
     </section>

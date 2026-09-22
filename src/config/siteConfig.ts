@@ -47,6 +47,13 @@ export const siteConfig = {
   city: 'Osnabrück',
   country: 'Deutschland',
 
+  /** Verified listings; Foto Panda remains the website brand. */
+  app: {
+    name: 'Royal_Media',
+    appStoreUrl: 'https://apps.apple.com/de/app/royal-media/id6587568151',
+    googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.royalmedia.app&hl=de',
+  },
+
   social: [
     {
       network: 'Instagram',

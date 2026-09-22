@@ -4,9 +4,8 @@ import previews from './previews.json'
 /**
  * Alle Medien der Seite an genau einer Stelle.
  *
- * Die Pfade zeigen auf die von scripts/prepare-assets.mjs erzeugten Dateien.
- * Werden die Originalvideos nachgereicht, aendern sich hier nur die Werte
- * unter `intrinsic`; die Komponenten bleiben unberuehrt.
+ * Neue Medien werden mit scripts/prepare-new-assets.mjs aufbereitet.
+ * Die kuratierte Auswahl enthält nur geprüfte Fotos und zwei neue Filme.
  *
  * `aspect` ist bewusst eine Utility-Klasse und keine Zahl: mehrere Medien
  * brauchen auf schmalen Viewports ein anderes Kastenformat als auf breiten.
@@ -15,6 +14,48 @@ import previews from './previews.json'
 const PHOTO_WIDTHS = [640, 960, 1320]
 
 const photosRaw = {
+  'bridal-editorial': {
+    id: 'bridal-editorial', base: '/assets/photos/bridal-editorial', widths: [640, 960, 1080],
+    intrinsic: { width: 1080, height: 1350 },
+    alt: 'Braut in einem bestickten Kleid mit feinem Schleier vor hellen Säulen',
+    category: 'hochzeit', objectPosition: '50% 32%',
+  },
+  'bridal-full-length': {
+    id: 'bridal-full-length', base: '/assets/photos/bridal-full-length', widths: [640, 960, 1080],
+    intrinsic: { width: 1080, height: 1350 },
+    alt: 'Braut im langen Spitzenkleid mit ausgebreiteter Schleppe in einem hellen Raum',
+    category: 'hochzeit', objectPosition: '50% 48%',
+  },
+  'bridal-closeup': {
+    id: 'bridal-closeup', base: '/assets/photos/bridal-closeup', widths: [640, 960, 1080],
+    intrinsic: { width: 1080, height: 1350 },
+    alt: 'Nahes Brautporträt mit besticktem Schleier und einer Hand am Haar',
+    category: 'hochzeit', objectPosition: '50% 28%',
+  },
+  'bridal-palace': {
+    id: 'bridal-palace', base: '/assets/photos/bridal-palace', widths: PHOTO_WIDTHS,
+    intrinsic: { width: 1320, height: 1622 },
+    alt: 'Braut mit Diadem und langem weißen Kleid an einer goldgerahmten Tür',
+    category: 'hochzeit', objectPosition: '50% 45%',
+  },
+  'bridal-palace-portrait': {
+    id: 'bridal-palace-portrait', base: '/assets/photos/bridal-palace-portrait', widths: PHOTO_WIDTHS,
+    intrinsic: { width: 1320, height: 1616 },
+    alt: 'Braut mit Diadem und weißem Schleier vor einem dunklen Hintergrund',
+    category: 'hochzeit', objectPosition: '50% 30%',
+  },
+  'digital-card': {
+    id: 'digital-card', base: '/assets/photos/digital-card', widths: [384, 589],
+    intrinsic: { width: 589, height: 1280 },
+    alt: 'Smartphone über einer Foto-Panda-Visitenkarte mit QR-Code und digitalen Kontaktmöglichkeiten',
+    category: 'lebendige-medien', objectPosition: '50% 50%',
+  },
+  'school-album': {
+    id: 'school-album', base: '/assets/photos/school-album', widths: [640, 840],
+    intrinsic: { width: 840, height: 600 },
+    alt: 'Gestaltete Fotobuchseite mit drei Kinderporträts und dem Namen Lion',
+    category: 'lebendige-medien', objectPosition: '50% 50%',
+  },
   'wedding-stairs': {
     id: 'wedding-stairs',
     base: '/assets/photos/wedding-stairs',
@@ -147,74 +188,25 @@ const livingMediaRaw = {
     id: 'wedding',
     posterBase: '/assets/posters/wedding',
     video: '/assets/videos/wedding.mp4',
-    /* Nach der Drehung 1168x576, also 2,03:1. Der 16:9-Kasten schneidet an den
-       Seiten rund 12 Prozent weg; das Paar steht mittig. */
-    aspect: 'aspect-[4/3] sm:aspect-[16/9]',
-    intrinsic: { width: 1168, height: 576 },
-    title: 'Hochzeit',
-    alt: 'Brautpaar geht durch einen Arkadengang auf die Kamera zu, der Schleier weit ausgebreitet',
+    aspect: 'aspect-[4/5]',
+    intrinsic: { width: 720, height: 1280 },
+    title: 'Brautporträt in Bewegung',
+    alt: 'Braut mit Diadem hält die Hände vor ihrem weißen Kleid in einem festlichen Saal',
     category: 'hochzeit',
     objectPosition: '50% 45%',
     hasAudio: true,
   },
-  'living-album': {
-    id: 'living-album',
-    posterBase: '/assets/posters/living-album',
-    video: '/assets/videos/living-album.mp4',
-    aspect: 'aspect-[16/9]',
-    intrinsic: { width: 624, height: 352 },
-    title: 'Lebendiges Fotoalbum',
-    alt: 'Eine Hand hält ein Smartphone über ein aufgeschlagenes Fotoalbum, auf dem Display läuft ein Video des Kindes',
-    category: 'lebendige-medien',
-    objectPosition: '50% 50%',
-    hasAudio: true,
-  },
-  'gastronomy-plating': {
-    id: 'gastronomy-plating',
-    posterBase: '/assets/posters/gastronomy-plating',
-    video: '/assets/videos/gastronomy-plating.mp4',
+
+  'gastronomy-kitchen': {
+    id: 'gastronomy-kitchen',
+    posterBase: '/assets/posters/gastronomy-kitchen',
+    video: '/assets/videos/gastronomy-kitchen.mp4',
     aspect: 'aspect-[4/5]',
-    intrinsic: { width: 464, height: 832 },
-    title: 'Gerichte in Szene gesetzt',
-    alt: 'Eine Hand gießt dunkle Sauce über ein angerichtetes Steak auf einem Holzbrett',
+    intrinsic: { width: 720, height: 1280 },
+    title: 'Von der Küche auf den Tisch',
+    alt: 'Rote Sauce wird mit einer Kelle auf frischem Teig in einer Restaurantküche verteilt',
     category: 'gastronomie',
     objectPosition: '50% 50%',
-    hasAudio: true,
-  },
-  'gastronomy-serving': {
-    id: 'gastronomy-serving',
-    posterBase: '/assets/posters/gastronomy-serving',
-    video: '/assets/videos/gastronomy-serving.mp4',
-    aspect: 'aspect-[4/5]',
-    intrinsic: { width: 576, height: 1024 },
-    title: 'Vom Pass auf den Tisch',
-    alt: 'Teller mit glasiertem Fleisch, Reis und Beilagen wird auf einem dunklen Tisch angerichtet',
-    category: 'gastronomie',
-    objectPosition: '50% 50%',
-    hasAudio: true,
-  },
-  'real-estate': {
-    id: 'real-estate',
-    posterBase: '/assets/posters/real-estate',
-    video: '/assets/videos/real-estate.mp4',
-    aspect: 'aspect-[16/9]',
-    intrinsic: { width: 1024, height: 576 },
-    title: 'Immobilie im Rundgang',
-    alt: 'Offener Essbereich mit langem Tisch vor einer raumhohen Fensterfront mit Blick ins Tal',
-    category: 'immobilien',
-    objectPosition: '50% 50%',
-    hasAudio: true,
-  },
-  'business-shoot': {
-    id: 'business-shoot',
-    posterBase: '/assets/posters/business-shoot',
-    video: '/assets/videos/business-shoot.mp4',
-    aspect: 'aspect-[4/5]',
-    intrinsic: { width: 576, height: 976 },
-    title: 'Business-Shooting',
-    alt: 'Mann im Nadelstreifenanzug vor dunklem Studiohintergrund, seitliches Licht von links',
-    category: 'business',
-    objectPosition: '50% 35%',
     hasAudio: true,
   },
 } as const satisfies Record<string, LivingMediaItem>
@@ -224,8 +216,8 @@ export type LivingMediaId = keyof typeof livingMediaRaw
 /* ------------------------------------------------------------------ *
  * Unschaerfe-Vorschauen anhaengen.
  *
- * `previews.json` erzeugt scripts/prepare-assets.mjs: je Medium ein 20 Pixel
- * breites WebP als data-URI, zusammen unter 5 KB. Es liegt zur Laufzeit als
+ * `previews.json` ergänzt scripts/prepare-new-assets.mjs: je Medium ein 20 Pixel
+ * breites WebP als data-URI. Es liegt zur Laufzeit als
  * Hintergrund hinter dem Bild. Ohne das zeigt ein noch nicht geladenes Foto
  * eine leere Flaeche, und genau die faellt auf einer Fotografieseite als
  * Erstes auf.

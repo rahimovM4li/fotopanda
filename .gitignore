@@ -41,3 +41,4 @@ assets-source/
 
 # Ausgabe der Browser-Pruefungen
 .playwright-mcp/
+.media-audit/

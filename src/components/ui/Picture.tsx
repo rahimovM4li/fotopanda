@@ -25,7 +25,7 @@ export function Picture({ photo, sizes, className, imgClassName, priority = fals
       <source type="image/avif" srcSet={set('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={set('webp')} sizes={sizes} />
       <img
-        src={`${photo.base}-960.jpg`}
+        src={`${photo.base}-${photo.widths.at(-1)}.jpg`}
         srcSet={set('jpg')}
         sizes={sizes}
         alt={photo.alt}

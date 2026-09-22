@@ -11,7 +11,7 @@ import { cn } from '@/lib/cn'
 export function Parallax({
   children,
   className,
-  distance = 60,
+  distance = 24,
   direction = 'up',
 }: {
   children: ReactNode

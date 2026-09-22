@@ -1,6 +1,9 @@
-import { useRef, type ReactNode } from 'react'
+'use client'
+
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react'
 import { cn } from '@/lib/cn'
+import { motionConfig, springs } from '@/lib/motionTokens'
 
 /**
  * Räumliche Bühne: Der Inhalt neigt sich der Maus entgegen.
@@ -17,7 +20,7 @@ import { cn } from '@/lib/cn'
 export function TiltStage({
   children,
   className,
-  maxTilt = 7,
+  maxTilt = 3,
   perspective = 1400,
 }: {
   children: ReactNode
@@ -27,19 +30,23 @@ export function TiltStage({
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
+  const [enabled, setEnabled] = useState(false)
 
   const px = useMotionValue(0)
   const py = useMotionValue(0)
 
-  const spring = { stiffness: 110, damping: 18, mass: 0.55 }
-  const sx = useSpring(px, spring)
-  const sy = useSpring(py, spring)
+  const sx = useSpring(px, springs.gentle)
+  const sy = useSpring(py, springs.gentle)
 
   const rotateY = useTransform(sx, [-0.5, 0.5], [-maxTilt, maxTilt])
   const rotateX = useTransform(sy, [-0.5, 0.5], [maxTilt, -maxTilt])
 
+  useEffect(() => {
+    setEnabled(motionConfig.shouldAnimate())
+  }, [])
+
   function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
-    if (reduce || event.pointerType !== 'mouse') return
+    if (!enabled || reduce || event.pointerType !== 'mouse') return
     const rect = ref.current?.getBoundingClientRect()
     if (!rect) return
     px.set((event.clientX - rect.left) / rect.width - 0.5)
@@ -60,7 +67,7 @@ export function TiltStage({
       style={{ perspective: `${perspective}px` }}
     >
       <motion.div
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        style={!enabled || reduce ? undefined : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
         className="relative h-full w-full"
       >
         {children}
@@ -82,7 +89,7 @@ export function TiltLayer({
   className?: string
 }) {
   return (
-    <div className={className} style={{ transform: `translateZ(${depth}px)` }}>
+    <div data-tilt-layer className={className} style={{ transform: `translateZ(${depth}px)` }}>
       {children}
     </div>
   )

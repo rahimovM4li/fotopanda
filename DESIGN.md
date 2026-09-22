@@ -2,7 +2,7 @@
 
 ## Visual Theme
 
-**Dunkler Saal, helle Lesestrecken.** Die Seite hat zwei Tonlagen und wechselt
+**Dunkler   Saal, helle Lesestrecken.** Die Seite hat zwei Tonlagen und wechselt
 zwischen ihnen im Takt: Ink für Bühnen, auf denen Fotografie und Bewegtbild wirken
 sollen, Ivory für Abschnitte, in denen gelesen wird. Ein durchgehend heller
 Hintergrund lässt eine bildlastige Seite flach werden; ein durchgehend dunkler

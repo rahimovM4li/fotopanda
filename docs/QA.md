@@ -1,5 +1,17 @@
 # Foto Panda – Redesign-Abnahme
 
+## Ergänzung vom 29. Oktober 2026
+
+- Küchenvideo: Vorschaubild aus Sekunde 21 (gefüllte Teigtasche mit geschmolzenem Käse). Im Handymodus öffnet der Start eine bildschirmfüllende Videoansicht; Touchgeräte fordern zusätzlich natives Vollbild an, inklusive Safari-Videoplayer. Schließen beendet die Wiedergabe und gibt den Fokus zurück. Automatischer Start, Schließen und Fokusrückgabe bei 390 × 844 sowie 844 × 390 px geprüft; am Desktop (1440 px) bleibt die Wiedergabe eingebettet. Physisches iPhone/Android separat zu prüfen.
+
+- Geburtstagsfilm auf der Fotografie-Seite, in der Startseiten-Auswahl und im Portfolio mit Filter „Feiern“ integriert.
+- Gastronomie-Einstieg mit vollständigem Menüfoto, Küchenvideo und Kundentext „Ihr Menü wird lebendig. / Ein QR-Code. Mehr Erlebnis.“ umgesetzt.
+- `npm run build`, `npm run lint`, `npm run check`: erfolgreich; 177 Fotovarianten und drei Filme geprüft. Neuer MP4 vollständig ohne Fehler decodiert.
+- Browserprüfung bei 375, 768, 812 und 1440 px: keine horizontalen Dokumentüberläufe. Gastronomie- und Geburtstagsbereich mobil sowie am Desktop visuell geprüft.
+- Wiedergabe, Pause, Ton, Tastaturbedienung, Pause beim Wegscrollen, Portfolio-Filter und Video-Großansicht geprüft. Keine Browserwarnungen oder -fehler im Prüftab. Keine Veröffentlichung ausgeführt.
+
+## Ursprüngliche Abnahme
+
 Stand: 21. September 2026. Bestehende React-/Vite-Website weiterentwickelt; kein Neubau.
 
 ## Umsetzung

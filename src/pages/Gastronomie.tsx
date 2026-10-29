@@ -2,21 +2,49 @@ import { ArrowUpRight, Camera, Film, ScanLine } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
+import { Picture } from '@/components/ui/Picture'
 import { LivingMedia } from '@/components/living/LivingMedia'
 import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
 import { Process } from '@/sections/Process'
 import { gastronomie as page } from '@/data/pages'
-import { livingMedia } from '@/data/media'
+import { livingMedia, photos } from '@/data/media'
+import { siteConfig } from '@/config/siteConfig'
 import { useSeo } from '@/hooks/useSeo'
 
 export function Gastronomie() {
   useSeo({ ...page.seo, path: '/gastronomie' })
   return <>
     <section data-tone="ink" className="bg-ink pt-32 pb-section-tight lg:pt-40">
-      <Container width="wide"><div className="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
-        <Reveal><div><p className="section-kicker">Gastronomie in Szene gesetzt</p><h1>Man isst zuerst<br /><span className="text-brand">mit den Augen.</span></h1><p className="mt-7 max-w-[44ch] text-lead text-on-ink-soft">Handwerk, Geschmack und die Atmosphäre Ihres Hauses. Wir erstellen appetitliche Fotos und kurze Filme für Ihre Speisekarte, Website und Social Media.</p><Button as="link" to="/kontakt" size="lg" className="mt-9">Jetzt anfragen<ArrowUpRight size={18} aria-hidden /></Button><p className="mt-6 text-sm text-on-ink-muted">Bei Ihnen vor Ort. Bundesweit.</p></div></Reveal>
-        <MotionSurface variant="hero" index={1} className="mx-auto w-full max-w-[430px]"><figure><LivingMedia item={livingMedia['gastronomy-kitchen']} hint="Einen Blick in die Küche werfen" priority showCta={false} aspectClassName="aspect-[4/5]" radiusClassName="rounded-frame" /><figcaption className="mt-4 text-sm text-on-ink-muted">Vom ersten Handgriff bis zum fertigen Gericht.</figcaption></figure></MotionSurface>
+      <Container width="wide"><div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <Reveal>
+          <div>
+            <p className="section-kicker">{page.eyebrow}</p>
+            <h1>{page.headlineLines[0]}<br /><span className="text-brand">{page.headlineAccent}</span></h1>
+            <p className="mt-5 font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-snug text-on-ink-soft">{page.subtitle}</p>
+            <p className="mt-7 max-w-[44ch] text-lead text-on-ink-soft">{page.lead}</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button as="link" to="/kontakt" size="lg">Jetzt anfragen<ArrowUpRight size={18} aria-hidden /></Button>
+              <Button as="a" href={`tel:${siteConfig.phoneHref}`} variant="outline" size="lg">{siteConfig.phone}</Button>
+            </div>
+          </div>
+        </Reveal>
+        <div className="mx-auto grid w-full max-w-[640px] grid-cols-[1.1fr_.9fr] items-start gap-4 sm:gap-6">
+          <MotionSurface variant="media">
+            <figure>
+              <a href="/assets/photos/restaurant-menu-853.jpg" target="_blank" rel="noopener noreferrer" className="media-frame block overflow-hidden rounded-media" aria-label="Speisekarte des Restaurants Gänsefeder in voller Größe öffnen (neuer Tab)">
+                <Picture photo={photos['restaurant-menu']} priority sizes="(min-width:1024px) 26vw, (min-width:640px) 340px, 52vw" />
+              </a>
+              <figcaption className="mt-4 text-sm text-on-ink-muted">Die Speisekarte.<br /><a href="/assets/photos/restaurant-menu-853.jpg" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-on-ink underline underline-offset-4">In voller Größe ansehen<ArrowUpRight className="shrink-0" size={15} aria-hidden /><span className="sr-only"> (neuer Tab)</span></a></figcaption>
+            </figure>
+          </MotionSurface>
+          <MotionSurface variant="media" index={1} className="mt-12 sm:mt-16">
+            <div>
+              <LivingMedia item={livingMedia['gastronomy-kitchen']} hint="Küchenvideo abspielen" priority fullscreenOnMobile showCta={false} showStatus={false} aspectClassName="aspect-[9/16]" radiusClassName="rounded-media" />
+              <p className="mt-4 text-sm text-on-ink-muted">Das Handwerk dahinter.<br />Ein Einblick in die Küche.</p>
+            </div>
+          </MotionSurface>
+        </div>
       </div></Container>
     </section>
     <Section tone="ivory"><Container width="wide"><Reveal><div><p className="section-kicker">Ein Termin. Vielseitige Inhalte.</p><h2>So kommt Ihr Haus<br /><span className="text-tone-accent">zur Geltung.</span></h2></div></Reveal><div className="mt-12 grid gap-10 md:grid-cols-3">

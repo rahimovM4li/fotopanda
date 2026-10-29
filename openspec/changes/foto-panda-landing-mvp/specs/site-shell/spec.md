@@ -25,7 +25,7 @@ Alle Geschäftsdaten SHALL aus genau einer Konfigurationsquelle stammen, die min
 
 Die bestätigten Werte sind: Marke „Foto Panda", Tagline „Fotos. Videos. Erlebnisse.",
 Domain `https://fotopandastudio.de`, E-Mail `info@fotopandastudio.de`,
-Telefon `+49 176 41799016`, Ort „Osnabrück, Deutschland",
+Telefon `+49 176 84506657`, Ort „Osnabrück, Deutschland",
 Instagram und TikTok `fotopanda.de`, YouTube „Foto Panda".
 
 #### Scenario: Kontaktdaten erscheinen konsistent

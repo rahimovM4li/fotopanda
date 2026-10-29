@@ -22,7 +22,7 @@ export function Arbeiten() {
   useSeo({
     title: 'Arbeiten | Foto Panda',
     description:
-      'Ausgewählte Foto- und Videoarbeiten von Foto Panda: Hochzeiten, Porträts, Gastronomie, Unternehmen und lebendige Medien.',
+      'Ausgewählte Foto- und Videoarbeiten von Foto Panda: Hochzeiten, Geburtstage, Porträts, Gastronomie, Unternehmen und lebendige Medien.',
     path: '/arbeiten',
   })
 
@@ -67,7 +67,7 @@ export function Arbeiten() {
             />
             <Reveal delay={400} className="lg:max-w-[36ch] lg:text-right">
               <p className="text-on-ink-muted">
-                Hochzeiten, Porträts, Gerichte und Unternehmen. Antippen öffnet die große
+                Hochzeiten, Geburtstage, Porträts, Gerichte und Unternehmen. Antippen öffnet die große
                 Ansicht; Videoarbeiten sind gekennzeichnet.
               </p>
             </Reveal>

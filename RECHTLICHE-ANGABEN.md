@@ -41,7 +41,7 @@ Diese Werte sind eingetragen und geprüft:
 - Tagline: Fotos. Videos. Erlebnisse.
 - Domain: `https://fotopandastudio.de`
 - E-Mail: `info@fotopandastudio.de`
-- Telefon: `+49 176 41799016`
+- Telefon: `+49 176 84506657`
 - Ort: Osnabrück, Deutschland
 - Instagram: `fotopanda.de`
 - TikTok: `fotopanda.de`

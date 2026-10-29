@@ -14,7 +14,7 @@ try {
     }
     assert.ok(photo.alt.length > 12)
   }
-  assert.deepEqual(Object.keys(livingMedia).sort(), ['gastronomy-kitchen','wedding'])
+  assert.deepEqual(Object.keys(livingMedia).sort(), ['birthday','gastronomy-kitchen','wedding'])
   for (const item of Object.values(livingMedia)) {
     for (const ext of ['jpg','webp','avif']) await access(`public${item.posterBase}.${ext}`)
     await access(`public${item.video}`)
@@ -38,5 +38,5 @@ try {
     }
     assert.ok(!/\b(real-estate|gastronomy-plating|gastronomy-serving|business-shoot|living-album)\b/.test(source), `${file}: obsolete media`)
   }
-  console.log(`PASS: ${checked} photo variants, two films, all source media references, 4 process steps, 7 FAQs and 10 form topics.`)
+  console.log(`PASS: ${checked} photo variants, ${Object.keys(livingMedia).length} films, all source media references, 4 process steps, 7 FAQs and 10 form topics.`)
 } finally { await server.close() }

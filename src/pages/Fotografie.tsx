@@ -279,8 +279,18 @@ export function Fotografie() {
 
       <Section tone="ivory" spacing="tight">
         <Container width="wide">
-          <Eyebrow>Für die großen kleinen Momente</Eyebrow>
-          <h2 className="mt-5 max-w-[20ch]">Zusammen erleben.<br />Für immer festhalten.</h2>
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_.8fr] lg:gap-20">
+            <Reveal>
+              <Eyebrow>Geburtstage & besondere Anlässe</Eyebrow>
+              <h2 className="mt-5 max-w-[20ch]">Euer Tag.<br /><span className="text-tone-accent">Euer großer Moment.</span></h2>
+              <p className="mt-6 max-w-[43ch] text-lead text-tone-text-muted">Die Vorfreude, das Strahlen und all die Menschen, die mit euch feiern. Wir halten euren Geburtstag in Fotos und einem persönlichen Film fest – zum Immer-wieder-Erleben.</p>
+              <Button as="link" to={CONTACT_PATH} className="mt-8">Eure Feier anfragen<ArrowUpRight size={17} aria-hidden /></Button>
+            </Reveal>
+            <MotionSurface variant="media" index={1} className="mx-auto w-full max-w-[360px]">
+              <LivingMedia item={livingMedia.birthday} hint="Geburtstagsfilm ansehen" showCta={false} showStatus={false} radiusClassName="rounded-frame" />
+              <p className="mt-4 text-sm text-tone-text-muted">Ein Geburtstag, der in Erinnerung bleibt.</p>
+            </MotionSurface>
+          </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {page.occasions.map((occasion, index) => (
               <Reveal key={occasion.title} delay={index * 70}>

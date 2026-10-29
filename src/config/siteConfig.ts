@@ -40,9 +40,9 @@ export const siteConfig = {
   domain: 'https://fotopandastudio.de',
 
   email: 'info@fotopandastudio.de',
-  phone: '+49 176 41799016',
+  phone: '+49 176 84506657',
   /** Fuer tel:-Links, ohne Leerzeichen */
-  phoneHref: '+4917641799016',
+  phoneHref: '+4917684506657',
 
   city: 'Osnabrück',
   country: 'Deutschland',

@@ -3,6 +3,7 @@
 /** Die Kategorien, fuer die tatsaechlich Material des Kunden vorliegt. */
 export type CategoryId =
   | 'hochzeit'
+  | 'feier'
   | 'portrait'
   | 'business'
   | 'gastronomie'

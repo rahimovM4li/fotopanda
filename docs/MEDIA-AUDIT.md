@@ -25,7 +25,6 @@ Die Kundenmedien wurden vor der Integration als Kontaktbögen und an mehreren Vi
 - Alter Business-Film: weiche Aufnahmen und überlagerte Übergänge; statische Business-Porträts sind stärker.
 - Alte Gastronomie-Filme: nur 464 bzw. 576 px breit; einer endet mit einer fremden Restaurantmarke. Die neue Küchen-Sequenz wird bevorzugt.
 - Alter Album-Demofilm: nur 624 × 352 px; wird nicht mehr gezeigt.
-- IMG_2185.MP4: Geburtstagsfilm mit Glitzereffekten; passt nicht zur ruhigen Gestaltung.
 - IMG_2580.MP4 als vollständiger Film: enthält auf den Produktseiten russische Platzhaltertexte. Nur der geprüfte, sprachlich neutrale Kinderporträt-Ausschnitt wird als Foto verwendet.
 - IMG_2589.PNG: vorgefertigte englische Braut-Collage; Einzelporträts sind gestalterisch flexibler und passen zur deutschsprachigen Website.
 
@@ -42,4 +41,16 @@ Die übrigen neuen Brautfotos sind brauchbar, aber in Motiv und Haltung redundan
 
 ## Prüfung
 
+Die folgende Prüfung beschreibt den Stand vom September; die aktuelle Ergänzung steht unten.
+
 Die neuen Bild- und Posterdateien wurden nach der Optimierung erneut visuell geprüft. Das Fotobuchmotiv wurde zusätzlich auf russische Beschriftungen kontrolliert und deshalb auf die einzelne Porträtseite beschnitten. Beide verwendeten Filme wurden vollständig durch FFmpeg decodiert, ohne Fehler. Alle 63 ausgewählten Foto- und Postervarianten (AVIF/WebP/JPEG) sind vorhanden. Die Medienregistrierung enthält nur die zwei ausgewählten Filme; verworfene Filme sind nicht mehr referenzierbar.
+
+## Ergänzung vom 29. Oktober 2026
+
+Das Küchenvideo verwendet auf Kundenwunsch ein neues Poster aus Sekunde 21 der Originaldatei `IMG_2533.MP4`: geöffnete Teigtasche mit Fleisch und geschmolzenem Käse. JPEG, WebP, AVIF, unscharfe Vorschau und Alternativtext sind entsprechend aktualisiert.
+
+Auf Kundenwunsch wird der Geburtstagsfilm als `birthdayGirl.MP4` aufgenommen. Er steht als `birthday` im eigenen Geburtstagsbereich auf der Fotografie-Seite, in der Startseiten-Auswahl und unter Arbeiten mit dem Filter „Feiern“. Das Hochformat bleibt im Player vollständig erhalten. Wiedergabe erfolgt per Klick mit Pause und zuschaltbarem Ton; beim Wegscrollen pausiert der Film.
+
+`menu.jpg` ist als `restaurant-menu` in zwei responsiven Breiten (480/853 px, jeweils AVIF/WebP/JPEG) aufbereitet. Der Gastronomie-Einstieg zeigt die vollständige Speisekarte neben dem bestehenden Küchenvideo; ein Link öffnet das Foto in voller Größe. Das Küchenvideo wird als eigenständiger Einblick beschriftet.
+
+Der aktuelle Bestand enthält 177 Fotovarianten und drei Filme. Der neue Geburtstagsfilm wurde vollständig ohne Fehler decodiert und als H.264/AAC mit Faststart ausgegeben. Originaldateien bleiben von der Produktionsausgabe ausgeschlossen.

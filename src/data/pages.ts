@@ -149,12 +149,13 @@ export const gastronomie = {
   seo: {
     title: 'Gastronomie | Foto Panda',
     description:
-      'Food-Fotografie und Videos für Restaurants: Gerichte, Atmosphäre und lebendige Speisekarten. Aus Osnabrück, bundesweit vor Ort.',
+      'Ihr Menü wird lebendig: QR-Code scannen, Gericht auswählen und Fotos oder Videos direkt auf dem Smartphone erleben. Ohne App-Installation.',
   },
-  eyebrow: 'Gastronomie in Szene gesetzt',
-  headlineLines: ['Man isst zuerst'],
-  headlineAccent: 'mit den Augen.',
-  lead: 'Auf dem Foto sieht man, wie ein Gericht aussieht. Im Film sieht man, wie die Sauce fällt und der Dampf aufsteigt. Wir liefern beides.',
+  eyebrow: 'Lebendiges Menü',
+  headlineLines: ['Ihr Menü wird'],
+  headlineAccent: 'lebendig.',
+  subtitle: 'Ein QR-Code. Mehr Erlebnis.',
+  lead: 'QR-Code auf der Speisekarte scannen, Gericht auswählen und Foto oder Video erleben. Ohne App-Installation – direkt auf dem Smartphone.',
   hero: { kind: 'living', ref: 'gastronomy-kitchen' } as const,
   benefits: [
     { title: 'Mehr Appetit', body: 'Textur, Glanz und Bewegung statt Teller von oben bei Deckenlicht.' },

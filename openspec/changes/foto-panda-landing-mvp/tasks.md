@@ -30,7 +30,7 @@
 
 ## 4. Konfiguration und Datenmodell
 
-- [x] 4.1 `src/config/siteConfig.ts` mit den bestätigten Werten anlegen: Marke „Foto Panda", Tagline „Fotos. Videos. Erlebnisse.", `https://fotopandastudio.de`, `info@fotopandastudio.de`, `+49 176 41799016`, Osnabrück, Instagram und TikTok `fotopanda.de`, YouTube „Foto Panda"
+- [x] 4.1 `src/config/siteConfig.ts` mit den bestätigten Werten anlegen: Marke „Foto Panda", Tagline „Fotos. Videos. Erlebnisse.", `https://fotopandastudio.de`, `info@fotopandastudio.de`, `+49 176 84506657`, Osnabrück, Instagram und TikTok `fotopanda.de`, YouTube „Foto Panda"
 - [x] 4.2 TypeScript-Typen für Medien, Foto-Video-Paare, Leistungen, Portfolioeinträge, Prozessschritte und Navigationseinträge definieren
 - [x] 4.3 `src/data/media.ts` mit den Foto-Video-Paaren anlegen: je Eintrag Poster, Video, Kategorie, Titel, Alternativtext, Seitenverhältnis und `objectPosition`
 - [x] 4.4 `src/data/` für Navigation, Leistungen, lebendige Produkte, Prozessschritte, Vorteile und Portfolio befüllen; jede Angabe existiert genau einmal

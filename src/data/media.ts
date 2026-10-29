@@ -5,7 +5,7 @@ import previews from './previews.json'
  * Alle Medien der Seite an genau einer Stelle.
  *
  * Neue Medien werden mit scripts/prepare-new-assets.mjs aufbereitet.
- * Die kuratierte Auswahl enthält nur geprüfte Fotos und zwei neue Filme.
+ * Die kuratierte Auswahl enthält nur geprüfte Fotos und Filme.
  *
  * `aspect` ist bewusst eine Utility-Klasse und keine Zahl: mehrere Medien
  * brauchen auf schmalen Viewports ein anderes Kastenformat als auf breiten.
@@ -14,6 +14,12 @@ import previews from './previews.json'
 const PHOTO_WIDTHS = [640, 960, 1320]
 
 const photosRaw = {
+  'restaurant-menu': {
+    id: 'restaurant-menu', base: '/assets/photos/restaurant-menu', widths: [480, 853],
+    intrinsic: { width: 853, height: 1280 },
+    alt: 'Schwarze Speisekarte des Restaurants Gänsefeder mit vier fotografierten Gerichten und einem QR-Code',
+    category: 'gastronomie', objectPosition: '50% 50%',
+  },
   'bridal-editorial': {
     id: 'bridal-editorial', base: '/assets/photos/bridal-editorial', widths: [640, 960, 1080],
     intrinsic: { width: 1080, height: 1350 },
@@ -184,6 +190,16 @@ const photosRaw = {
 export type PhotoId = keyof typeof photosRaw
 
 const livingMediaRaw = {
+  birthday: {
+    id: 'birthday',
+    posterBase: '/assets/posters/birthday',
+    video: '/assets/videos/birthday.mp4',
+    aspect: 'aspect-[9/16]',
+    intrinsic: { width: 720, height: 1280 },
+    title: 'Ein Geburtstag in Bewegung',
+    alt: 'Geburtstagskind im glitzernden blauen Kleid mit Krone, blauer Torte und Luftballons',
+    category: 'feier', objectPosition: '50% 50%', hasAudio: true,
+  },
   wedding: {
     id: 'wedding',
     posterBase: '/assets/posters/wedding',
@@ -204,7 +220,7 @@ const livingMediaRaw = {
     aspect: 'aspect-[4/5]',
     intrinsic: { width: 720, height: 1280 },
     title: 'Von der Küche auf den Tisch',
-    alt: 'Rote Sauce wird mit einer Kelle auf frischem Teig in einer Restaurantküche verteilt',
+    alt: 'Frisch zubereitete Teigtasche mit Fleisch und geschmolzenem Käse wird in der Restaurantküche geöffnet',
     category: 'gastronomie',
     objectPosition: '50% 50%',
     hasAudio: true,

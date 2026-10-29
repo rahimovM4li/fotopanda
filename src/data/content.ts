@@ -156,6 +156,7 @@ export const portfolio: PortfolioItem[] = [
   { kind: 'living', ref: 'wedding' },
   { kind: 'photo', ref: 'business-portrait-01' },
   { kind: 'living', ref: 'gastronomy-kitchen' },
+  { kind: 'living', ref: 'birthday' },
   { kind: 'photo', ref: 'portrait-court-knees' },
   { kind: 'photo', ref: 'bridal-full-length' },
   { kind: 'photo', ref: 'digital-card' },
@@ -168,6 +169,7 @@ export const portfolio: PortfolioItem[] = [
 export const portfolioFilters = [
   { id: 'alle', label: 'Alle' },
   { id: 'hochzeit', label: 'Hochzeit' },
+  { id: 'feier', label: 'Feiern' },
   { id: 'portrait', label: 'Porträt' },
   { id: 'business', label: 'Business' },
   { id: 'gastronomie', label: 'Gastronomie' },

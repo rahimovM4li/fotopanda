@@ -6,6 +6,7 @@ import { CTA_PRIMARY, CONTACT_PATH } from '@/data/content'
 import { cn } from '@/lib/cn'
 import type { LivingMediaItem } from '@/types'
 import { useActiveMedia } from './ActiveMediaContext'
+import { MobileVideoPlayer } from './MobileVideoPlayer'
 
 type State = 'poster' | 'loading' | 'playing' | 'paused' | 'ended' | 'error'
 
@@ -18,16 +19,20 @@ interface LivingMediaProps {
   className?: string
   aspectClassName?: string
   radiusClassName?: string
+  fullscreenOnMobile?: boolean
 }
 
 /** Explicit playback, stable framing, and a single active video across the page. */
 export function LivingMedia({
   item, hint = 'Foto zum Leben erwecken', priority = false, showCta = true,
   showStatus = true, className, aspectClassName, radiusClassName = 'rounded-media',
+  fullscreenOnMobile = false,
 }: LivingMediaProps) {
   const [state, setState] = useState<State>('poster')
   const [muted, setMuted] = useState(true)
   const [ctaVisible, setCtaVisible] = useState(false)
+  const [mobileFullscreen, setMobileFullscreen] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
   const playbackRequest = useRef(0)
@@ -35,6 +40,7 @@ export function LivingMedia({
   const { activeId, claim, release } = useActiveMedia()
   const reduce = useReducedMotion()
   const live = state === 'playing' || state === 'paused' || state === 'ended'
+  const closeMobileFullscreen = useCallback(() => setMobileFullscreen(false), [])
 
   const pause = useCallback(() => {
     playbackRequest.current += 1
@@ -99,6 +105,11 @@ export function LivingMedia({
   }
 
   const toggle = () => {
+    if (fullscreenOnMobile && window.matchMedia('(max-width: 767px), (max-width: 1023px) and (max-height: 500px)').matches) {
+      pause()
+      setMobileFullscreen(true)
+      return
+    }
     if (state === 'playing' || state === 'loading') pause()
     else void play()
   }
@@ -149,7 +160,7 @@ export function LivingMedia({
           <div className={cn('flex items-center gap-2', live && 'justify-between')}>
             <div className="flex items-center gap-2">
               {/* Keep this button mounted so keyboard focus survives every state change. */}
-              <button type="button" onClick={toggle} aria-label={`${item.title}: ${label}`}
+              <button ref={triggerRef} type="button" onClick={toggle} aria-label={`${item.title}: ${label}`}
                 className={cn('grid shrink-0 cursor-pointer place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand',
                   live ? 'h-11 w-11 bg-ink/85 text-on-ink hover:bg-ink' : 'h-16 w-16 bg-brand text-ink hover:bg-brand-soft')}>
                 {state === 'playing' || state === 'loading' ? <Pause className="h-5 w-5" aria-hidden />
@@ -172,6 +183,7 @@ export function LivingMedia({
         </div>
       </div>
       <figcaption className="sr-only">{item.alt}</figcaption>
+      {mobileFullscreen && <MobileVideoPlayer item={item} onClose={closeMobileFullscreen} onReturnFocus={() => triggerRef.current?.focus()} />}
     </figure>
   )
 }

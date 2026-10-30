@@ -42,3 +42,8 @@ assets-source/
 # Ausgabe der Browser-Pruefungen
 .playwright-mcp/
 .media-audit/
+
+# Local visual verification and design-tool work files
+.playwright-cli/
+.taste-skill/
+output/playwright/

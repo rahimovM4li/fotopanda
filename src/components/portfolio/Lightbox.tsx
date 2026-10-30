@@ -1,3 +1,5 @@
+import { motion, useReducedMotion } from 'motion/react'
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useCallback, useEffect, useRef } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
@@ -20,12 +22,19 @@ export function Lightbox({
   index,
   onClose,
   onNavigate,
+  origin,
 }: {
+  origin?: DOMRect | null
   items: MediaRef[]
   index: number | null
   onClose: () => void
   onNavigate: (next: number) => void
 }) {
+  const { t } = useTranslation()
+  const reduce = useReducedMotion()
+  const initialOrigin = useRef(origin)
+  if (index === null) initialOrigin.current = origin
+  if (index !== null && origin !== initialOrigin.current) initialOrigin.current = origin
   const startX = useRef<number | null>(null)
   const open = index !== null
   const item = index !== null ? items[index] : null
@@ -85,14 +94,14 @@ export function Lightbox({
             else goNext()
           }}
         >
-          <Dialog.Title className="sr-only">{title}</Dialog.Title>
+          <Dialog.Title className="sr-only">{t(title)}</Dialog.Title>
           <Dialog.Description className="sr-only">
-            {`Arbeit ${(index ?? 0) + 1} von ${items.length}. Mit den Pfeiltasten blättern, mit Escape schließen.`}
+            {t("Arbeit {index} von {count}. Mit den Pfeiltasten blättern, mit Escape schließen.", { index: (index ?? 0) + 1, count: items.length })}
           </Dialog.Description>
 
           <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
             <p className="font-display text-sm font-bold text-on-ink/60 tabular">
-              {String((index ?? 0) + 1).padStart(2, '0')}{' '}
+              {String((index ?? 0) + 1).padStart(2, '0')}{t(' ')}
               <span className="text-on-ink/30">/ {String(items.length).padStart(2, '0')}</span>
             </p>
             <Dialog.Close asChild>
@@ -102,7 +111,7 @@ export function Lightbox({
                 className="grid h-11 w-11 place-items-center rounded-full border border-on-ink/25 text-on-ink transition-colors hover:border-brand hover:bg-brand hover:text-ink"
               >
                 <X className="h-5 w-5" aria-hidden />
-                <span className="sr-only">Ansicht schließen</span>
+                <span className="sr-only">{t("Ansicht schließen")}</span>
               </button>
             </Dialog.Close>
           </div>
@@ -114,17 +123,21 @@ export function Lightbox({
               className="hidden h-11 w-11 shrink-0 place-items-center rounded-full border border-on-ink/25 text-on-ink transition-colors hover:border-brand hover:bg-brand hover:text-ink sm:grid"
             >
               <ChevronLeft className="h-5 w-5" aria-hidden />
-              <span className="sr-only">Vorherige Arbeit</span>
+              <span className="sr-only">{t("Vorherige Arbeit")}</span>
             </button>
 
-            <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center">
+            <motion.div className="flex min-h-0 min-w-0 flex-1 items-center justify-center"
+              initial={reduce || !initialOrigin.current ? false : { opacity: .4, scale: Math.min(.8, initialOrigin.current.width / (window.innerWidth * .7)), x: initialOrigin.current.left + initialOrigin.current.width / 2 - window.innerWidth / 2, y: initialOrigin.current.top + initialOrigin.current.height / 2 - window.innerHeight / 2 }}
+              animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+              transition={{ type: 'spring', stiffness: 280, damping: 32 }}
+            >
               {photo && (
                 <picture className="flex max-h-full max-w-full items-center justify-center">
                   <source type="image/avif" srcSet={`${photo.base}-${photo.widths.at(-1)}.avif`} />
                   <source type="image/webp" srcSet={`${photo.base}-${photo.widths.at(-1)}.webp`} />
                   <img
                     src={`${photo.base}-${photo.widths.at(-1)}.jpg`}
-                    alt={photo.alt}
+                    alt={t(photo.alt)}
                     width={photo.intrinsic.width}
                     height={photo.intrinsic.height}
                     /* Nie über die Originalauflösung hinaus vergrößern. */
@@ -138,14 +151,14 @@ export function Lightbox({
                 <LivingMedia
                   key={living.id}
                   item={living}
-                  hint="Video ansehen"
+                  hint={t("Video ansehen")}
                   showCta={false}
                   showStatus={false}
                   aspectClassName="aspect-[9/16]"
                   className="w-full max-w-[min(100%,41.625vh)] [&_.media-frame]:max-h-[74vh]"
                 />
               )}
-            </div>
+            </motion.div>
 
             <button
               type="button"
@@ -153,7 +166,7 @@ export function Lightbox({
               className="hidden h-11 w-11 shrink-0 place-items-center rounded-full border border-on-ink/25 text-on-ink transition-colors hover:border-brand hover:bg-brand hover:text-ink sm:grid"
             >
               <ChevronRight className="h-5 w-5" aria-hidden />
-              <span className="sr-only">Nächste Arbeit</span>
+              <span className="sr-only">{t("Nächste Arbeit")}</span>
             </button>
           </div>
 
@@ -164,16 +177,16 @@ export function Lightbox({
               className="grid h-12 w-12 place-items-center rounded-full border border-on-ink/25 text-on-ink"
             >
               <ChevronLeft className="h-5 w-5" aria-hidden />
-              <span className="sr-only">Vorherige Arbeit</span>
+              <span className="sr-only">{t("Vorherige Arbeit")}</span>
             </button>
-            <p className="text-center text-xs text-on-ink/50">Wischen zum Blättern</p>
+            <p className="text-center text-xs text-on-ink/50">{t("Wischen zum Blättern")}</p>
             <button
               type="button"
               onClick={goNext}
               className="grid h-12 w-12 place-items-center rounded-full border border-on-ink/25 text-on-ink"
             >
               <ChevronRight className="h-5 w-5" aria-hidden />
-              <span className="sr-only">Nächste Arbeit</span>
+              <span className="sr-only">{t("Nächste Arbeit")}</span>
             </button>
           </div>
         </Dialog.Content>

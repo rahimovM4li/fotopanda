@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useEffect, useId, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
@@ -16,6 +17,7 @@ export function MobileVideoPlayer({ item, onClose, onReturnFocus }: {
   onClose: () => void
   onReturnFocus: () => void
 }) {
+  const { t } = useTranslation()
   const [video, setVideo] = useState<SafariVideo | null>(null)
   const [failed, setFailed] = useState(false)
   const instanceId = useId()
@@ -70,16 +72,16 @@ export function MobileVideoPlayer({ item, onClose, onReturnFocus }: {
         <Dialog.Overlay className="fixed inset-0 z-[70] bg-black" />
         <Dialog.Content data-tone="ink" className="fixed inset-0 z-[70] flex h-dvh flex-col bg-black text-on-ink outline-none"
           onCloseAutoFocus={(event) => { event.preventDefault(); onReturnFocus() }}>
-          <Dialog.Title className="sr-only">{item.title}</Dialog.Title>
-          <Dialog.Description className="sr-only">Video im Vollbild. Mit den Videosteuerungen pausieren und den Ton einschalten. Mit Schließen zur Seite zurückkehren.</Dialog.Description>
+          <Dialog.Title className="sr-only">{t(item.title)}</Dialog.Title>
+          <Dialog.Description className="sr-only">{t("Video im Vollbild. Mit den Videosteuerungen pausieren und den Ton einschalten. Mit Schließen zur Seite zurückkehren.")}</Dialog.Description>
           <div className="flex shrink-0 items-center justify-between gap-4 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3">
-            <p className="text-sm">{item.title}</p>
-            <Dialog.Close asChild><button type="button" className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-on-ink/40" aria-label="Video schließen"><X size={22} aria-hidden /></button></Dialog.Close>
+            <p className="text-sm">{t(item.title)}</p>
+            <Dialog.Close asChild><button type="button" className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-on-ink/40" aria-label={t("Video schließen")}><X size={22} aria-hidden /></button></Dialog.Close>
           </div>
           <video ref={setVideo} src={item.video} poster={`${item.posterBase}.jpg`} controls muted
             className="min-h-0 w-full flex-1 object-contain pb-[env(safe-area-inset-bottom)]"
-            aria-label={item.title} onError={() => setFailed(true)} onPlaying={() => setFailed(false)} />
-          {failed && <p role="alert" className="px-5 py-4 text-center text-sm">Das Video lässt sich gerade nicht abspielen. Bitte über die Videosteuerung erneut starten.</p>}
+            aria-label={t(item.title)} onError={() => setFailed(true)} onPlaying={() => setFailed(false)} />
+          {failed && <p role="alert" className="px-5 py-4 text-center text-sm">{t("Das Video lässt sich gerade nicht abspielen. Bitte über die Videosteuerung erneut starten.")}</p>}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

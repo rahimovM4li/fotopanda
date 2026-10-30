@@ -71,7 +71,7 @@ export function ScrollDepth({
     [0, 0.5, 1],
     [motionTokens.scale.mobileDepth, 1, motionTokens.scale.subtle],
   )
-  const active = enabled && !reduce
+  const active = enabled && !reduce && !mobile
   const transform = mobile
     ? { y: mobileY, rotateX: mobileRotateX, rotateY: mobileRotateY, scale: mobileScale, transformStyle: 'preserve-3d' as const }
     : { y, rotateX, rotateY, scale, transformStyle: 'preserve-3d' as const }

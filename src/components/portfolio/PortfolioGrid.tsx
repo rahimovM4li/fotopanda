@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useCallback, useRef, useState } from 'react'
 import { Play } from 'lucide-react'
 import { MediaStill } from '@/components/ui/MediaStill'
@@ -29,16 +30,19 @@ const pattern = [
 ]
 
 export function PortfolioGrid({ items }: { items: MediaRef[] }) {
+  const { t } = useTranslation()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [origin, setOrigin] = useState<DOMRect | null>(null)
+  const opener = useRef<number | null>(null)
   const triggers = useRef<Array<HTMLButtonElement | null>>([])
 
   const close = useCallback(() => {
-    const last = openIndex
+    const last = opener.current
     setOpenIndex(null)
     if (last !== null) {
       window.requestAnimationFrame(() => triggers.current[last]?.focus())
     }
-  }, [openIndex])
+  }, [])
 
   return (
     <>
@@ -71,7 +75,7 @@ export function PortfolioGrid({ items }: { items: MediaRef[] }) {
                         triggers.current[index] = el
                       }}
                       type="button"
-                      onClick={() => setOpenIndex(index)}
+                      onClick={(event) => { opener.current = index; setOrigin(event.currentTarget.getBoundingClientRect()); setOpenIndex(index) }}
                       className="group/work media-frame block w-full cursor-pointer rounded-media text-left"
                     >
                       <div className={cn('relative w-full', conf.media)}>
@@ -89,9 +93,7 @@ export function PortfolioGrid({ items }: { items: MediaRef[] }) {
                       {/* Symbol UND Text: auch ohne Farbwahrnehmung erkennbar. */}
                       {isVideo && (
                         <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
-                          <Play className="h-2.5 w-2.5 fill-brand text-brand" strokeWidth={0} aria-hidden />
-                          Video
-                        </span>
+                          <Play className="h-2.5 w-2.5 fill-brand text-brand" strokeWidth={0} aria-hidden />{t("Video")}</span>
                       )}
 
                       <span
@@ -102,7 +104,7 @@ export function PortfolioGrid({ items }: { items: MediaRef[] }) {
                       </span>
 
                       <span className="sr-only">
-                        {isVideo ? `Videoarbeit: ${label}. Große Ansicht öffnen.` : `${label}. Große Ansicht öffnen.`}
+                        {t(isVideo ? "Videoarbeit: {title}. Große Ansicht öffnen." : "{title}. Große Ansicht öffnen.", { title: t(label) })}
                       </span>
                     </button>
                   </TiltLayer>
@@ -113,7 +115,7 @@ export function PortfolioGrid({ items }: { items: MediaRef[] }) {
         })}
       </ul>
 
-      <Lightbox items={items} index={openIndex} onClose={close} onNavigate={setOpenIndex} />
+      <Lightbox origin={origin} items={items} index={openIndex} onClose={close} onNavigate={setOpenIndex} />
     </>
   )
 }

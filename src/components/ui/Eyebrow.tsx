@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/cn'
 
 /**
@@ -9,6 +10,7 @@ import { cn } from '@/lib/cn'
  * über Tonlage, Größe und Komposition.
  */
 export function Eyebrow({ children, className }: { children: string; className?: string }) {
+  const { t } = useTranslation()
   return (
     <p
       className={cn(
@@ -17,7 +19,7 @@ export function Eyebrow({ children, className }: { children: string; className?:
       )}
     >
       <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
-      {children}
+      {t(children)}
     </p>
   )
 }

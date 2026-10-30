@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useLocation } from 'react-router-dom'
@@ -15,12 +16,19 @@ import { CTA_PRIMARY, CONTACT_PATH } from '@/data/content'
  * bleibt er weg, dort steht das Formular.
  */
 export function MobileCta() {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const reducedMotion = useReducedMotion()
   const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => {
+      // A held scene already has its own action; keep the whole stage visible.
+      const inTour = [...document.querySelectorAll('.scene.is-live')].some((scene) => {
+        const bounds = scene.getBoundingClientRect()
+        return bounds.top <= 84 && bounds.bottom >= window.innerHeight
+      })
+      if (inTour) { setVisible(false); return }
       const scrolled = window.scrollY
       const height = document.documentElement.scrollHeight - window.innerHeight
       const progress = height > 0 ? scrolled / height : 0
@@ -58,12 +66,12 @@ export function MobileCta() {
             <a
               href={`tel:${siteConfig.phoneHref}`}
               className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-ink-line-2 text-on-ink"
-              aria-label={`Anrufen: ${siteConfig.phone}`}
+              aria-label={t('Anrufen: {phone}', { phone: siteConfig.phone })}
             >
               <Phone className="h-4.5 w-4.5" aria-hidden />
             </a>
             <Button as="link" to={CONTACT_PATH} size="lg" className="flex-1">
-              {CTA_PRIMARY}
+              {t(CTA_PRIMARY)}
               <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Button>
           </div>

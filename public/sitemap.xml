@@ -1,21 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fotopandastudio.de/</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/?lang=ru" />
   </url>
   <url>
-    <loc>https://fotopandastudio.de/impressum</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <loc>https://fotopandastudio.de/?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/?lang=ru" />
   </url>
   <url>
-    <loc>https://fotopandastudio.de/datenschutz</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <loc>https://fotopandastudio.de/fotografie</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/fotografie?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/fotografie?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/fotografie?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/fotografie?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/fotografie?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/lebendige-medien</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/lebendige-medien?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/lebendige-medien?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/lebendige-medien?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/lebendige-medien?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/lebendige-medien?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/gastronomie</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/gastronomie?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/gastronomie?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/gastronomie?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/gastronomie?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/gastronomie?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/unternehmen</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/unternehmen?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/unternehmen?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/unternehmen?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/unternehmen?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/unternehmen?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/arbeiten</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/arbeiten?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/arbeiten?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/arbeiten?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/arbeiten?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/arbeiten?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/ueber-uns</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/ueber-uns?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/ueber-uns?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/ueber-uns?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/ueber-uns?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/ueber-uns?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/kontakt</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/kontakt?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/kontakt?lang=ru" />
+  </url>
+  <url>
+    <loc>https://fotopandastudio.de/kontakt?lang=ru</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://fotopandastudio.de/kontakt?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://fotopandastudio.de/kontakt?lang=ru" />
   </url>
 </urlset>

@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { Suspense, lazy, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
@@ -53,6 +54,7 @@ function ScrollToTop() {
  * wirkt in dieser Zeit unruhiger als gar nichts.
  */
 function PageFallback() {
+  const { t } = useTranslation()
   return (
     <div
       data-tone="ink"
@@ -63,9 +65,7 @@ function PageFallback() {
           und etwas mehr ueber die Seite. Sehr langsam pulsierend, damit sie
           bei den ueblichen 200 Millisekunden gar nicht erst auffaellt. */}
       <PandaMark className="h-12 w-12 opacity-40 motion-safe:animate-[pulse_2.4s_ease-in-out_infinite]" />
-      <span className="sr-only" role="status">
-        Seite wird geladen
-      </span>
+      <span className="sr-only" role="status">{t("Seite wird geladen")}</span>
     </div>
   )
 }

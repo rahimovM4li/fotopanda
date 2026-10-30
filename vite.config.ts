@@ -38,5 +38,6 @@ export default defineConfig(({ command }) => ({
   build: {
     // Poster und Videos liegen in public/ und werden unverändert kopiert.
     assetsInlineLimit: 2048,
+    rollupOptions: { output: { manualChunks: { motion: ['motion/react'], react: ['react', 'react-dom', 'react-router-dom'] } } },
   },
 }))

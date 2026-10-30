@@ -198,3 +198,27 @@ nicht wie ein Beleg.
 Die Kundenanweisung vom September ersetzt frühere Vorgaben zu Tilt-Stapeln und langen Scroll-Bühnen. Die Startseite nutzt jetzt eine ruhige Foto-Komposition, eine kompakte Leistungsübersicht, kuratierte Arbeiten, App-Präsentation, vier Ablauf-Schritte und FAQ. Kein automatischer Videostart; Motion bleibt dezent und Inhalte bleiben während Einblendungen lesbar.
 
 Das neue Kundenlogo wird direkt aus der gelieferten Datei aufbereitet. Die Bildauswahl und Ausschlüsse stehen in docs/MEDIA-AUDIT.md. Aktuelle Browser- und Build-Prüfungen sowie Betriebsgrenzen stehen in docs/QA.md.
+
+## German / Russian and motion refinement — October 2026
+
+The approved content, customer photographs, films, and orange/ink/ivory identity remain the basis. The focal idea is a photographic print becoming a moving memory: the added photo → movement → memory sequence uses existing copy and media. The desktop print settles through perspective as the visitor scrolls, with a smaller album appearing alongside it. Playback is always explicit. The phone layout is a static print followed by the complete three-step narrative; reduced motion removes the spatial effects and the long sticky sequence.
+
+Type: retain Bricolage Grotesque for German display text and Manrope for body text. Russian display and body use the locally hosted Manrope Cyrillic subset with gentler tracking and more leading. No external font requests. The same content fits both scripts; headings wrap naturally rather than using fixed heights.
+
+Controls: a compact DE / RU segmented switch stays visible in the header and is also available in the mobile menu. A 260ms interruptible CSS transition communicates its state. Page arrivals take 280ms; arrows and controls respond in 180–220ms. The hero image settles once over 800ms. Motion never delays input. Photo frames and restrained perspective supply depth without WebGL, smooth-scroll libraries, or additional runtime dependencies.
+
+Skills installed and consulted: Impeccable (`pbakaus/impeccable`), Taste (`leonxlnx/taste-skill`), and `apple-design` / `emil-design-eng` from `emilkowalski/skills`. Taste's uneven photographic composition informed the print sequence. Its generic recommendations to delete labels, remove brand colors, or shorten approved copy were not adopted because this is an enhancement of the approved site. The original imagery, not generated or stock material, carries the design.
+
+
+## Authored scroll direction — October 29, 2026
+
+The user's explicit follow-up replaces the earlier restraint-only direction with authored scroll tours. Preserve the existing photographic identity, copy and media. Home has a continuous hero-image handoff and a print-to-film expansion; gastronomy pulls an actual dish crop back into the approved menu and onward into a playable phone; living media opens and turns a spatial photobook; the selected portfolio becomes a horizontal exhibition. Reusing approved films in these product demonstrations is deliberate, with no automatic playback and only one active film at a time.
+
+Use the existing Motion runtime and native sticky positioning. Each main tour holds for 2.6 screens; the gallery holds for two. Direct chapter controls and skip links keep the scenes navigable. Layouts below 1000px wide or 650px high, and reduced-motion preferences, use the complete static composition and ordinary text flow; the gallery remains directly swipeable. Primary links have bounded magnetic feedback, filters have a shared spring indicator, and lightbox arrival keeps the opening thumbnail's spatial origin. No new runtime dependencies or remote media are introduced.
+
+The photographic material is the focal move; the phone and book are geometric containers for real supplied images. Review scene frames and readable rest states rather than counting effects. Verification and remaining platform limits are recorded in docs/LANGUAGE-MOTION-QA.md.
+
+
+## Liquid navigation materials — explicit user follow-up
+
+The DE/RU switch and mobile navigation now share a liquid-glass material: dark translucent shell, silver moving lens, fine reflected edge and bounded depth. This explicit direction overrides generic anti-glass style heuristics for these controls. Language travel uses the existing Motion spring (430 stiffness, 30 damping); its reflection is finite. The inset menu enters over 420ms with an upper-right shape reveal, links stagger by 28ms, and the close icon morphs from burger strokes. Closing takes 180ms. Keep body/navigation text on the sufficiently opaque dark surface, never over unrestricted page imagery. Reduced motion and reduced transparency have deliberate fallbacks. Implementation lives in `src/liquid.css`, `LanguageSwitch.tsx` and `Header.tsx`.

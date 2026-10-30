@@ -87,11 +87,10 @@ export const siteConfig = {
     vatId: null,
   } satisfies LegalEntity,
 
-  /**
-   * Zieladresse fuer Formularanfragen. Solange `null`, meldet das Formular
-   * keinen Versand, sondern bietet Telefon und E-Mail an.
-   */
-  inquiryEndpoint: null as string | null,
+  /** The public form key selects the recipient configured in Web3Forms. */
+  inquiryRecipient: 'Qadriddin_Odinaev_01@web.de',
+  inquiryAccessKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ?? '',
+  inquiryEndpoint: 'https://api.web3forms.com/submit',
 } as const
 
 /** Nur Netzwerke mit belegter URL werden verlinkt. */

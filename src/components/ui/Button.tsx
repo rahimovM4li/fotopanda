@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Magnetic } from '@/components/motion/Magnetic'
@@ -45,7 +46,8 @@ type LinkProps = Styling &
   Omit<ComponentPropsWithoutRef<typeof Link>, 'className' | 'children'> & { as: 'link' }
 
 export function Button(props: ButtonProps | AnchorProps | LinkProps) {
-  const { variant = 'primary', size = 'md', className, children, magnetic = false } = props
+  const { t } = useTranslation()
+  const { variant = 'primary', size = 'md', className, children, magnetic = variant === 'primary' && props.as === 'link' && !className?.includes('flex-1') && !className?.includes('w-full') } = props
   const classes = cn(base, variants[variant], sizes[size], className)
 
   let node: ReactNode
@@ -60,7 +62,7 @@ export function Button(props: ButtonProps | AnchorProps | LinkProps) {
     void _m
     node = (
       <a className={classes} {...rest}>
-        {children}
+        {t(children)}
       </a>
     )
   } else if (props.as === 'link') {
@@ -73,7 +75,7 @@ export function Button(props: ButtonProps | AnchorProps | LinkProps) {
     void _m
     node = (
       <Link className={classes} {...rest}>
-        {children}
+        {t(children)}
       </Link>
     )
   } else {
@@ -86,10 +88,10 @@ export function Button(props: ButtonProps | AnchorProps | LinkProps) {
     void _m
     node = (
       <button className={classes} {...rest}>
-        {children}
+        {t(children)}
       </button>
     )
   }
 
-  return magnetic ? <Magnetic>{node}</Magnetic> : node
+  return magnetic ? <Magnetic>{t(node)}</Magnetic> : node
 }

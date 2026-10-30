@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { MaskReveal } from '@/components/motion/MaskReveal'
@@ -12,6 +13,7 @@ import { benefits } from '@/data/content'
  * dieser Stelle das erwartbarste mögliche Bild.
  */
 export function WhyStrip() {
+  const { t } = useTranslation()
   return (
     <Section tone="ink" grain>
       <div aria-hidden className="glow-warm right-[-16rem] bottom-[-14rem] h-[36rem] w-[36rem] opacity-25" />
@@ -21,7 +23,7 @@ export function WhyStrip() {
           <div>
             <MaskReveal
               as="h2"
-              lines={[<>Warum <span className="text-brand">Foto Panda</span>?</>]}
+              lines={[<>{t("Warum ")}<span className="text-brand">{t("Foto Panda")}</span>?</>]}
               className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
             />
 
@@ -37,10 +39,10 @@ export function WhyStrip() {
                   </span>
                   <div>
                     <dt className="text-h3 transition-colors duration-300 group-hover/row:text-brand">
-                      {benefit.title}
+                      {t(benefit.title)}
                     </dt>
                     <dd className="mt-2 max-w-[52ch] text-[0.9375rem] text-on-ink-muted">
-                      {benefit.description}
+                      {t(benefit.description)}
                     </dd>
                   </div>
                 </Reveal>

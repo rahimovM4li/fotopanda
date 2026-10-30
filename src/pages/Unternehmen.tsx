@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
@@ -19,6 +20,7 @@ import type { MediaRef } from '@/types'
  * der wie eine Hochzeitsreportage aussieht, arbeitet hier gegen die Sache.
  */
 export function Unternehmen() {
+  const { t } = useTranslation()
   useSeo({ ...page.seo, path: '/unternehmen' })
 
   return (
@@ -31,20 +33,20 @@ export function Unternehmen() {
 
         <div className="relative mx-auto grid w-full max-w-[92rem] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-end lg:px-12">
           <div>
-            <Eyebrow>{page.eyebrow}</Eyebrow>
+            <Eyebrow>{t(page.eyebrow)}</Eyebrow>
             <MaskReveal
               as="h1"
               immediate
               delay={100}
-              lines={[...page.headlineLines, <span className="text-brand">{page.headlineAccent}</span>]}
+              lines={[...page.headlineLines, <span className="text-brand">{t(page.headlineAccent)}</span>]}
               className="mt-6 font-display text-display leading-[0.98] font-extrabold tracking-[-0.042em]"
             />
             <Reveal delay={420} className="mt-7">
-              <p className="max-w-[52ch] text-lead text-on-ink-soft">{page.lead}</p>
+              <p className="max-w-[52ch] text-lead text-on-ink-soft">{t(page.lead)}</p>
             </Reveal>
             <Reveal delay={520} className="mt-9">
               <Button as="link" to={CONTACT_PATH} size="lg" magnetic>
-                {CTA_PRIMARY}
+                {t(CTA_PRIMARY)}
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Button>
             </Reveal>
@@ -78,12 +80,12 @@ export function Unternehmen() {
               as="h2"
               lines={[
                 ...page.oneShoot.headlineLines,
-                <span className="text-brand">{page.oneShoot.headlineAccent}</span>,
+                <span className="text-brand">{t(page.oneShoot.headlineAccent)}</span>,
               ]}
               className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
             />
             <Reveal variant="fade">
-              <p className="max-w-[48ch] text-lead text-tone-text-muted">{page.oneShoot.lead}</p>
+              <p className="max-w-[48ch] text-lead text-tone-text-muted">{t(page.oneShoot.lead)}</p>
             </Reveal>
           </div>
 
@@ -102,12 +104,8 @@ export function Unternehmen() {
                     className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent"
                   />
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                    <p className="font-display text-[0.6875rem] font-bold tracking-[0.16em] text-brand uppercase">
-                      Ein Termin
-                    </p>
-                    <p className="mt-2 max-w-[22ch] font-display text-h3 leading-tight text-on-ink">
-                      Ein Tag bei Ihnen oder im Studio.
-                    </p>
+                    <p className="font-display text-[0.6875rem] font-bold tracking-[0.16em] text-brand uppercase">{t("Ein Termin")}</p>
+                    <p className="mt-2 max-w-[22ch] font-display text-h3 leading-tight text-on-ink">{t("Ein Tag bei Ihnen oder im Studio.")}</p>
                   </div>
                 </div>
               </MotionSurface>
@@ -138,10 +136,10 @@ export function Unternehmen() {
                         className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"
                       />
                       <span className="absolute top-3 left-3 rounded-full bg-ink/75 px-2.5 py-1 font-display text-[0.625rem] font-bold tracking-[0.12em] text-on-ink uppercase backdrop-blur-md">
-                        {out.label}
+                        {t(out.label)}
                       </span>
                     </div>
-                    <p className="mt-2.5 text-[0.875rem] text-tone-text-muted">{out.body}</p>
+                    <p className="mt-2.5 text-[0.875rem] text-tone-text-muted">{t(out.body)}</p>
                   </MotionSurface>
                 </Reveal>
               ))}
@@ -159,7 +157,7 @@ export function Unternehmen() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
             <MaskReveal
               as="h2"
-              lines={[<>Warum mit <span className="text-brand">uns</span></>]}
+              lines={[<>{t("Warum mit ")}<span className="text-brand">{t("uns")}</span></>]}
               className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
             />
 
@@ -173,9 +171,9 @@ export function Unternehmen() {
                   <span className="font-display text-sm font-bold text-brand tabular">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <dt className="text-h3">{reason.title}</dt>
+                  <dt className="text-h3">{t(reason.title)}</dt>
                   <dd className="col-start-2 mt-2 max-w-[46ch] text-[0.9375rem] text-on-ink-muted sm:col-start-3 sm:mt-0">
-                    {reason.body}
+                    {t(reason.body)}
                   </dd>
                 </Reveal>
               ))}

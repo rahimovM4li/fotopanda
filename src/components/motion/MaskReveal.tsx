@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
@@ -29,6 +30,7 @@ export function MaskReveal({
   /** true im Hero: dort läuft der Auftritt beim Laden, nicht beim Scrollen. */
   immediate?: boolean
 }) {
+  const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const [run, setRun] = useState(false)
 
@@ -65,7 +67,7 @@ export function MaskReveal({
             )}
             style={run ? { animationDelay: `${delay + i * stagger}ms` } : undefined}
           >
-            {line}
+            {t(line)}
           </span>
         </span>
       ))}

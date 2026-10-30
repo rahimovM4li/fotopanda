@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/cn'
 import type { Photo } from '@/types'
 
@@ -17,6 +18,7 @@ interface PictureProps {
  * kein Layoutsprung entsteht.
  */
 export function Picture({ photo, sizes, className, imgClassName, priority = false }: PictureProps) {
+  const { t } = useTranslation()
   const set = (ext: string) =>
     photo.widths.map((w) => `${photo.base}-${w}.${ext} ${w}w`).join(', ')
 
@@ -28,7 +30,7 @@ export function Picture({ photo, sizes, className, imgClassName, priority = fals
         src={`${photo.base}-${photo.widths.at(-1)}.jpg`}
         srcSet={set('jpg')}
         sizes={sizes}
-        alt={photo.alt}
+        alt={t(photo.alt)}
         width={photo.intrinsic.width}
         height={photo.intrinsic.height}
         loading={priority ? 'eager' : 'lazy'}

@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowUpRight, Camera, Clock, User } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
@@ -41,6 +42,7 @@ const pair = page.categories.filter((c) => c.weight === 'pair')
 const wide = page.categories.filter((c) => c.weight === 'wide')
 
 export function Fotografie() {
+  const { t } = useTranslation()
   useSeo({ ...page.seo, path: '/fotografie' })
 
   return (
@@ -55,16 +57,16 @@ export function Fotografie() {
 
         <div className="relative mx-auto grid w-full max-w-[92rem] gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:px-12">
           <div>
-            <Eyebrow>{page.eyebrow}</Eyebrow>
+            <Eyebrow>{t(page.eyebrow)}</Eyebrow>
             <MaskReveal
               as="h1"
               immediate
               delay={100}
-              lines={[...page.headlineLines, <span className="text-brand">{page.headlineAccent}</span>]}
+              lines={[...page.headlineLines, <span className="text-brand">{t(page.headlineAccent)}</span>]}
               className="mt-6 font-display text-display leading-[0.98] font-extrabold tracking-[-0.042em]"
             />
             <Reveal delay={400} className="mt-7">
-              <p className="max-w-[44ch] text-lead text-on-ink-soft">{page.lead}</p>
+              <p className="max-w-[44ch] text-lead text-on-ink-soft">{t(page.lead)}</p>
             </Reveal>
 
             <Reveal delay={500} className="mt-10">
@@ -75,8 +77,8 @@ export function Fotografie() {
                       <Icon className="h-4 w-4" aria-hidden />
                     </span>
                     <span className="text-[0.8125rem] leading-tight">
-                      <span className="block font-semibold">{title}</span>
-                      <span className="block text-on-ink-muted">{detail}</span>
+                      <span className="block font-semibold">{t(title)}</span>
+                      <span className="block text-on-ink-muted">{t(detail)}</span>
                     </span>
                   </li>
                 ))}
@@ -85,7 +87,7 @@ export function Fotografie() {
 
             <Reveal delay={600} className="mt-9">
               <Button as="link" to={CONTACT_PATH} size="lg" magnetic>
-                {CTA_PRIMARY}
+                {t(CTA_PRIMARY)}
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Button>
             </Reveal>
@@ -95,7 +97,7 @@ export function Fotografie() {
             <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-stretch">
               <LivingMedia
                 item={livingMedia.wedding}
-                hint="Foto zum Leben erwecken"
+                hint={t("Foto zum Leben erwecken")}
                 priority
                 radiusClassName="rounded-frame"
                 aspectClassName="aspect-[4/5] sm:aspect-[4/3]"
@@ -118,10 +120,10 @@ export function Fotografie() {
                     />
                     <span className="absolute inset-x-2 bottom-2 text-center">
                       <span className="block font-display text-[0.5625rem] font-bold tracking-[0.12em] text-brand tabular">
-                        {entry.number}
+                        {t(entry.number)}
                       </span>
                       <span className="block text-[0.6875rem] font-semibold text-on-ink">
-                        {entry.label}
+                        {t(entry.label)}
                       </span>
                     </span>
                   </li>
@@ -139,13 +141,13 @@ export function Fotografie() {
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
             <Reveal>
               <p className="font-display text-[0.6875rem] font-bold tracking-[0.16em] text-tone-accent uppercase">
-                {page.philosophy.title}
+                {t(page.philosophy.title)}
               </p>
               <p className="mt-6 max-w-[16ch] font-display text-h2 leading-[1.02] font-bold tracking-[-0.038em] text-tone-text-muted">
-                {page.philosophy.lineOne}
+                {t(page.philosophy.lineOne)}
               </p>
               <p className="mt-3 max-w-[18ch] font-display text-h2 leading-[1.02] font-bold tracking-[-0.038em] text-tone-text">
-                {page.philosophy.lineTwo}
+                {t(page.philosophy.lineTwo)}
               </p>
             </Reveal>
 
@@ -172,7 +174,7 @@ export function Fotografie() {
         <Container width="wide">
           <MaskReveal
             as="h2"
-            lines={[<>Unsere <span className="text-brand">Bereiche</span></>]}
+            lines={[<>{t("Unsere ")}<span className="text-brand">{t("Bereiche")}</span></>]}
             className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
           />
 
@@ -194,8 +196,8 @@ export function Fotografie() {
                   </div>
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
                     <span className="font-display text-sm font-bold text-brand tabular">01</span>
-                    <h3 className="mt-1 text-h2 leading-[1.05] text-on-ink">{feature.title}</h3>
-                    <p className="mt-3 max-w-[46ch] text-on-ink-soft">{feature.body}</p>
+                    <h3 className="mt-1 text-h2 leading-[1.05] text-on-ink">{t(feature.title)}</h3>
+                    <p className="mt-3 max-w-[46ch] text-on-ink-soft">{t(feature.body)}</p>
                   </div>
                 </div>
               </MotionSurface>
@@ -219,10 +221,10 @@ export function Fotografie() {
                       <span className="font-display text-sm font-bold text-tone-text-faint tabular">
                         {String(i + 2).padStart(2, '0')}
                       </span>
-                      <h3>{cat.title}</h3>
+                      <h3>{t(cat.title)}</h3>
                     </div>
                     <p className="mt-1.5 max-w-[40ch] text-[0.9375rem] text-tone-text-muted">
-                      {cat.body}
+                      {t(cat.body)}
                     </p>
                   </MotionSurface>
                 </Reveal>
@@ -250,10 +252,10 @@ export function Fotografie() {
                     <span className="font-display text-sm font-bold text-tone-text-faint tabular">
                       {String(i + 4).padStart(2, '0')}
                     </span>
-                    <h3>{cat.title}</h3>
+                    <h3>{t(cat.title)}</h3>
                   </div>
                   <p className="mt-1.5 max-w-[44ch] text-[0.9375rem] text-tone-text-muted">
-                    {cat.body}
+                    {t(cat.body)}
                   </p>
                 </MotionSurface>
               </Reveal>
@@ -268,7 +270,7 @@ export function Fotografie() {
         <Container width="wide" className="relative">
           <MaskReveal
             as="h2"
-            lines={[<>Ausgewählte <span className="text-brand">Arbeiten</span></>]}
+            lines={[<>{t("Ausgewählte ")}<span className="text-brand">{t("Arbeiten")}</span></>]}
             className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
           />
           <div className="mt-12">
@@ -281,14 +283,14 @@ export function Fotografie() {
         <Container width="wide">
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_.8fr] lg:gap-20">
             <Reveal>
-              <Eyebrow>Geburtstage & besondere Anlässe</Eyebrow>
-              <h2 className="mt-5 max-w-[20ch]">Euer Tag.<br /><span className="text-tone-accent">Euer großer Moment.</span></h2>
-              <p className="mt-6 max-w-[43ch] text-lead text-tone-text-muted">Die Vorfreude, das Strahlen und all die Menschen, die mit euch feiern. Wir halten euren Geburtstag in Fotos und einem persönlichen Film fest – zum Immer-wieder-Erleben.</p>
-              <Button as="link" to={CONTACT_PATH} className="mt-8">Eure Feier anfragen<ArrowUpRight size={17} aria-hidden /></Button>
+              <Eyebrow>{t("Geburtstage & besondere Anlässe")}</Eyebrow>
+              <h2 className="mt-5 max-w-[20ch]">{t("Euer Tag.")}<br /><span className="text-tone-accent">{t("Euer großer Moment.")}</span></h2>
+              <p className="mt-6 max-w-[43ch] text-lead text-tone-text-muted">{t("Die Vorfreude, das Strahlen und all die Menschen, die mit euch feiern. Wir halten euren Geburtstag in Fotos und einem persönlichen Film fest – zum Immer-wieder-Erleben.")}</p>
+              <Button as="link" to={CONTACT_PATH} className="mt-8">{t("Eure Feier anfragen")}<ArrowUpRight size={17} aria-hidden /></Button>
             </Reveal>
             <MotionSurface variant="media" index={1} className="mx-auto w-full max-w-[360px]">
-              <LivingMedia item={livingMedia.birthday} hint="Geburtstagsfilm ansehen" showCta={false} showStatus={false} radiusClassName="rounded-frame" />
-              <p className="mt-4 text-sm text-tone-text-muted">Ein Geburtstag, der in Erinnerung bleibt.</p>
+              <LivingMedia item={livingMedia.birthday} hint={t("Geburtstagsfilm ansehen")} showCta={false} showStatus={false} radiusClassName="rounded-frame" />
+              <p className="mt-4 text-sm text-tone-text-muted">{t("Ein Geburtstag, der in Erinnerung bleibt.")}</p>
             </MotionSurface>
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
@@ -297,14 +299,14 @@ export function Fotografie() {
                 <MotionSurface variant="soft" index={index}>
                   <article className="border-t border-tone-line-2 pt-6">
                     <span className="font-display text-sm text-tone-accent">0{index + 1}</span>
-                    <h3 className="mt-5">{occasion.title}</h3>
-                    <p className="mt-4 text-tone-text-muted">{occasion.body}</p>
+                    <h3 className="mt-5">{t(occasion.title)}</h3>
+                    <p className="mt-4 text-tone-text-muted">{t(occasion.body)}</p>
                   </article>
                 </MotionSurface>
               </Reveal>
             ))}
           </div>
-          <Button as="link" to={CONTACT_PATH} className="mt-10">Euren Anlass besprechen <ArrowUpRight size={17} aria-hidden /></Button>
+          <Button as="link" to={CONTACT_PATH} className="mt-10">{t("Euren Anlass besprechen ")}<ArrowUpRight size={17} aria-hidden /></Button>
         </Container>
       </Section>
       <Process />

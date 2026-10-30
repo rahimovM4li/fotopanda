@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { AlertCircle, Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
@@ -12,6 +13,7 @@ type State = 'poster' | 'loading' | 'playing' | 'paused' | 'ended' | 'error'
 
 interface LivingMediaProps {
   item: LivingMediaItem
+  active?: boolean
   hint?: string
   priority?: boolean
   showCta?: boolean
@@ -26,8 +28,9 @@ interface LivingMediaProps {
 export function LivingMedia({
   item, hint = 'Foto zum Leben erwecken', priority = false, showCta = true,
   showStatus = true, className, aspectClassName, radiusClassName = 'rounded-media',
-  fullscreenOnMobile = false,
+  fullscreenOnMobile = false, active = true,
 }: LivingMediaProps) {
+  const { t } = useTranslation()
   const [state, setState] = useState<State>('poster')
   const [muted, setMuted] = useState(true)
   const [ctaVisible, setCtaVisible] = useState(false)
@@ -50,8 +53,8 @@ export function LivingMedia({
   }, [instanceId, release])
 
   useEffect(() => {
-    if (activeId !== instanceId) pause()
-  }, [activeId, instanceId, pause])
+    if (activeId !== instanceId || !active) pause()
+  }, [activeId, instanceId, pause, active])
 
   // Pause when the media is no longer visible; never resume without a click.
   useEffect(() => {
@@ -125,7 +128,7 @@ export function LivingMedia({
         <picture className="absolute inset-0 block h-full w-full">
           <source type="image/avif" srcSet={`${item.posterBase}.avif`} />
           <source type="image/webp" srcSet={`${item.posterBase}.webp`} />
-          <img src={`${item.posterBase}.jpg`} alt={item.alt}
+          <img src={`${item.posterBase}.jpg`} alt={t(item.alt)}
             width={item.intrinsic.width} height={item.intrinsic.height}
             loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'}
             decoding="async" className="h-full w-full object-cover"
@@ -142,10 +145,10 @@ export function LivingMedia({
             }
           }}
           onEnded={() => { setState('ended'); setCtaVisible(showCta); release(instanceId) }}
-          onError={fail} aria-label={item.title} />
+          onError={fail} aria-label={t(item.title)} />
         {showStatus && (
           <span className="pointer-events-none absolute top-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-[0.625rem] font-semibold tracking-[0.12em] text-on-ink uppercase">
-            {live ? 'Video' : 'Foto mit Video'}
+            {t(live ? 'Video' : 'Foto mit Video')}
           </span>
         )}
         <div className={cn('absolute inset-0 flex flex-col p-3 sm:p-4',
@@ -153,14 +156,12 @@ export function LivingMedia({
             : 'items-center justify-center gap-4 bg-ink/25', state === 'error' && 'bg-ink/85')}>
           {state === 'error' && (
             <div role="alert" className="flex max-w-[30ch] flex-col items-center gap-2 text-center text-sm text-on-ink">
-              <AlertCircle className="h-6 w-6" aria-hidden />
-              Das Video lässt sich gerade nicht abspielen.
-            </div>
+              <AlertCircle className="h-6 w-6" aria-hidden />{t("Das Video lässt sich gerade nicht abspielen.")}</div>
           )}
           <div className={cn('flex items-center gap-2', live && 'justify-between')}>
             <div className="flex items-center gap-2">
               {/* Keep this button mounted so keyboard focus survives every state change. */}
-              <button ref={triggerRef} type="button" onClick={toggle} aria-label={`${item.title}: ${label}`}
+              <button ref={triggerRef} type="button" onClick={toggle} aria-label={`${t(item.title)}: ${t(label)}`}
                 className={cn('grid shrink-0 cursor-pointer place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand',
                   live ? 'h-11 w-11 bg-ink/85 text-on-ink hover:bg-ink' : 'h-16 w-16 bg-brand text-ink hover:bg-brand-soft')}>
                 {state === 'playing' || state === 'loading' ? <Pause className="h-5 w-5" aria-hidden />
@@ -169,20 +170,20 @@ export function LivingMedia({
               </button>
               {live && item.hasAudio && (
                 <button type="button" onClick={() => setMuted((current) => !current)}
-                  aria-pressed={!muted} aria-label={muted ? 'Ton einschalten' : 'Ton ausschalten'}
+                  aria-pressed={!muted} aria-label={t(muted ? 'Ton einschalten' : 'Ton ausschalten')}
                   className="grid h-11 w-11 place-items-center rounded-full bg-ink/85 text-on-ink transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
                   {muted ? <VolumeX className="h-4 w-4" aria-hidden /> : <Volume2 className="h-4 w-4" aria-hidden />}
                 </button>
               )}
             </div>
-            {live && ctaVisible && showCta && <Button as="link" to={CONTACT_PATH} size="md">{CTA_PRIMARY}</Button>}
+            {live && ctaVisible && showCta && <Button as="link" to={CONTACT_PATH} size="md">{t(CTA_PRIMARY)}</Button>}
           </div>
           {!live && <span aria-live="polite" className="max-w-full rounded-full bg-ink/80 px-3 py-1.5 text-center text-xs font-semibold text-on-ink">
-            {state === 'loading' ? 'Video wird geladen · Tippen zum Abbrechen' : label}
+            {t(state === 'loading' ? 'Video wird geladen · Tippen zum Abbrechen' : label)}
           </span>}
         </div>
       </div>
-      <figcaption className="sr-only">{item.alt}</figcaption>
+      <figcaption className="sr-only">{t(item.alt)}</figcaption>
       {mobileFullscreen && <MobileVideoPlayer item={item} onClose={closeMobileFullscreen} onReturnFocus={() => triggerRef.current?.focus()} />}
     </figure>
   )

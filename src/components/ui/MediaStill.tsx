@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/cn'
 import { livingMedia, photos } from '@/data/media'
 import type { LivingMediaId } from '@/data/media'
@@ -20,6 +21,7 @@ export function MediaStill({
   className?: string
   priority?: boolean
 }) {
+  const { t } = useTranslation()
   if (media.kind === 'photo') {
     const photo = photos[media.ref as keyof typeof photos]
     if (!photo) return null
@@ -42,7 +44,7 @@ export function MediaStill({
       <source type="image/webp" srcSet={`${item.posterBase}.webp`} />
       <img
         src={`${item.posterBase}.jpg`}
-        alt={item.alt}
+        alt={t(item.alt)}
         width={item.intrinsic.width}
         height={item.intrinsic.height}
         loading={priority ? 'eager' : 'lazy'}

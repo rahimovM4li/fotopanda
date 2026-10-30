@@ -7,8 +7,8 @@ export function PageTransition({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
   return (
-    <motion.div key={pathname} initial={reduce ? false : { opacity: 0.85 }}
-      animate={{ opacity: 1 }} transition={{ duration: reduce ? 0 : 0.2, ease: 'easeOut' }}>
+    <motion.div key={pathname} initial={reduce ? false : { opacity: 0.75, transform: 'translateY(8px)' }}
+      animate={{ opacity: 1, transform: 'translateY(0px)' }} transition={{ duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}>
       {children}
     </motion.div>
   )

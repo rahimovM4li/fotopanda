@@ -1,3 +1,6 @@
+import { motion, useReducedMotion } from 'motion/react'
+import { PortfolioGallery } from '@/sections/PortfolioGallery'
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { useMemo, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -19,6 +22,8 @@ function categoryOf(entry: MediaRef): CategoryId | undefined {
 }
 
 export function Arbeiten() {
+  const { t } = useTranslation()
+  const reduce = useReducedMotion()
   useSeo({
     title: 'Arbeiten | Foto Panda',
     description:
@@ -56,20 +61,17 @@ export function Arbeiten() {
         <div aria-hidden className="glow-warm top-[-16rem] left-1/2 h-[38rem] w-[38rem] -translate-x-1/2 opacity-30" />
 
         <Container width="wide" className="relative">
-          <Eyebrow>Portfolio</Eyebrow>
+          <Eyebrow>{t("Portfolio")}</Eyebrow>
           <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <MaskReveal
               as="h1"
               immediate
               delay={100}
-              lines={['Arbeiten aus', <>dem <span className="text-brand">Alltag</span>.</>]}
+              lines={['Arbeiten aus', <>{t("dem ")}<span className="text-brand">{t("Alltag")}</span>.</>]}
               className="font-display text-display leading-[0.98] font-extrabold tracking-[-0.042em]"
             />
             <Reveal delay={400} className="lg:max-w-[36ch] lg:text-right">
-              <p className="text-on-ink-muted">
-                Hochzeiten, Geburtstage, Porträts, Gerichte und Unternehmen. Antippen öffnet die große
-                Ansicht; Videoarbeiten sind gekennzeichnet.
-              </p>
+              <p className="text-on-ink-muted">{t("Hochzeiten, Geburtstage, Porträts, Gerichte und Unternehmen. Antippen öffnet die große Ansicht; Videoarbeiten sind gekennzeichnet.")}</p>
             </Reveal>
           </div>
 
@@ -79,7 +81,7 @@ export function Arbeiten() {
             <MotionSurface variant="soft">
               <div
                 role="group"
-                aria-label="Arbeiten filtern"
+                aria-label={t("Arbeiten filtern")}
                 className="snap-rail -mx-5 px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:flex-wrap lg:px-0"
               >
                 {available.map((f) => {
@@ -91,13 +93,14 @@ export function Arbeiten() {
                       onClick={() => setFilter(f.id)}
                       aria-pressed={active}
                       className={cn(
-                        'inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium transition-colors duration-300',
+                        'portfolio-filter relative isolate inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium transition-colors duration-300',
                         active
-                          ? 'border-brand bg-brand text-ink'
+                          ? 'border-transparent text-ink'
                           : 'border-ink-line-2 text-on-ink-muted hover:border-on-ink-muted hover:text-on-ink',
                       )}
                     >
-                      {f.label}
+                      {active && <motion.span className="filter-indicator" layoutId="portfolio-filter" transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 440, damping: 38 }} aria-hidden />}
+                      {t(f.label)}
                       <span className={cn('text-xs tabular', active ? 'text-ink/60' : 'text-on-ink-faint')}>
                         {counts.get(f.id)}
                       </span>
@@ -117,10 +120,11 @@ export function Arbeiten() {
           <PortfolioGrid key={filter} items={visible} />
 
           <p aria-live="polite" className="sr-only">
-            {`${visible.length} Arbeiten werden angezeigt.`}
+            {t("{count} Arbeiten werden angezeigt.", { count: visible.length })}
           </p>
         </Container>
       </Section>
+      <PortfolioGallery />
     </>
   )
 }

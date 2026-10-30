@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check": "node scripts/check-site.mjs",
-    "prepare-assets": "node scripts/prepare-new-assets.mjs && node scripts/prepare-brand.mjs"
+    "prepare-assets": "node scripts/prepare-new-assets.mjs && node scripts/prepare-brand.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

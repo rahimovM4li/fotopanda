@@ -1,0 +1,94 @@
+/* Bounded liquid-glass materials; motion responds to input, never loops. */
+.liquid-language {
+  padding: 4px; border-color: #ffffff24;
+  background: linear-gradient(145deg, #ffffff12, #ffffff03), #191b1ed9;
+  box-shadow: inset 0 1px 0 #ffffff12, 0 4px 12px #0002;
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.liquid-language .language-switch-thumb {
+  left: 4px; top: 4px; bottom: 4px; overflow: hidden;
+  background: linear-gradient(155deg, #fff 0%, #e8e9ec 48%, #c7cbd1 100%);
+  box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #858c97, 0 3px 9px #0004;
+  transition: none;
+}
+.liquid-language button { color: #c4c6cd; font-size: .75rem; letter-spacing: .025em; }
+.liquid-language button[aria-pressed=true] { color: #171a20; }
+.liquid-language button > span { display: inline-block; transition: transform 200ms var(--motion-arrive); }
+.liquid-language button:active { scale: 1; }
+.liquid-language button:active > span { transform: scale(.88); }
+.liquid-language-reflection { position: absolute; inset: -40% -80%; background: linear-gradient(110deg, transparent 38%, #fff9 48%, transparent 60%); animation: liquid-reflection 580ms var(--motion-arrive) both; pointer-events: none; }
+@keyframes liquid-reflection { from { transform: translateX(-30%) skewX(-15deg); opacity: 0; } 30% { opacity: .9; } to { transform: translateX(30%) skewX(-15deg); opacity: 0; } }
+.liquid-menu-trigger {
+  position: relative; display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 10px;
+  min-width: 52px; height: 52px; padding: 0 16px; border-radius: 50px; color: #f8f8fa; cursor: pointer;
+  border: 1px solid #ffffff26; background: linear-gradient(145deg, #ffffff1a, #ffffff03), #1b1d21d9;
+  box-shadow: inset 0 1px 0 #ffffff12, 0 4px 14px #0002;
+  transition: background-color 180ms, border-color 180ms, scale 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.liquid-menu-trigger:active { scale: .93; }
+.liquid-menu-trigger:focus-visible, .liquid-menu-link:focus-visible { outline: 2px solid #ff7a42; outline-offset: 4px; }
+.liquid-burger { width: 20px; height: 20px; position: relative; display: block; }
+.liquid-burger > span { position: absolute; left: 0; top: 9px; width: 20px; height: 1.5px; border-radius: 4px; background: currentColor; transition: transform 320ms var(--motion-arrive), opacity 160ms; }
+.liquid-burger > span:nth-child(1) { transform: translateY(-6px); }
+.liquid-burger > span:nth-child(2) { transform: scaleX(.7); transform-origin: right; }
+.liquid-burger > span:nth-child(3) { transform: translateY(6px); }
+[data-open=true] .liquid-burger > span:nth-child(1) { transform: rotate(45deg); }
+[data-open=true] .liquid-burger > span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+[data-open=true] .liquid-burger > span:nth-child(3) { transform: rotate(-45deg); }
+.liquid-backdrop { background: #08090db3; backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); }
+.liquid-menu-panel {
+  top: max(12px, env(safe-area-inset-top)); right: 12px; bottom: max(12px, env(safe-area-inset-bottom));
+  width: min(460px, calc(100vw - 24px)); padding: 24px;
+  border-radius: 32px; border: 1px solid #ffffff26;
+  background: linear-gradient(145deg, #ffffff0d, transparent 34%), #191c21f5;
+  box-shadow: inset 0 1px 0 #ffffff24, -16px 24px 80px #0006;
+  backdrop-filter: blur(28px) saturate(125%); -webkit-backdrop-filter: blur(28px) saturate(125%);
+  scrollbar-width: thin; scrollbar-color: #737880 transparent; transform-origin: calc(100% - 36px) 36px;
+}
+.liquid-menu-panel[data-state=open] { animation: liquid-menu-arrive 420ms var(--motion-arrive) both; }
+.liquid-menu-panel[data-state=closed] { animation: liquid-menu-leave 180ms ease-in both; pointer-events: none; }
+@keyframes liquid-menu-arrive { from { opacity: .2; transform: translate3d(8px,-8px,0) scale(.92); clip-path: inset(0 0 70% 55% round 40px); } to { opacity: 1; transform: none; clip-path: inset(0 round 32px); } }
+@keyframes liquid-menu-leave { to { opacity: 0; transform: translate3d(6px,-8px,0) scale(.96); } }
+.liquid-menu-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-shrink: 0; }
+.liquid-menu-top .brand-lockup { gap: 10px; }
+.liquid-menu-top .brand-lockup > span > img { max-width: 150px; }
+.liquid-menu-close { width: 48px; min-width: 48px; height: 48px; padding: 0; }
+.liquid-menu-close .liquid-burger > span:first-child { animation: liquid-stroke-top 420ms var(--motion-arrive) both; }
+.liquid-menu-close .liquid-burger > span:last-child { animation: liquid-stroke-bottom 420ms var(--motion-arrive) both; }
+@keyframes liquid-stroke-top { from { transform: translateY(-6px); } to { transform: rotate(45deg); } }
+@keyframes liquid-stroke-bottom { from { transform: translateY(6px); } to { transform: rotate(-45deg); } }
+.liquid-menu-description { margin: 26px 0 18px; font-size: 1.125rem; font-weight: 600; line-height: 1.45; color: #f2f3f6; }
+.liquid-menu-language { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.liquid-menu-language > span { font-size: .875rem; color: #bec2cc; }
+.liquid-menu-link { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; margin-bottom: 4px; padding: 10px 14px; border-radius: 18px; font-family: var(--font-display); font-size: 1.25rem; font-weight: 650; letter-spacing: -.02em; color: #f2f3f6; transition: background-color 180ms, color 180ms, transform 180ms var(--motion-arrive); }
+.liquid-menu-link.is-active { background: #ffffff10; color: #ff925e; box-shadow: inset 0 1px 0 #ffffff12; }
+.liquid-menu-arrow { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; color: #bec2cc; transition: transform 220ms var(--motion-arrive), background-color 180ms; }
+.liquid-menu-link.is-active .liquid-menu-arrow { color: #ff925e; background: #ff925e14; }
+.liquid-menu-panel[data-state=open] .liquid-menu-item { animation: liquid-item-arrive 350ms var(--motion-arrive) both; }
+@keyframes liquid-item-arrive { from { opacity: 0; transform: translate3d(0,12px,0); } to { opacity: 1; transform: none; } }
+.liquid-menu-footer { padding-top: 24px; padding-bottom: 16px; }
+.liquid-menu-footer > p { color: #bec2cc; font-size: .8125rem; }
+@media (hover:hover) and (pointer:fine) {
+  .liquid-menu-trigger:hover { border-color: #ffffff60; background-color: #343941; }
+  .liquid-menu-trigger:hover .liquid-burger > span:nth-child(2) { transform: scaleX(1); }
+  .liquid-menu-link:hover { background-color: #ffffff0c; transform: translateX(3px); }
+  .liquid-menu-link:hover .liquid-menu-arrow { transform: rotate(45deg); }
+}
+@media (min-width:1400px) { .site-header .liquid-menu-trigger { display: none; } }
+@media (max-width:380px) {
+  .liquid-menu-panel { right: 8px; top: 8px; bottom: 8px; width: calc(100vw - 16px); padding: 18px; border-radius: 28px; }
+  .liquid-menu-top .brand-lockup > span > img { max-width: 125px; }
+  .liquid-menu-top .brand-lockup > svg, .liquid-menu-top .brand-lockup > img { width: 36px; height: 36px; }
+  .liquid-menu-link { font-size: 1.125rem; padding-inline: 10px; }
+}
+@media (max-height:740px) { .liquid-menu-description { margin-block: 18px 12px; } .liquid-menu-language { margin-bottom: 12px; } .liquid-menu-link { min-height: 52px; } .liquid-menu-footer { padding-top: 16px; } }
+@media (prefers-reduced-motion:reduce) {
+  .liquid-menu-panel[data-state], .liquid-menu-panel[data-state=open] .liquid-menu-item, .liquid-menu-close .liquid-burger > span, .liquid-language-reflection { animation: none; }
+  .liquid-burger > span, .liquid-menu-link, .liquid-menu-arrow, .liquid-language button > span { transition: none; }
+}
+@media (prefers-reduced-transparency:reduce), (prefers-contrast:more) {
+  .liquid-menu-panel, .liquid-language, .liquid-menu-trigger { background: #191c21; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .liquid-backdrop { background: #08090df2; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@supports not (backdrop-filter:blur(1px)) { .liquid-menu-panel { background: #191c21; } }

@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
@@ -20,6 +21,7 @@ import { useSeo } from '@/hooks/useSeo'
  * werden. Die Mittel sind Weissraum, Schriftgrad und ein einziges Bild.
  */
 export function UeberUns() {
+  const { t } = useTranslation()
   useSeo({ ...page.seo, path: '/ueber-uns' })
 
   return (
@@ -33,17 +35,17 @@ export function UeberUns() {
       >
         <div className="relative mx-auto grid w-full max-w-[92rem] items-end gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20 lg:px-12">
           <div>
-            <Eyebrow>{page.eyebrow}</Eyebrow>
+            <Eyebrow>{t(page.eyebrow)}</Eyebrow>
             <MaskReveal
               as="h1"
               immediate
               delay={100}
-              lines={[...page.headlineLines, <span className="text-brand">{page.headlineAccent}</span>]}
+              lines={[...page.headlineLines, <span className="text-brand">{t(page.headlineAccent)}</span>]}
               className="mt-6 font-display text-display leading-[0.98] font-extrabold tracking-[-0.042em]"
             />
             <Reveal delay={420} className="mt-10">
               <blockquote className="max-w-[26ch] border-l-2 border-brand pl-6 font-display text-h3 leading-[1.22] font-medium text-on-ink-soft">
-                {page.quote}
+                {t(page.quote)}
               </blockquote>
             </Reveal>
           </div>
@@ -64,9 +66,9 @@ export function UeberUns() {
                 </div>
                 <figcaption className="mt-3 flex items-baseline gap-3 text-[0.8125rem] text-on-ink-muted">
                   <span className="font-display font-bold tracking-[0.14em] text-brand uppercase">
-                    {page.atWork.label}
+                    {t(page.atWork.label)}
                   </span>
-                  {page.atWork.caption}
+                  {t(page.atWork.caption)}
                 </figcaption>
               </figure>
             </MotionSurface>
@@ -79,21 +81,21 @@ export function UeberUns() {
         <Container>
           <Reveal variant="fade">
             <p className="max-w-[24ch] font-display text-h2 leading-[1.1] font-semibold tracking-[-0.03em] text-balance">
-              {page.lead}
+              {t(page.lead)}
             </p>
           </Reveal>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 sm:gap-12">
             {page.paragraphs.map((paragraph, i) => (
               <Reveal key={paragraph} delay={140 + i * 90}>
-                <p className="max-w-[44ch] text-lead text-tone-text-muted">{paragraph}</p>
+                <p className="max-w-[44ch] text-lead text-tone-text-muted">{t(paragraph)}</p>
               </Reveal>
             ))}
           </div>
 
           <Reveal delay={340} className="mt-12">
             <Button as="link" to={CONTACT_PATH} size="lg" magnetic>
-              {CTA_PRIMARY}
+              {t(CTA_PRIMARY)}
               <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Button>
           </Reveal>
@@ -123,7 +125,7 @@ export function UeberUns() {
                     <MediaStill media={item.media} sizes="(min-width:1024px) 30vw, 46vw" />
                   </div>
                   <figcaption className="mt-3 font-display text-[0.6875rem] font-bold tracking-[0.16em] text-tone-text-faint uppercase">
-                    {item.label}
+                    {t(item.label)}
                   </figcaption>
                 </figure>
               </MotionSurface>
@@ -137,7 +139,7 @@ export function UeberUns() {
         <Container width="wide" className="relative">
           <MaskReveal
             as="h2"
-            lines={[<>Woran wir uns <span className="text-brand">halten</span></>]}
+            lines={[<>{t("Woran wir uns ")}<span className="text-brand">{t("halten")}</span></>]}
             className="font-display text-h2 leading-[1] font-bold tracking-[-0.038em]"
           />
           <dl className="mt-12 grid gap-x-12 border-t border-ink-line sm:grid-cols-2">
@@ -151,30 +153,28 @@ export function UeberUns() {
                   <span className="font-display text-sm font-bold text-on-ink-faint tabular">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  {benefit.title}
+                  {t(benefit.title)}
                 </dt>
                 <dd className="mt-2 max-w-[46ch] pl-10 text-[0.9375rem] text-on-ink-muted">
-                  {benefit.description}
+                  {t(benefit.description)}
                 </dd>
               </Reveal>
             ))}
           </dl>
 
           <Reveal className="mt-12">
-            <p className="text-on-ink-muted">
-              Sie erreichen uns direkt unter{' '}
+            <p className="text-on-ink-muted">{t("Sie erreichen uns direkt unter")}{t(' ')}
               <a
                 href={`tel:${siteConfig.phoneHref}`}
                 className="font-semibold text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
               >
-                {siteConfig.phone}
-              </a>{' '}
-              oder per E-Mail an{' '}
+                {t(siteConfig.phone)}
+              </a>{t(' ')}{t("oder per E-Mail an")}{t(' ')}
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="font-semibold text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
               >
-                {siteConfig.email}
+                {t(siteConfig.email)}
               </a>
               .
             </p>

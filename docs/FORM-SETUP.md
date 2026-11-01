@@ -1,8 +1,9 @@
 # Kontaktformular — Web3Forms
 
-Implementiert am 29.10.2026. Die Verbindung ist vorbereitet, aber noch nicht aktiviert:
-Ein bestätigter Web3Forms-Formularschlüssel des Kunden fehlt. Es wurde keine echte
-Testnachricht verschickt und kein Eingang im Kundenpostfach bestätigt.
+Implementiert am 29.10.2026; am 30.10.2026 wurde der vom Auftraggeber gelieferte
+Formularschlüssel in `.env.local` eingetragen und der Produktionsbuild neu erstellt.
+Die tatsächliche Empfängerzuordnung im Web3Forms-Dashboard und der Eingang im
+Kundenpostfach sind noch nicht bestätigt.
 
 ## Freischaltung durch den Kunden
 
@@ -62,3 +63,31 @@ API-Anfragen, keine echten Nachrichten. Axe: keine Befunde innerhalb des Formula
 Ein zusätzlicher Ganzseitenscan meldete bestehende Abweichungen zwischen sichtbarem
 Text und zugänglichem Namen bei Sprachschalter und Markenlink außerhalb des Formulars.
 Die Vorschau ohne Schlüssel zeigt weiterhin „E-Mail vorbereiten“.
+
+## Aktivierungsprüfung am 30.10.2026
+
+Produktionsbuild und isolierte Transporttests erfolgreich. Ein echter Browser-Test
+über http://127.0.0.1:4173 wurde versucht. Web3Forms/Cloudflare lehnt bereits den
+CORS-Preflight mit HTTP 403 ab; die Antwort nennt die Beschränkung auf clientseitige
+API-Nutzung bzw. kostenpflichtige Server-IP-Freigabe. Dadurch wurde der eigentliche
+Formular-POST vom Browser nicht ausgeführt. Keine Zustellung bestätigt. Die UI zeigt
+den Verbindungsfehler korrekt und erhält die Eingaben. Keine automatische Wiederholung.
+
+Nach Veröffentlichung aus einem normalen Besucherbrowser prüfen. Falls dieselbe
+Ablehnung auftritt, Web3Forms-Support mit dem Fehler kontaktieren. Der Schlüssel muss
+bei einem externen Build weiterhin als VITE_WEB3FORMS_ACCESS_KEY gesetzt werden;
+`.env.local` ist absichtlich nicht versioniert.
+
+## Live-Prüfung am 01.11.2026
+
+https://www.fotopandastudio.de/ ist auf Vercel erreichbar (HTTP 200).
+Direktaufruf von /kontakt ergibt HTTP 404; Navigation innerhalb der React-App funktioniert.
+`vercel.json` mit dem von Vercel dokumentierten SPA-Rewrite auf /index.html ergänzt.
+Die Datei muss im Projektstamm mit deployed werden.
+
+Das veröffentlichte Kontaktformular zeigt „E-Mail vorbereiten“: Der Build enthält
+keinen Formularschlüssel. In Vercel unter Project → Settings → Environment Variables
+`VITE_WEB3FORMS_ACCESS_KEY` mit dem vorhandenen Formularschlüssel für Production setzen,
+anschließend einen neuen Build/Deployment auslösen. Eine lokale .env.local wird durch
+Git nicht übertragen. Erst danach echten Versand prüfen; bei dieser Prüfung wurde
+keine Nachricht versendet.

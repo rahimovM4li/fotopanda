@@ -1,0 +1,44 @@
+/* Page-specific compositions share the touch-first cinematic tour frame. */
+.book-studio { width: 100%; height: 100%; display: grid; place-items: center; perspective: 1600px; position: relative; }
+.scene-watermark { position: absolute; top: 8%; inset-inline: 0; color: #ffffff08; font-size: clamp(4rem, 8vw, 8rem); font-weight: 800; letter-spacing: -.07em; text-align: center; pointer-events: none; }
+#book-tour .memory-book { width: 86%; max-width: 760px; }
+#book-tour .book-cover { filter: drop-shadow(12px 16px 20px #0005); }
+#book-tour .cover-front { background: #28312b; color: #eedec1; }
+#book-tour .cover-front span { font-size: .8rem; letter-spacing: .1em; }
+#book-tour .book-memory { box-shadow: 0 20px 30px #0005; }
+#book-tour .book-memory button { min-width: 48px; min-height: 48px; }
+#menu-tour .tour-navigation { flex-wrap: nowrap; }
+#menu-tour .tour-navigation button { margin-right: 10px; padding-right: 8px; }
+#menu-tour .gastronomy-stage { height: 90%; max-height: 620px; border-radius: 0; background: transparent; }
+#menu-tour .gastro-kitchen img { object-position: 50% 40%; }
+#menu-tour .gastro-menu { height: 86%; width: 60%; left: 20%; top: 7%; }
+#menu-tour .gastro-video { position: absolute; height: 100%; width: auto; max-width: 100%; aspect-ratio: 9 / 16; top: 0; left: 50%; margin: 0; translate: -50% 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; display: flex; flex-direction: column; }
+#menu-tour .gastro-video > figure { flex: 1; min-height: 0; }
+#menu-tour .gastro-video .media-frame { height: 100%; max-height: none; }
+#menu-tour .tour-chapters h3, #book-tour .tour-chapters h3 { font-size: clamp(2.5rem, 3.8vw, 4.2rem); }
+@media (max-width: 999px) {
+  #book-tour.tour-live .memory-book { width: min(87%, calc((100svh - 445px) * 1.5)); }
+  #book-tour.tour-live .cover-front span { font-size: .55rem; padding: 5px 8px; }
+  #book-tour.tour-live .leaf-front, #book-tour.tour-live .leaf-back, #book-tour.tour-live .book-left { padding: 5px; }
+  #book-tour.tour-live .book-right { padding: 5px; }
+  #book-tour.tour-live .book-memory [data-playback-state=poster] .media-frame > div > span { display: none; }
+  #menu-tour.tour-live .tour-navigation { grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  #menu-tour.tour-live .tour-navigation button { flex-direction: column; align-items: flex-start; gap: 2px; padding: 5px 0; margin: 0; font-size: .58rem; }
+  #menu-tour.tour-live .gastronomy-stage { height: 94%; max-height: none; width: 100%; }
+  #menu-tour.tour-live .gastro-video button { width: 44px; height: 44px; }
+  #menu-tour.tour-live .gastro-video [data-playback-state=poster] .media-frame > div > span { display: none; }
+  #menu-tour.tour-live .tour-chapters h3, #book-tour.tour-live .tour-chapters h3 { font-size: clamp(1.5rem, 6.7vw, 2rem); }
+  #book-tour.tour-live .scene-watermark { font-size: 13vw; }
+}
+@media (max-width: 999px) and (max-height: 720px) {
+  #book-tour.tour-live .tour-chapters h3, #menu-tour.tour-live .tour-chapters h3 { font-size: 1.5rem; }
+}
+@media (max-width: 999px) {
+  #book-tour.tour-live [data-playback-state=error] .media-frame > div,
+  #menu-tour.tour-live [data-playback-state=error] .media-frame > div { padding: 6px; gap: 6px; }
+  #book-tour.tour-live [role=alert], #menu-tour.tour-live [role=alert] { font-size: .65rem; line-height: 1.3; }
+  #book-tour.tour-live [role=alert] > svg, #menu-tour.tour-live [role=alert] > svg { display: none; }
+  #book-tour.tour-live [aria-live], #menu-tour.tour-live [aria-live] { font-size: .6rem; padding: 4px 6px; }
+}
+
+#menu-tour.tour-rest .gastro-video { left: auto; right: 0; translate: none; height: 90%; top: 5%; }

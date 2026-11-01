@@ -123,7 +123,7 @@ export function LivingMedia({
     : state === 'error' ? 'Erneut versuchen' : hint
 
   return (
-    <figure className={cn('relative', className)}>
+    <figure className={cn('relative', className)} data-playback-state={state}>
       <div ref={frameRef} className={cn('media-frame relative w-full @container', radiusClassName, aspectClassName ?? item.aspect)}>
         <picture className="absolute inset-0 block h-full w-full">
           <source type="image/avif" srcSet={`${item.posterBase}.avif`} />

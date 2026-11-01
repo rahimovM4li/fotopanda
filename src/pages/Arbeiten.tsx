@@ -4,11 +4,9 @@ import { useTranslation } from '@/i18n/LanguageProvider'
 import { useMemo, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { Section } from '@/components/ui/Section'
 import { MaskReveal } from '@/components/motion/MaskReveal'
 import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
-import { PortfolioGrid } from '@/components/portfolio/PortfolioGrid'
 import { portfolio, portfolioFilters } from '@/data/content'
 import { livingMedia, photos } from '@/data/media'
 import type { LivingMediaId } from '@/data/media'
@@ -113,18 +111,8 @@ export function Arbeiten() {
         </Container>
       </section>
 
-      <Section tone="ink" spacing="none" className="pb-section" grain>
-        <Container width="wide" className="relative">
-          {/* key erzwingt ein neues Raster je Filter: Die Einblendung läuft
-              dadurch erneut, statt dass Kacheln stumm ausgetauscht werden. */}
-          <PortfolioGrid key={filter} items={visible} />
-
-          <p aria-live="polite" className="sr-only">
-            {t("{count} Arbeiten werden angezeigt.", { count: visible.length })}
-          </p>
-        </Container>
-      </Section>
-      <PortfolioGallery />
+      <PortfolioGallery key={filter} items={visible} />
+      <p aria-live="polite" className="sr-only">{t("{count} Arbeiten werden angezeigt.", { count: visible.length })}</p>
     </>
   )
 }

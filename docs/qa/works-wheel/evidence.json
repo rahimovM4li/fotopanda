@@ -1,0 +1,20 @@
+{
+  "contract":"contract.md: supplied WorksWheel ring/drum geometry with local media and native mobile page scrolling.",
+  "targetViewports":["1440x900","390x844"],
+  "accessibility":{"status":"pass","evidence":"Labelled project index, stage arrow-key navigation, direct image buttons, visible focus and existing lightbox. Native mobile tap selected item 5, opened and closed lightbox; reduced motion switched to a readable grid. Numbered mobile controls are 44px. Colour palette retained and rendered text visually reviewed."},
+  "responsive":{"status":"pass","evidence":"Desktop ring and bowed vertical drum reviewed at 1440x900; phone ring, central landscape cover, separated footer title/index reviewed at 390x844. Portrait images use curated objectPosition to preserve faces. Touch swipe scrolled the page 315px and opened the ring into the drum. Small viewport 375x667 checked for overflow and control visibility."},
+  "contentStates":{
+    "loading":{"status":"pass","evidence":"Delayed a local image response; card dimensions are fixed by measured geometry while the source loads, independent of intrinsic image dimensions."},
+    "empty":{"status":"not-applicable","reason":"Only categories with existing work are offered; defensive wrapper handles an empty items list."},
+    "error":{"status":"pass","evidence":"Blocked a cover request; native image fallback and labelled open button remain available. Unblocking and reload recovers the image."},
+    "partial":{"status":"pass","evidence":"One failed cover does not remove the other local works or the project index."},
+    "success":{"status":"pass","evidence":"Ring-to-drum, direct index navigation including last item, keyboard next, single-item filter, native touch page scrolling, lightbox open/close and reduced-motion grid exercised. No runtime errors in isolated touch browser."},
+    "permission":{"status":"not-applicable","reason":"Local media only. No external stock download, account changes, form submission or permission prompt."}
+  },
+  "renderedEvidence":[
+    {"viewport":"1440x900","artifact":"desktop-ring.png","observation":"Tangential covers surround the central title, matching the supplied ring composition."},
+    {"viewport":"1440x900","artifact":"desktop-drum.png","observation":"Large flat front cover, left title and index; neighbours rotate in hard perspective above/below."},
+    {"viewport":"390x844","artifact":"mobile-ring.png","observation":"Full ring fits phone width and keeps the central title clear."},
+    {"viewport":"390x844","artifact":"mobile-drum.png","observation":"Last work is front-facing with a readable separate title and horizontally visible selected index."}
+  ]
+}

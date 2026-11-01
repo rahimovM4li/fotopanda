@@ -1,4 +1,3 @@
-import { ImageHandoff } from '@/components/motion/ImageHandoff'
 import { useSeo } from '@/hooks/useSeo'
 import { MomentStory } from '@/sections/MomentStory'
 import { Hero } from '@/sections/Hero'
@@ -19,7 +18,6 @@ export function Home() {
   useSeo({ title: 'Foto Panda | Professionelle Fotografie & lebendige Erinnerungen', description: 'Fotos, Videos und lebendige Medien für Hochzeiten, Unternehmen, Restaurants, Schulen und besondere Veranstaltungen. Foto Panda aus Osnabrück – bundesweit.', path: '/' })
   return (
     <>
-      <ImageHandoff />
       <Hero />
       <MomentStory />
       <ServicesEditorial />

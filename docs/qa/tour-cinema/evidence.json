@@ -1,0 +1,21 @@
+{
+  "contract": "contract.md: cinema and photographic craft; real local wedding photos, explicit playable film, opening album, contact CTA; native scroll and chapter navigation on desktop AND portrait mobile.",
+  "targetViewports": ["1440x900", "390x844"],
+  "accessibility": {"status":"pass","evidence":"Keyboard Enter selected all three chapters; focus remained visible with solid outline. Touch emulation selected chapters and played/paused video. Smallest transformed play button measured 47.75px at 390x844; chapter targets are at least 44px tall. Reduced motion shows all three articles without held animation. Existing ink/ivory/orange tokens retained; text and focus visually inspected."},
+  "responsive": {"status":"pass","evidence":"Inspected Russian 1440x900 and all three 390x844 compositions. Also checked 375x667, 360x740, 768x1024 and 1000x650: no horizontal overflow; CTA stays inside viewport. Native scroll transforms were measured for all three chapters. Browser emulation, not physical Safari hardware."},
+  "contentStates": {
+    "loading":{"status":"pass","evidence":"Delayed MP4 response in touch Chromium; loading/cancel state appeared before video playback, captured in mobile-loading.png."},
+    "empty":{"status":"not-applicable","reason":"Fixed curated local assets and authored chapters, no empty collection or search result."},
+    "error":{"status":"pass","evidence":"Aborted MP4 request; alert appeared, retry succeeded after removing the network block. Screenshot mobile-error.png."},
+    "partial":{"status":"pass","evidence":"When video failed, photo, chapters, navigation and inquiry CTA remained available; retry recovered playback."},
+    "success":{"status":"pass","evidence":"Touch video play advanced currentTime, pause stopped playback, retry recovered. All chapters selected via touch and keyboard; skip ended below header; inquiry link opened /kontakt. No runtime page errors in isolated touch context."},
+    "permission":{"status":"not-applicable","reason":"User-triggered muted local video requires no permission prompt; no form was submitted."}
+  },
+  "renderedEvidence": [
+    {"viewport":"1440x900","artifact":"desktop-act-0.png","observation":"Real wedding photographs form a contained print stack beside first chapter."},
+    {"viewport":"1440x900","artifact":"desktop-act-2.png","observation":"Open album and floating playable memory; Russian headline, CTA and keyboard focus fit."},
+    {"viewport":"390x844","artifact":"mobile-act-0.png","observation":"Portrait mobile gets animated print stack, full text, chapter navigation and CTA inside held viewport."},
+    {"viewport":"390x844","artifact":"mobile-act-1.png","observation":"Second act expands to unobstructed film with tappable control."},
+    {"viewport":"390x844","artifact":"mobile-act-2.png","observation":"Album opens on mobile; floating video control remains above 44px, inquiry CTA is visible."}
+  ]
+}

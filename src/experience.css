@@ -111,9 +111,9 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* Authored scroll editions. Holds never capture wheel/touch events. */
 .scroll-tour { position: relative; background: #141719; color: #f5f3ee; }
-.tour-live { height: 360vh; }
+.tour-live { height: 300vh; }
 .tour-stage { padding: 38px max(28px, calc((100vw - 1280px) / 2)); }
-.tour-live .tour-stage { position: sticky; top: 84px; height: calc(100vh - 84px); display: flex; flex-direction: column; overflow: clip; }
+.tour-live .tour-stage { position: sticky; top: var(--header-h, 84px); height: calc(100vh - var(--header-h, 84px)); display: flex; flex-direction: column; overflow: clip; }
 .tour-heading { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .tour-heading h2 { max-width: 22ch; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.12; letter-spacing: -.035em; }
 .tour-skip { display: inline-flex; gap: 10px; align-items: center; flex-shrink: 0; font-size: .8125rem; min-height: 44px; color: #d1d2d0; }
@@ -121,16 +121,22 @@ h1, h2, h3 { text-wrap: balance; }
 .tour-copy { position: relative; z-index: 2; padding-block: 28px; }
 .tour-chapters h3 { font-size: clamp(2rem, 3.5vw, 3.75rem); letter-spacing: -.035em; line-height: 1.12; max-width: 16ch; }
 .tour-chapters p { color: #d1d2d0; margin-top: 24px; max-width: 36ch; font-size: clamp(1rem, 1.25vw, 1.125rem); line-height: 1.7; }
-.tour-live .tour-chapters { min-height: 245px; }
+.tour-live .tour-chapters { min-height: 270px; }
 .tour-live .tour-chapters article:not([hidden]) { animation: chapter-in 320ms var(--motion-arrive); }
 @keyframes chapter-in { from { opacity: .45; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-.tour-navigation { display: flex; gap: 6px; margin: 20px 0; }
-.tour-navigation button { width: 54px; height: 44px; display: grid; align-items: center; cursor: pointer; }
-.tour-navigation span { height: 4px; background: #666b6c; border-radius: 4px; transition: background-color 180ms, transform 180ms; }
-.tour-navigation button[aria-pressed=true] span { background: #ff4d00; transform: scaleY(1.5); }
+.tour-navigation { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+.tour-navigation button { min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid #ffffff26; border-radius: 6px; color: #d1d2d0; font-size: .75rem; cursor: pointer; transition: background-color 180ms, border-color 180ms; }
+.tour-navigation button > span:first-child { color: #aaa; font-variant-numeric: tabular-nums; }
+.tour-navigation button[aria-pressed=true] { background: #ff4d0014; border-color: #ff4d00; color: #fff; }
+.tour-navigation button[aria-pressed=true] > span:first-child { color: #ff6a2b; }
+.tour-navigation button:focus-visible { outline: 2px solid #ff6a2b; outline-offset: 4px; }
+.tour-navigation button:hover { border-color: #ff6a2b; }
+.tour-eyebrow { color: #ff6a2b; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+.tour-chapters .tour-chapter-index { margin: 0 0 20px; color: #ff6a2b; font-size: .8rem; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.tour-chapter-index span { color: #979b9b; }
 .tour-art { position: relative; min-width: 0; height: 100%; max-height: 630px; display: grid; place-items: center; perspective: 1400px; }
 .tour-progress { height: 3px; position: absolute; left: 0; right: 0; bottom: 0; background: #ff4d00; transform-origin: left; }
-.tour-end { position: absolute; bottom: 0; scroll-margin-top: 110px; }
+.tour-end { position: absolute; bottom: 0; scroll-margin-top: 0; }
 .cinema-print { width: min(100%, 520px); position: relative; box-shadow: 0 30px 65px #0006; }
 .cinema-print .media-frame { max-height: calc(100vh - 245px); }
 .cinema-mat { position: absolute; inset: -1px; border: 20px solid #f5f3ee; border-bottom-width: 58px; pointer-events: none; }
@@ -245,9 +251,6 @@ h1, h2, h3 { text-wrap: balance; }
   .tour-rest .gastro-phone { top: 36px; margin-top: 0; }
   .tour-rest .gastro-phone .media-frame { max-height: 250px; }
 }
-.image-handoff { position: fixed; left: 0; top: 0; z-index: 20; pointer-events: none; visibility: hidden; transform-origin: top left; overflow: hidden; contain: layout paint; }
-.image-handoff > picture, .handoff-incoming { position: absolute; inset: 0; }
-.handoff-incoming { opacity: 0; }
 .gallery-video-label { position: absolute; left: 16px; top: 16px; padding: 6px 12px; color: #f5f3ee; background: #141719; border-radius: 20px; font-size: .8125rem; }
 @media (min-width: 1000px) and (min-height: 650px) and (max-height: 800px) {
   .tour-live .tour-stage { padding-block: 20px; }

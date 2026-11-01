@@ -1,0 +1,22 @@
+{
+  "contract":"contract.md: cinematic mobile book/menu tours and a native-scroll looping portfolio ribbon; real assets, filters, pause, touch, keyboard and lightbox.",
+  "targetViewports":["390x844","1440x900"],
+  "accessibility":{"status":"pass","evidence":"Chapter buttons retain labels and visible focus; all seven book/menu chapters reachable on 375x667. Carousel next/previous, explicit pause and lightbox Escape/focus-return exercised. Native touch emulation swiped 215px and opened/closed lightbox. Reduced-motion preference updated live, disabled autoplay and kept scroll position stable; no runtime errors in isolated mobile context. Existing contrast palette and focus rings visually reviewed."},
+  "responsive":{"status":"pass","evidence":"Reviewed 390x844 Russian phone and 1440x900 German desktop screenshots. At 375x667 all book/menu chapter CTA bottoms measured 655px with no horizontal overflow. Cinematic transformations run in portrait mobile; very short landscape viewports and reduced motion keep a readable static composition. Physical Safari hardware was unavailable."},
+  "contentStates":{
+    "loading":{"status":"pass","evidence":"Delayed mobile menu MP4 request reached data-playback-state=loading before simulated error."},
+    "empty":{"status":"not-applicable","reason":"Only nonempty categories are offered in the portfolio. A defensive empty message exists, but no public empty filter is reachable."},
+    "error":{"status":"pass","evidence":"Aborted mobile menu video request displayed readable alert and retry inside the phone; screenshot menu-error.png."},
+    "partial":{"status":"pass","evidence":"Failed video retained poster, chapter navigation and inquiry CTA. Unblocking the request recovered playback on retry."},
+    "success":{"status":"pass","evidence":"Both tour videos advanced playback and paused. Carousel auto-loop crossed the repeated-cycle seam, pause held position, next moved one card, category filter reduced the collection to one item, lightbox restored canonical opener focus. Native touch swipe and tap succeeded."},
+    "permission":{"status":"not-applicable","reason":"Local curated media and explicit muted playback; no permission requests or submissions."}
+  },
+  "renderedEvidence":[
+    {"viewport":"390x844","artifact":"book-mobile.png","observation":"Open book and lifted playable film fit above the Russian chapter and CTA."},
+    {"viewport":"390x844","artifact":"menu-mobile.png","observation":"Digital-menu phone fits the contained stage; four chapter controls and CTA remain visible."},
+    {"viewport":"390x844","artifact":"portfolio-mobile.png","observation":"Touch-driven photo ribbon with framed real media and accessible large view."},
+    {"viewport":"1440x900","artifact":"book-tour-desktop.png","observation":"Book turns and lifts video within the cinematic desktop composition."},
+    {"viewport":"1440x900","artifact":"menu-tour-desktop.png","observation":"Full digital-menu phone and inquiry action occupy separate readable columns."},
+    {"viewport":"1440x900","artifact":"portfolio-desktop.png","observation":"Looping photographic ribbon shows multiple tilted prints, pause/direction controls and visible focus."}
+  ]
+}

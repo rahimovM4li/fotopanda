@@ -1,0 +1,53 @@
+.works-wheel { position: relative; height: 100%; min-height: 24rem; width: 100%; overflow: hidden; user-select: none; background: #100f0e; color: #f4eee6; }
+.works-wheel-stage { position: absolute; inset: 0; outline: none; }
+.works-wheel-stage--drag { touch-action: pan-x; cursor: grab; }
+.works-wheel-stage:focus-visible { outline: 2px solid #ff7a3d; outline-offset: -4px; }
+.works-wheel-drum { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; }
+.works-wheel-card { position: absolute; backface-visibility: hidden; }
+.works-wheel-face { position: relative; height: 100%; width: 100%; border-radius: 8px; box-shadow: 0 18px 40px -18px #0009; }
+.works-wheel-image { display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 8px; cursor: pointer; background: #27231f; transition: transform 350ms cubic-bezier(.22,1,.36,1), box-shadow 350ms; }
+.works-wheel-image img { height: 100%; width: 100%; object-fit: cover; }
+.works-wheel-image:focus-visible { outline: 3px solid #ff7a3d; outline-offset: 5px; }
+.works-wheel-action { pointer-events: none; position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; align-items: center; padding: 5px 10px; border-radius: 20px; color: #100f0e; background: #f4eee6ed; font-size: 11px; opacity: 0; transform: translateY(4px); transition: opacity 180ms, transform 180ms; }
+.works-wheel-card:hover .works-wheel-action, .works-wheel-card:focus-within .works-wheel-action { opacity: 1; transform: none; }
+.works-wheel-label { pointer-events: none; position: absolute; inset: 0; display: grid; place-items: center; letter-spacing: -.045em; font-weight: 650; }
+.works-wheel-title { pointer-events: none; position: absolute; left: 5%; top: 50%; width: 22%; transform: translateY(-50%); letter-spacing: -.035em; font-weight: 650; line-height: 1.15; opacity: 0; }
+.works-wheel-title > span { display: block; color: #ff7a3d; font-size: 11px; font-weight: 500; letter-spacing: .06em; margin-bottom: 12px; }
+.works-wheel-index { position: absolute; top: 7.5%; right: 2.5%; text-align: right; line-height: 1.75; color: #b5aaa0; list-style: none; margin: 0; padding: 0; }
+.works-wheel-index button { cursor: pointer; padding: 3px 0 3px 12px; min-height: 28px; display: inline-flex; gap: 12px; align-items: center; }
+.works-wheel-index button[aria-pressed=true] { color: #f4eee6; font-weight: 750; }
+.works-wheel-index button:focus-visible, .works-wheel-controls button:focus-visible { outline: 2px solid #ff7a3d; outline-offset: 4px; }
+.works-wheel-index-number { color: #897c70; font-size: 9px; font-variant-numeric: tabular-nums; }
+.works-wheel-index button[aria-pressed=true] .works-wheel-index-number { color: #ff7a3d; }
+.works-wheel-controls { position: absolute; bottom: 24px; right: 28px; display: flex; gap: 8px; }
+.works-wheel-controls button { width: 44px; height: 44px; border: 1px solid #ffffff40; border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
+@media (hover:hover) and (pointer:fine) {
+  .works-wheel-image:hover { transform: scale(1.08); box-shadow: 0 24px 45px #0007; }
+}
+@media (max-width:767px) {
+  .works-wheel-title { top: auto; bottom: 104px; left: 7%; width: 70%; transform: none; font-size: 21px !important; }
+  .works-wheel-title > span { margin-bottom: 6px; font-size: 10px; }
+  .works-wheel-index { top: auto; bottom: 12px; left: 16px; right: 16px; display: flex; overflow-x: auto; scrollbar-width: none; text-align: center; gap: 3px; }
+  .works-wheel-index button { min-width: 44px; height: 44px; padding: 0; justify-content: center; }
+  .works-wheel-index-number { font-size: 12px; }
+  .works-wheel-index-title { display: none; }
+  .works-wheel-controls { right: 16px; bottom: 66px; gap: 4px; }
+  .works-wheel-controls button { width: 36px; height: 36px; }
+  .works-wheel-action { opacity: 1; transform: none; font-size: 10px; right: 8px; bottom: 8px; }
+}
+.works-wheel--reduced { height: auto; padding: 24px; }
+.works-wheel--reduced .works-wheel-stage { position: relative; perspective: none !important; }
+.works-wheel--reduced .works-wheel-drum { position: relative; inset: auto; transform: none !important; display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 24px; }
+.works-wheel--reduced .works-wheel-card { position: relative; width: 100% !important; height: auto !important; aspect-ratio: 1.45; margin: 0 !important; transform: none !important; opacity: 1 !important; visibility: visible !important; }
+.works-wheel--reduced .works-wheel-face { transform: none !important; }
+.works-wheel--reduced .works-wheel-label, .works-wheel--reduced .works-wheel-title, .works-wheel--reduced .works-wheel-index, .works-wheel--reduced .works-wheel-controls { display: none; }
+@media (prefers-reduced-motion:reduce) { .works-wheel-image, .works-wheel-action { transition: none; } }
+@media (max-width:767px) {
+  .works-wheel:not(.works-wheel--reduced) .works-wheel-stage { bottom: 160px; overflow: hidden; }
+  .works-wheel-title { bottom: 100px; left: 20px; width: calc(100% - 125px); font-size: 20px !important; }
+  .works-wheel-controls { bottom: 66px; }
+  .works-wheel-controls button { width: 44px; height: 44px; }
+}
+@media (max-width:767px) {
+  .works-wheel-label { bottom: 160px; }
+}

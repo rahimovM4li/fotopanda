@@ -1,0 +1,5 @@
+# WorksWheel integration contract
+
+The user's supplied works-wheel.tsx replaces the earlier sphere/rail interpretation. Preserve its ring-to-bowed-vertical-drum geometry: CARD_H=.38, desktop CARD_MAX_W=.34, ratio=1.45, STEP=40, DRUM=2.22, LENS=2.7, RING_R=1.14, BOW=1.82 and neighbour culling. Tangential ring cards surround a title; scroll brings a flat full-size card forward, with neighbours turning away above and below.
+
+Integrate under src/components/ui using existing React, TypeScript, CSS/Tailwind and cn; no install or external demo artwork is required. Use real local Foto Panda media, translated short project names, existing curated focal points, filters and the accessible lightbox. Normal page scrolling controls the mounted instance on both desktop and touch; standalone component retains wheel/drag support. Mobile adapts card width, moves the title below the stage and uses 44px numbered index controls. Reduced motion has a static image collection. Targets: 1440x900 and 390x844; small-screen check 375x667. Chromium/touch emulation only, no physical Safari device.

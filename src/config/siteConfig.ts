@@ -87,9 +87,9 @@ export const siteConfig = {
     vatId: null,
   } satisfies LegalEntity,
 
-  /** The public form key selects the recipient configured in Web3Forms. */
+  /** Public browser form key; recipient is configured in Web3Forms. No build-time env required. */
   inquiryRecipient: 'Qadriddin_Odinaev_01@web.de',
-  inquiryAccessKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ?? '',
+  inquiryAccessKey: 'ff96d824-5448-4485-85fe-a40352d8ca36',
   inquiryEndpoint: 'https://api.web3forms.com/submit',
 } as const
 

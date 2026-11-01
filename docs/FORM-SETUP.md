@@ -1,9 +1,9 @@
 # Kontaktformular — Web3Forms
 
-Implementiert am 29.10.2026; am 30.10.2026 wurde der vom Auftraggeber gelieferte
-Formularschlüssel in `.env.local` eingetragen und der Produktionsbuild neu erstellt.
-Die tatsächliche Empfängerzuordnung im Web3Forms-Dashboard und der Eingang im
-Kundenpostfach sind noch nicht bestätigt.
+Aktueller Stand (01.11.2026): Der öffentliche Formularschlüssel ist auf Wunsch des
+Auftraggebers direkt in `src/config/siteConfig.ts` hinterlegt. Für den Formularversand
+ist keine Vercel-Umgebungsvariable mehr erforderlich. Der Eingang im Kundenpostfach
+ist weiterhin durch einen Live-Test nach dem Deployment zu bestätigen.
 
 ## Freischaltung durch den Kunden
 
@@ -18,17 +18,11 @@ Zuordnung nicht herstellen. Der Form Access Key ist für den Browser bestimmt.
 
 ## Konfiguration
 
-`.env.example` nach `.env.local` kopieren und setzen:
-
-```dotenv
-VITE_WEB3FORMS_ACCESS_KEY=FORMULARSCHLUESSEL_DES_KUNDEN
-```
-
-Auch in der Build-Umgebung des Hosters setzen. Danach Entwicklungsserver neu starten
-bzw. `npm run build` ausführen und den neuen Build veröffentlichen.
-Ohne Schlüssel bleibt der Versand ehrlich als E-Mail-Entwurf gekennzeichnet;
-der mailto-Ausweg adressiert die Kundenadresse. Die öffentlichen Geschäftskontaktdaten
-bleiben unverändert.
+Der Formularschlüssel steht unter `inquiryAccessKey` in `src/config/siteConfig.ts`.
+Änderungen dort mit `npm run build` neu bauen und veröffentlichen. Vorhandene Werte
+von `VITE_WEB3FORMS_ACCESS_KEY` werden nicht mehr gelesen und beeinflussen den Build
+nicht. Die bisherigen Prüfprotokolle unten dokumentieren den früheren Stand mit
+Umgebungsvariable; diese Einrichtungsschritte sind überholt.
 
 ## Verhalten und Prüfung
 

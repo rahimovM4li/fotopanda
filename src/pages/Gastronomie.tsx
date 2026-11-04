@@ -1,3 +1,4 @@
+import { GastronomyFilms } from '@/sections/GastronomyFilms'
 import { GastronomyTour } from '@/sections/GastronomyTour'
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowUpRight, Camera, Film, ScanLine } from 'lucide-react'
@@ -43,14 +44,15 @@ export function Gastronomie() {
           </MotionSurface>
           <MotionSurface variant="media" index={1} className="mt-12 sm:mt-16">
             <div>
-              <LivingMedia item={livingMedia['gastronomy-kitchen']} hint={t("Küchenvideo abspielen")} priority fullscreenOnMobile showCta={false} showStatus={false} aspectClassName="aspect-[9/16]" radiusClassName="rounded-media" />
-              <p className="mt-4 text-sm text-on-ink-muted">{t("Das Handwerk dahinter.")}<br />{t("Ein Einblick in die Küche.")}</p>
+              <LivingMedia item={livingMedia['gastro-table']} hint={t("Film ansehen")} priority fullscreenOnMobile showCta={false} showStatus={false} aspectClassName="aspect-[9/16]" radiusClassName="rounded-media" />
+              <p className="mt-4 text-sm text-on-ink-muted">{t("Vom Foto zum Genuss.")}<br />{t("Antippen. Film erleben.")}</p>
             </div>
           </MotionSurface>
         </div>
       </div></Container>
     </section>
     <GastronomyTour />
+    <GastronomyFilms />
     <Section tone="ivory"><Container width="wide"><Reveal><div><p className="section-kicker">{t("Ein Termin. Vielseitige Inhalte.")}</p><h2>{t("So kommt Ihr Haus")}<br /><span className="text-tone-accent">{t("zur Geltung.")}</span></h2></div></Reveal><div className="mt-12 grid gap-10 md:grid-cols-3">
       {[{icon:Camera,title:'Fotos, die Appetit machen',body:'Gerichte, Details und Atmosphäre – abgestimmt auf Speisekarten, Flyer und Ihre Website.'},{icon:Film,title:'Ihr Handwerk in Bewegung',body:'Kurze Filme zeigen die Zubereitung und das Anrichten. Für Social Media und Ihren digitalen Auftritt.'},{icon:ScanLine,title:'Ein Menü zum Entdecken',body:'Ein QR-Code verbindet Ihre Speisekarte mit Fotos, Videos und Informationen. Direkt im Browser Ihrer Gäste.'}].map(({icon:Icon,title,body}, index)=><MotionSurface key={title} variant="card" index={index}><article className="motion-info-card border-t border-tone-line pt-6"><Icon className="mb-6 text-tone-accent" size={26} aria-hidden /><h3>{t(title)}</h3><p className="mt-4 text-tone-text-muted">{t(body)}</p></article></MotionSurface>)}
     </div><Button as="link" to="/lebendige-medien" variant="outline" className="mt-10">{t("Digitale Erlebnisse entdecken")}<ArrowUpRight size={18} aria-hidden /></Button></Container></Section>

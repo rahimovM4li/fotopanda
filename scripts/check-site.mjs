@@ -14,7 +14,7 @@ try {
     }
     assert.ok(photo.alt.length > 12)
   }
-  assert.deepEqual(Object.keys(livingMedia).sort(), ['birthday','gastronomy-kitchen','wedding'])
+  assert.deepEqual(Object.keys(livingMedia).sort(), ['birthday','gastro-finish','gastro-grill','gastro-table','gastronomy-kitchen','wedding'])
   for (const item of Object.values(livingMedia)) {
     for (const ext of ['jpg','webp','avif']) await access(`public${item.posterBase}.${ext}`)
     await access(`public${item.video}`)

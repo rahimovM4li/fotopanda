@@ -37,8 +37,8 @@ export interface Photo {
 
 /**
  * Ein Foto-Video-Paar fuer die Foto-zu-Video-Einheit.
- * Das Poster ist ein Standbild aus dem eigenen Video, damit Poster und erstes
- * Videobild dieselbe Szene zeigen.
+ * Das Poster ist ein Standbild oder eine ausdrücklich zugeordnete Foto-Abdeckung.
+ * Videos starten ausschließlich nach einer Nutzeraktion.
  */
 export interface LivingMediaItem {
   id: string

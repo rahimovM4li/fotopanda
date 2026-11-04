@@ -14,6 +14,26 @@ import previews from './previews.json'
 const PHOTO_WIDTHS = [640, 960, 1320]
 
 const photosRaw = {
+  'menu-dessert': {
+    id: 'menu-dessert', base: '/assets/photos/menu-dessert', widths: [480, 915],
+    intrinsic: { width: 915, height: 1280 },
+    alt: 'Schwarz-goldene Dessertkarte mit Croissants, Pancakes, Waffeln und Kuchen', category: 'gastronomie', objectPosition: '50% 50%',
+  },
+  'menu-korean': {
+    id: 'menu-korean', base: '/assets/photos/menu-korean', widths: [384, 595],
+    intrinsic: { width: 595, height: 915 },
+    alt: 'Speisekarte Hae-won mit Bibimbap, Nudeln, Tteokbokki und Butter Chicken', category: 'gastronomie', objectPosition: '50% 50%',
+  },
+  'menu-special': {
+    id: 'menu-special', base: '/assets/photos/menu-special', widths: [480, 853],
+    intrinsic: { width: 853, height: 1280 },
+    alt: 'Spezialmenü des Restaurants Gänsefeder mit vier Gerichten und QR-Code', category: 'gastronomie', objectPosition: '50% 50%',
+  },
+  'menu-signature': {
+    id: 'menu-signature', base: '/assets/photos/menu-signature', widths: [384, 649],
+    intrinsic: { width: 649, height: 916 },
+    alt: 'Schwarz-goldene Speisekarte Table Eight mit Lachs, Suppe und Schokoladenkuchen', category: 'gastronomie', objectPosition: '50% 50%',
+  },
   'restaurant-menu': {
     id: 'restaurant-menu', base: '/assets/photos/restaurant-menu', widths: [480, 853],
     intrinsic: { width: 853, height: 1280 },
@@ -213,14 +233,30 @@ const livingMediaRaw = {
     hasAudio: true,
   },
 
+  'gastro-grill': {
+    id: 'gastro-grill', posterBase: '/assets/posters/gastro-grill', video: '/assets/videos/gastro-grill.mp4',
+    aspect: 'aspect-[9/16]', intrinsic: { width: 720, height: 1280 },
+    title: 'Geschmack im Detail', alt: 'Gegrillte Stücke mit Kräutern und Limette auf einem Teller', category: 'gastronomie', objectPosition: '50% 50%', hasAudio: true,
+  },
+  'gastro-finish': {
+    id: 'gastro-finish', posterBase: '/assets/posters/gastro-finish', video: '/assets/videos/gastro-finish.mp4',
+    aspect: 'aspect-[9/16]', intrinsic: { width: 720, height: 1280 },
+    title: 'Der letzte Schliff', alt: 'Goldbraunes Gericht mit Kräutern und frischer Zitrone', category: 'gastronomie', objectPosition: '50% 50%', hasAudio: true,
+  },
+  'gastro-table': {
+    id: 'gastro-table', posterBase: '/assets/posters/gastro-table', video: '/assets/videos/gastro-table.mp4',
+    aspect: 'aspect-[9/16]', intrinsic: { width: 720, height: 1280 },
+    title: 'Ein Tisch voller Geschichten', alt: 'Saftige Schaschlikspieße über glühenden Kohlen mit Tomaten, Kräutern und Fladenbrot', category: 'gastronomie', objectPosition: '50% 50%', hasAudio: true,
+  },
   'gastronomy-kitchen': {
     id: 'gastronomy-kitchen',
-    posterBase: '/assets/posters/gastronomy-kitchen',
+    posterBase: '/assets/posters/gastro-table',
+    lqip: previews['gastro-table'],
     video: '/assets/videos/gastronomy-kitchen.mp4',
     aspect: 'aspect-[4/5]',
     intrinsic: { width: 720, height: 1280 },
     title: 'Von der Küche auf den Tisch',
-    alt: 'Frisch zubereitete Teigtasche mit Fleisch und geschmolzenem Käse wird in der Restaurantküche geöffnet',
+    alt: 'Saftige Schaschlikspieße über glühenden Kohlen mit Tomaten, Kräutern und Fladenbrot',
     category: 'gastronomie',
     objectPosition: '50% 50%',
     hasAudio: true,
@@ -246,7 +282,7 @@ type WithPreview<T> = { [K in keyof T]: T[K] & { lqip?: string } }
 
 function withPreview<T extends Record<string, { id: string }>>(records: T): WithPreview<T> {
   return Object.fromEntries(
-    Object.entries(records).map(([key, value]) => [key, { ...value, lqip: lqip[value.id] }]),
+    Object.entries(records).map(([key, value]) => [key, { lqip: lqip[value.id], ...value }]),
   ) as WithPreview<T>
 }
 

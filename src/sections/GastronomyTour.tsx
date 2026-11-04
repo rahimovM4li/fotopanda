@@ -1,45 +1,63 @@
-import { useState } from 'react'
-import { motion, useMotionValueEvent, useTransform } from 'motion/react'
+import { motion, useTransform } from 'motion/react'
+import { ArrowUpRight } from 'lucide-react'
 import { ScrollTour, type TourStageProps } from '@/components/tours/ScrollTour'
-import { MediaStill } from '@/components/ui/MediaStill'
-import { LivingMedia } from '@/components/living/LivingMedia'
-import { livingMedia } from '@/data/media'
+import { Picture } from '@/components/ui/Picture'
+import { photos, type PhotoId } from '@/data/media'
 import { useTranslation } from '@/i18n/LanguageProvider'
+import './gastronomy-editorial.css'
 
 const chapters = [
-  { label: 'Die Küche', title: 'Hier beginnt der Geschmack.', body: 'Das Handwerk dahinter. Ein Einblick in die Küche.' },
-  { label: 'Das Gericht', title: 'Ein Gericht. Alle Blicke.', body: 'Gerichte, Details und Atmosphäre – abgestimmt auf Speisekarten, Flyer und Ihre Website.' },
-  { label: 'Das Menü', title: 'Vom Teller aufs Papier.', body: 'Die Speisekarte wird zur Bühne für Ihre Gerichte.' },
-  { label: 'Digital', title: 'Und weiter ins Digitale.', body: 'Ein QR-Code verbindet Ihre Speisekarte mit Fotos, Videos und Informationen. Direkt im Browser Ihrer Gäste.' },
+  { label: 'Der Einband', title: 'Appetit auf die nächste Seite.', body: 'Ein Menü beginnt lange vor der Bestellung. Mit einem Bild, einer Idee und der Lust, weiterzublättern.' },
+  { label: 'Der Auftakt', title: 'Aufschlagen. Entdecken.', body: 'Goldene Details, starke Fotografien und Raum für Genuss. So bekommt jedes Gericht seinen Auftritt.' },
+  { label: 'Die Vielfalt', title: 'Eine Seite. Neue Vorfreude.', body: 'Von süßen Klassikern bis zu herzhaften Spezialitäten: Jede Seite erzählt ihre eigene Geschichte.' },
+  { label: 'Die Erinnerung', title: 'Was bleibt, ist der Geschmack.', body: 'Vier Gestaltungsbeispiele. Ein Gedanke: Ihr Menü soll nicht nur informieren, sondern Lust auf Ihr Restaurant machen.' },
 ]
-function GastronomyStage({ progress: p, animated }: TourStageProps) {
+const pages: { id: PhotoId; label: string }[] = [
+  { id: 'menu-dessert', label: 'Desserts' }, { id: 'menu-korean', label: 'Asiatische Küche' },
+  { id: 'menu-special', label: 'Spezialitäten' }, { id: 'menu-signature', label: 'Signature-Menü' },
+]
+function MenuImage({ index }: { index: number }) {
+  return <Picture photo={photos[pages[index].id]} sizes="(min-width:1000px) 30vw, 48vw" />
+}
+function MenuBook({ progress: p, animated }: TourStageProps) {
   const { t } = useTranslation()
-  const [ready, setReady] = useState(false)
-  useMotionValueEvent(p, 'change', value => setReady(value >= .8))
-  const kitchenOpacity = useTransform(p, [.16, .28], [1, 0])
-  const kitchenX = useTransform(p, [0, .28], ['0%', '-30%'])
-  const menuOpacity = useTransform(p, [.16, .28, .7, .83], [0, 1, 1, 0])
-  // The dish is a crop of the approved menu: the same pixels pull back into print.
-  const menuScale = useTransform(p, [.25, .42, .62, 1], [4.5, 4.5, 1, .8])
-  const menuX = useTransform(p, [.25, .42, .62, 1], ['-130%', '-130%', '0%', '-25%'])
-  const menuY = useTransform(p, [.25, .42, .62], ['77%', '77%', '0%'])
-  const menuClip = useTransform(p, [.25, .42, .62], ['inset(27.5% 3% 61% 60% round 2px)', 'inset(27.5% 3% 61% 60% round 2px)', 'inset(0% 0% 0% 0%)'])
-  const menuRotate = useTransform(p, [.42, .62, .83], [0, -7, -14])
-  const videoOpacity = useTransform(p, [.7, .83], [0, 1])
-  const videoY = useTransform(p, [.7, .85], [100, 0])
-  const videoScale = useTransform(p, [.7, .85], [.94, 1])
-  return <div className="gastronomy-stage">
-    <motion.div className="gastro-kitchen" style={animated ? { opacity: kitchenOpacity, x: kitchenX } : { display: 'none' }} aria-hidden>
-      <MediaStill media={{ kind: 'living', ref: 'gastronomy-kitchen' }} sizes="(min-width:1000px) 42vw, 90vw" />
+  const cover = useTransform(p, [.06, .23], [0, -180])
+  const first = useTransform(p, [.39, .55], [0, -180])
+  const second = useTransform(p, [.69, .85], [0, -180])
+  const tilt = useTransform(p, [0, .25, 1], [14, 3, 0])
+  const turn = useTransform(p, [0, .3, 1], [-7, -2, 0])
+  const x = useTransform(p, [0, .23], ['-23%', '0%'])
+  const coverDepth = useTransform(p, value => value < .15 ? 5 : 1)
+  const firstDepth = useTransform(p, value => value < .47 ? 4 : 2)
+  const secondDepth = useTransform(p, value => value < .77 ? 3 : 4)
+  if (!animated) return <div className="menu-static-pages">{pages.map((page, i) => <figure key={page.id}><MenuImage index={i} /><figcaption>0{i + 1} · {t(page.label)}</figcaption></figure>)}</div>
+  return <div className="menu-book-studio" aria-hidden="true">
+    <motion.div className="menu-book" style={{ rotateX: tilt, rotateZ: turn, x }}>
+      <div className="menu-book-base menu-book-base--left"><span>FOTO PANDA</span><strong>{t('Mit Liebe zum Detail.')}</strong><i>Édition gastronomique</i></div>
+      <div className="menu-book-base menu-book-base--right"><span>04 / 04</span><strong>{t('Ihr Menü. Ihr Charakter.')}</strong><i>{t('Vom ersten Blick bis zum letzten Bissen.')}</i></div>
+      <motion.div className="menu-book-leaf" style={{ rotateY: second, zIndex: secondDepth }}>
+        <div className="menu-book-face menu-book-front"><MenuImage index={2} /></div>
+        <div className="menu-book-face menu-book-back"><MenuImage index={3} /></div>
+      </motion.div>
+      <motion.div className="menu-book-leaf" style={{ rotateY: first, zIndex: firstDepth }}>
+        <div className="menu-book-face menu-book-front"><MenuImage index={0} /></div>
+        <div className="menu-book-face menu-book-back"><MenuImage index={1} /></div>
+      </motion.div>
+      <motion.div className="menu-book-leaf menu-book-cover" style={{ rotateY: cover, zIndex: coverDepth }}>
+        <div className="menu-book-face menu-book-front"><span>FOTO PANDA · STUDIO</span><strong>À la<br />carte.</strong><div className="menu-cover-rule" /><i>{t('Geschichten, die Appetit machen.')}</i><small>PHOTOGRAPHY & FILM</small></div>
+        <div className="menu-book-face menu-book-back menu-cover-inside"><span>FOTO PANDA</span><strong>{t('Mit Liebe zum Detail.')}</strong><i>Édition gastronomique</i></div>
+      </motion.div>
     </motion.div>
-    <motion.div className="gastro-menu" style={animated ? { opacity: menuOpacity, scale: menuScale, x: menuX, y: menuY, rotateZ: menuRotate, clipPath: menuClip } : undefined}>
-      <MediaStill media={{ kind: 'photo', ref: 'restaurant-menu' }} sizes="(min-width:1000px) 853px, 50vw" />
-    </motion.div>
-    <motion.div className="gastro-video" inert={animated && !ready} aria-hidden={animated && !ready} style={animated ? { opacity: videoOpacity, y: videoY, scale: videoScale } : undefined}>
-      <LivingMedia active={!animated || ready} item={livingMedia['gastronomy-kitchen']} hint={t('Küchenvideo abspielen')} showCta={false} showStatus={false} aspectClassName="aspect-[9/16]" radiusClassName="rounded-none" />
-    </motion.div>
+    <p className="menu-book-caption">{t('Zum Blättern weiterscrollen')} <span>01 — 04</span></p>
   </div>
 }
 export function GastronomyTour() {
-  return <ScrollTour cinematic id="menu-tour" title="Vom Gericht zum Erlebnis." chapters={chapters} to="/kontakt" cta="Jetzt anfragen">{props => <GastronomyStage {...props} />}</ScrollTour>
+  const { t } = useTranslation()
+  return <>
+    <ScrollTour cinematic id="menu-tour" title="Eine Speisekarte. Viele Geschichten." chapters={chapters} to="/kontakt" cta="Ihr Menü gestalten lassen">{props => <MenuBook {...props} />}</ScrollTour>
+    <div className="menu-page-links" data-tone="ink"><p>{t('Alle vier Entwürfe in voller Größe')}</p><div>{pages.map((page, i) => {
+      const photo = photos[page.id]
+      return <a key={page.id} href={`${photo.base}-${photo.widths.at(-1)}.jpg`} target="_blank" rel="noopener noreferrer">0{i + 1} · {t(page.label)}<ArrowUpRight size={15} aria-hidden /><span className="sr-only">{t(' (neuer Tab)')}</span></a>
+    })}</div></div>
+  </>
 }

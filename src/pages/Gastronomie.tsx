@@ -13,11 +13,9 @@ import { Process } from '@/sections/Process'
 import { gastronomie as page } from '@/data/pages'
 import { livingMedia, photos } from '@/data/media'
 import { siteConfig } from '@/config/siteConfig'
-import { useSeo } from '@/hooks/useSeo'
 
 export function Gastronomie() {
   const { t } = useTranslation()
-  useSeo({ ...page.seo, path: '/gastronomie' })
   return <>
     <section data-tone="ink" className="bg-ink pt-32 pb-section-tight lg:pt-40">
       <Container width="wide"><div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">

@@ -2,7 +2,7 @@
 .works-wheel-sticky { position: sticky; top: var(--header-h, 79px); height: calc(100svh - var(--header-h, 79px)); }
 .works-wheel-scroll-hint { position: absolute; bottom: 24px; left: 28px; margin: 0; font-size: .7rem; color: #a99e93; pointer-events: none; }
 .work-inquiry { padding: 70px max(24px, calc((100vw - 1376px) / 2)); background: #100f0e; display: flex; justify-content: space-between; gap: 24px; align-items: center; }
-.work-inquiry h3 { font-size: clamp(1.7rem, 3vw, 3rem); max-width: 19ch; }
+.work-inquiry h2 { line-height: 1.16; letter-spacing: -.022em; font-size: clamp(1.7rem, 3vw, 3rem); max-width: 19ch; }
 .work-inquiry a { display: inline-flex; gap: 24px; align-items: center; padding: 16px 24px; background: #ff6a2b; color: #100f0e; border-radius: 99px; font-weight: 700; }
 .work-empty { padding: 48px; }
 @media (max-width:767px) {

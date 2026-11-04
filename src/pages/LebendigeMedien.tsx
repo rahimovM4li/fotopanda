@@ -9,12 +9,9 @@ import { MotionSurface } from '@/components/motion/MotionSurface'
 import { Reveal } from '@/components/motion/Reveal'
 import { LivingStory } from '@/sections/LivingStory'
 import { Process } from '@/sections/Process'
-import { lebendigeMedien as page } from '@/data/pages'
-import { useSeo } from '@/hooks/useSeo'
 
 export function LebendigeMedien() {
   const { t } = useTranslation()
-  useSeo({ ...page.seo, path: '/lebendige-medien' })
   return <>
     <section data-tone="ink" className="bg-ink pt-32 pb-section-tight lg:pt-40">
       <Container width="wide"><div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">

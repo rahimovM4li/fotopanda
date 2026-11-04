@@ -3,7 +3,8 @@ import './tour-scenes.css'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+
 import { useTourMotion } from '@/hooks/useTourMotion'
 import { useTranslation } from '@/i18n/LanguageProvider'
 

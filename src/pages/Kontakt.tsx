@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { useRef, useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+
 import { ArrowUpRight, ChevronDown, Mail, MapPin, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
@@ -11,7 +12,6 @@ import { inquiryTopics } from '@/data/content'
 import { kontakt as page } from '@/data/pages'
 import { siteConfig } from '@/config/siteConfig'
 import { inquiryAvailable, submitInquiry, type Inquiry, type InquiryResult } from '@/lib/submitInquiry'
-import { useSeo } from '@/hooks/useSeo'
 import '@/contact.css'
 
 type FieldName = 'name' | 'contact' | 'topic' | 'message' | 'consent'
@@ -35,7 +35,6 @@ function validate(values: Inquiry): Errors {
 
 export function Kontakt() {
   const { t, language } = useTranslation()
-  useSeo({ ...page.seo, path: '/kontakt' })
   const [values, setValues] = useState<Inquiry>(empty)
   const [errors, setErrors] = useState<Errors>({})
   const [result, setResult] = useState<InquiryResult | null>(null)

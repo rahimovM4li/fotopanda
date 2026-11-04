@@ -11,7 +11,6 @@ import { MediaStill } from '@/components/ui/MediaStill'
 import { benefits, CONTACT_PATH, CTA_PRIMARY } from '@/data/content'
 import { ueberUns as page } from '@/data/pages'
 import { siteConfig } from '@/config/siteConfig'
-import { useSeo } from '@/hooks/useSeo'
 
 /**
  * Die ruhigste Seite der Website.
@@ -22,7 +21,6 @@ import { useSeo } from '@/hooks/useSeo'
  */
 export function UeberUns() {
   const { t } = useTranslation()
-  useSeo({ ...page.seo, path: '/ueber-uns' })
 
   return (
     <>

@@ -10,7 +10,6 @@ import { Reveal } from '@/components/motion/Reveal'
 import { portfolio, portfolioFilters } from '@/data/content'
 import { livingMedia, photos } from '@/data/media'
 import type { LivingMediaId } from '@/data/media'
-import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/cn'
 import type { CategoryId, MediaRef } from '@/types'
 
@@ -22,12 +21,6 @@ function categoryOf(entry: MediaRef): CategoryId | undefined {
 export function Arbeiten() {
   const { t } = useTranslation()
   const reduce = useReducedMotion()
-  useSeo({
-    title: 'Arbeiten | Foto Panda',
-    description:
-      'Ausgewählte Foto- und Videoarbeiten von Foto Panda: Hochzeiten, Geburtstage, Porträts, Gastronomie, Unternehmen und lebendige Medien.',
-    path: '/arbeiten',
-  })
 
   const [filter, setFilter] = useState<string>('alle')
 

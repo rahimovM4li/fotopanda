@@ -1,5 +1,9 @@
+import { pages } from '@/seo/pages'
+import { Seo } from '@/seo/Seo'
+import { basePath } from '@/seo/paths'
+import { NotFound } from '@/pages/NotFound'
 import { useTranslation } from '@/i18n/LanguageProvider'
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy, useEffect, type ComponentType } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Header } from '@/components/layout/Header'
 import { PageTransition } from '@/components/layout/PageTransition'
@@ -9,30 +13,21 @@ import { ActiveMediaProvider } from '@/components/living/ActiveMediaContext'
 import { PandaMark } from '@/components/brand/PandaMark'
 import { Home } from '@/pages/Home'
 
-/* Die Startseite wird mitgeliefert, alles andere erst beim Aufruf geladen.
-   Ohne diese Trennung schleppt jeder Besucher der Startseite neun weitere
-   Seiten mit, von denen er in der Regel keine öffnet. */
-const Fotografie = lazy(() => import('@/pages/Fotografie').then((m) => ({ default: m.Fotografie })))
-const LebendigeMedien = lazy(() =>
-  import('@/pages/LebendigeMedien').then((m) => ({ default: m.LebendigeMedien })),
-)
-const Gastronomie = lazy(() =>
-  import('@/pages/Gastronomie').then((m) => ({ default: m.Gastronomie })),
-)
-const Unternehmen = lazy(() =>
-  import('@/pages/Unternehmen').then((m) => ({ default: m.Unternehmen })),
-)
-const Arbeiten = lazy(() => import('@/pages/Arbeiten').then((m) => ({ default: m.Arbeiten })))
-const UeberUns = lazy(() => import('@/pages/UeberUns').then((m) => ({ default: m.UeberUns })))
-const Kontakt = lazy(() => import('@/pages/Kontakt').then((m) => ({ default: m.Kontakt })))
-const Impressum = lazy(() => import('@/pages/Impressum').then((m) => ({ default: m.Impressum })))
-const Datenschutz = lazy(() =>
-  import('@/pages/Datenschutz').then((m) => ({ default: m.Datenschutz })),
-)
+// Keep secondary pages split into independent browser chunks.
+const modules = import.meta.glob(['./pages/*.tsx', '!./pages/Home.tsx', '!./pages/NotFound.tsx'])
+const routeElements = pages.map(page => {
+  if (page.path === '/') return { path: page.path, element: <Home /> }
+  const Component = lazy(async () => {
+    const module = await modules[`./pages/${page.component}.tsx`]() as Record<string, ComponentType>
+    return { default: module[page.component] }
+  })
+  return { path: page.path, element: <Component /> }
+})
 
 /** Beim Routenwechsel nach oben, aber nicht bei Ankersprüngen. */
 function ScrollToTop() {
-  const { pathname, hash } = useLocation()
+  const { pathname: localizedPath, hash } = useLocation()
+  const pathname = basePath(localizedPath)
   useEffect(() => {
     if (hash) {
       const frame = requestAnimationFrame(() => {
@@ -76,18 +71,9 @@ function AnimatedRoutes() {
   return (
     <PageTransition>
       <Suspense fallback={<PageFallback />}>
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/fotografie" element={<Fotografie />} />
-          <Route path="/lebendige-medien" element={<LebendigeMedien />} />
-          <Route path="/gastronomie" element={<Gastronomie />} />
-          <Route path="/unternehmen" element={<Unternehmen />} />
-          <Route path="/arbeiten" element={<Arbeiten />} />
-          <Route path="/ueber-uns" element={<UeberUns />} />
-          <Route path="/kontakt" element={<Kontakt />} />
-          <Route path="/impressum" element={<Impressum />} />
-          <Route path="/datenschutz" element={<Datenschutz />} />
-          <Route path="*" element={<Home />} />
+        <Routes location={{ ...location, pathname: basePath(location.pathname) }}>
+          {routeElements.map(route => <Route key={route.path} {...route} />)}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </PageTransition>
@@ -97,6 +83,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <ActiveMediaProvider>
+      <Seo />
       <ScrollToTop />
       <Header />
       <main id="inhalt">

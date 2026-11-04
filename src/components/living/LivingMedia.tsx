@@ -137,7 +137,7 @@ export function LivingMedia({
         <motion.video ref={videoRef} initial={false} animate={{ opacity: live ? 1 : 0 }}
           transition={{ duration: reduce ? 0 : 0.25 }}
           className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: item.objectPosition }}
-          src={item.video} preload="none" playsInline muted={muted}
+          src={item.video} poster={`${item.posterBase}.jpg`} preload="none" playsInline muted={muted}
           onPause={() => {
             if (videoRef.current?.paused && state === 'playing') {
               setState('paused')

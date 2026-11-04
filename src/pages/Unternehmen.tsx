@@ -10,7 +10,6 @@ import { Reveal } from '@/components/motion/Reveal'
 import { MediaStill } from '@/components/ui/MediaStill'
 import { CONTACT_PATH, CTA_PRIMARY } from '@/data/content'
 import { unternehmen as page } from '@/data/pages'
-import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/cn'
 import type { MediaRef } from '@/types'
 
@@ -21,7 +20,6 @@ import type { MediaRef } from '@/types'
  */
 export function Unternehmen() {
   const { t } = useTranslation()
-  useSeo({ ...page.seo, path: '/unternehmen' })
 
   return (
     <>

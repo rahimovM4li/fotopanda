@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowUpRight, ScanLine, Smartphone, Play } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { MediaStill } from '@/components/ui/MediaStill'

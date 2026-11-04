@@ -1,3 +1,4 @@
+import { basePath } from '@/seo/paths'
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
@@ -48,7 +49,7 @@ export function MobileCta() {
     }
   }, [pathname])
 
-  if (pathname === CONTACT_PATH) return null
+  if (basePath(pathname) === CONTACT_PATH) return null
 
   return (
     <AnimatePresence>

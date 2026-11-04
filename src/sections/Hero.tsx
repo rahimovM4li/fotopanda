@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+
 import { Button } from '@/components/ui/Button'
 import { MediaStill } from '@/components/ui/MediaStill'
 import { Reveal } from '@/components/motion/Reveal'

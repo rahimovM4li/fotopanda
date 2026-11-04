@@ -10,12 +10,12 @@ h1, h2, h3 { text-wrap: balance; }
 .site-header { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
 .language-switch-header { margin-left: auto; flex-shrink: 0; }
 .language-switch { position: relative; isolation: isolate; display: flex; padding: 3px; border: 1px solid var(--color-ink-line-2); border-radius: 99px; background: var(--color-ink-2); }
-.language-switch button { position: relative; width: 44px; min-height: 44px; font-size: .75rem; font-weight: 750; letter-spacing: .04em; color: var(--color-on-ink-muted); cursor: pointer; border-radius: 99px; transition: color 180ms ease; }
-.language-switch button[aria-pressed=true] { color: var(--color-ink); }
+.language-switch a { position: relative; width: 44px; min-height: 44px; font-size: .75rem; font-weight: 750; letter-spacing: .04em; color: var(--color-on-ink-muted); cursor: pointer; border-radius: 99px; transition: color 180ms ease; }
+.language-switch a[aria-current=true] { color: var(--color-ink); }
 .language-switch-thumb { position: absolute; left: 3px; top: 3px; bottom: 3px; width: 44px; border-radius: 99px; background: var(--color-on-ink); transition: transform 260ms var(--motion-arrive); pointer-events: none; }
 .language-switch-thumb[data-language=ru] { transform: translateX(44px); }
-.language-switch button:active { scale: .94; }
-.language-switch button:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+.language-switch a:active { scale: .94; }
+.language-switch a:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
 .hero-composition { gap: clamp(40px, 5vw, 80px); padding-top: 48px; padding-bottom: 64px; }
 .hero-copy h1 { letter-spacing: -.04em; }
 .hero-main-photo { border-radius: 5px; box-shadow: 0 30px 65px #0005; }
@@ -54,7 +54,7 @@ h1, h2, h3 { text-wrap: balance; }
 @media (hover: hover) and (pointer: fine) {
   .text-link:hover svg { transform: translate(2px,-2px); }
   .hero-footnote a:hover, .moment-next:hover { background: var(--color-ink-3); transform: translateY(2px); }
-  .language-switch button:hover:not([aria-pressed=true]) { color: var(--color-on-ink); }
+  .language-switch a:hover:not([aria-current=true]) { color: var(--color-on-ink); }
 }
 @media (min-width: 1400px) { .language-switch-header { margin-left: 0; } .site-header nav a { padding-inline: 9px; font-size: .8125rem; } }
 @media (max-width: 900px) {
@@ -265,3 +265,5 @@ h1, h2, h3 { text-wrap: balance; }
   .gallery-stage { padding-block: 24px; }
   .gallery-window { padding-block: 14px; }
 }
+
+.language-switch a { display: inline-flex; align-items: center; justify-content: center; }

@@ -1,7 +1,9 @@
+import { pages } from '@/seo/pages'
 /* eslint-disable react-refresh/only-export-components -- Locale context and hook form one public API. */
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, type ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import russian from './ru.json'
+import { languagePath, basePath, pathLanguage } from '@/seo/paths'
 
 export type Language = 'de' | 'ru'
 const STORAGE_KEY = 'foto-panda.language.v1'
@@ -14,36 +16,23 @@ export function translate<T>(value: T, language: Language, variables?: Record<st
   return result as T
 }
 
-function initialLanguage(): Language {
-  const query = new URLSearchParams(window.location.search).get('lang')
-  if (query === 'de' || query === 'ru') return query
-  try { return localStorage.getItem(STORAGE_KEY) === 'ru' ? 'ru' : 'de' } catch { return 'de' }
-}
 const LanguageContext = createContext({ language: 'de' as Language, setLanguage: (_language: Language) => {} })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, updateLanguage] = useState<Language>(initialLanguage)
   const location = useLocation()
+  const language = pathLanguage(location.pathname)
   const navigate = useNavigate()
   const setLanguage = useCallback((next: Language) => {
-    updateLanguage(next)
+    try { localStorage.setItem(STORAGE_KEY, next) } catch { /* Storage is optional. */ }
     const params = new URLSearchParams(location.search)
-    params.set('lang', next)
-    navigate({ pathname: location.pathname, search: `?${params}`, hash: location.hash }, { replace: true, preventScrollReset: true })
+    params.delete('lang')
+    const path = pages.some(page => page.path === basePath(location.pathname)) ? basePath(location.pathname) : '/'
+    navigate({ pathname: languagePath(path, next), search: params.toString(), hash: location.hash }, { preventScrollReset: true })
   }, [location, navigate])
 
   useEffect(() => {
-    const requested = new URLSearchParams(location.search).get('lang')
-    if (requested === 'de' || requested === 'ru') updateLanguage(requested)
-    else if (language === 'ru') {
-      const params = new URLSearchParams(location.search)
-      params.set('lang', 'ru')
-      navigate({ pathname: location.pathname, search: `?${params}`, hash: location.hash }, { replace: true, preventScrollReset: true })
-    }
-  }, [location.pathname, location.search, location.hash, navigate, language])
-  useEffect(() => {
     document.documentElement.lang = language
-    try { localStorage.setItem(STORAGE_KEY, language) } catch { /* Private browsing still supports switching. */ }
+    // Explicit URL language wins; a saved preference never changes a crawlable URL.
   }, [language])
 
   const value = useMemo(() => ({ language, setLanguage }), [language, setLanguage])

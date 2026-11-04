@@ -4,16 +4,9 @@ import { PendingData } from '@/components/PendingData'
 import { Reveal } from '@/components/motion/Reveal'
 import { hasLegalData, siteConfig } from '@/config/siteConfig'
 import { inquiryAvailable } from '@/lib/submitInquiry'
-import { useSeo } from '@/hooks/useSeo'
 
 export function Datenschutz() {
   const { t } = useTranslation()
-  useSeo({
-    title: `Datenschutz | ${siteConfig.brandName}`,
-    description: `Informationen zum Umgang mit personenbezogenen Daten auf der Website von ${siteConfig.brandName}.`,
-    path: '/datenschutz',
-    noIndex: true,
-  })
 
   return (
     <article data-tone="ink"

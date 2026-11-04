@@ -11,11 +11,11 @@
   box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #858c97, 0 3px 9px #0004;
   transition: none;
 }
-.liquid-language button { color: #c4c6cd; font-size: .75rem; letter-spacing: .025em; }
-.liquid-language button[aria-pressed=true] { color: #171a20; }
-.liquid-language button > span { display: inline-block; transition: transform 200ms var(--motion-arrive); }
-.liquid-language button:active { scale: 1; }
-.liquid-language button:active > span { transform: scale(.88); }
+.liquid-language a { color: #c4c6cd; font-size: .75rem; letter-spacing: .025em; }
+.liquid-language a[aria-current=true] { color: #171a20; }
+.liquid-language a > span { display: inline-block; transition: transform 200ms var(--motion-arrive); }
+.liquid-language a:active { scale: 1; }
+.liquid-language a:active > span { transform: scale(.88); }
 .liquid-language-reflection { position: absolute; inset: -40% -80%; background: linear-gradient(110deg, transparent 38%, #fff9 48%, transparent 60%); animation: liquid-reflection 580ms var(--motion-arrive) both; pointer-events: none; }
 @keyframes liquid-reflection { from { transform: translateX(-30%) skewX(-15deg); opacity: 0; } 30% { opacity: .9; } to { transform: translateX(30%) skewX(-15deg); opacity: 0; } }
 .liquid-menu-trigger {
@@ -85,7 +85,7 @@
 @media (max-height:740px) { .liquid-menu-description { margin-block: 18px 12px; } .liquid-menu-language { margin-bottom: 12px; } .liquid-menu-link { min-height: 52px; } .liquid-menu-footer { padding-top: 16px; } }
 @media (prefers-reduced-motion:reduce) {
   .liquid-menu-panel[data-state], .liquid-menu-panel[data-state=open] .liquid-menu-item, .liquid-menu-close .liquid-burger > span, .liquid-language-reflection { animation: none; }
-  .liquid-burger > span, .liquid-menu-link, .liquid-menu-arrow, .liquid-language button > span { transition: none; }
+  .liquid-burger > span, .liquid-menu-link, .liquid-menu-arrow, .liquid-language a > span { transition: none; }
 }
 @media (prefers-reduced-transparency:reduce), (prefers-contrast:more) {
   .liquid-menu-panel, .liquid-language, .liquid-menu-trigger { background: #191c21; backdrop-filter: none; -webkit-backdrop-filter: none; }

@@ -7,7 +7,7 @@ import { cn } from '@/lib/cn'
 import { useTranslation } from '@/i18n/LanguageProvider'
 import './works-wheel.css'
 
-export interface WorksWheelItem { title: string; image: string; alt?: string; objectPosition?: string; href?: string }
+export interface WorksWheelItem { title: string; image: string; width: number; height: number; srcSet?: string; alt?: string; objectPosition?: string; href?: string }
 export interface WorksWheelProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'children' | 'onSelect'> {
   items: WorksWheelItem[]
   label?: string
@@ -173,8 +173,8 @@ export function WorksWheel({ items, label = "Works '26", action = 'View', progre
       <div ref={wheelRef} className="works-wheel-drum">
         {items.map((item, i) => <div key={`${item.title}-${i}`} ref={node => { cardRefs.current[i] = node }} className="works-wheel-card" style={{ width: metrics.cardW, height: metrics.cardH, marginLeft: -metrics.cardW / 2, marginTop: -metrics.cardH / 2 }}>
           <div className="works-wheel-face">
-            {item.href && !onOpen ? <a href={item.href} className="works-wheel-image" aria-label={item.title}><img src={item.image} alt={item.alt ?? item.title} draggable={false} style={{ objectPosition: item.objectPosition }} /></a> :
-              <button type="button" className="works-wheel-image" tabIndex={reduced || active === i ? 0 : -1} aria-label={t('{title}. Große Ansicht öffnen.', { title: item.title })} onClick={event => open(i, event.currentTarget)}><img src={item.image} alt={item.alt ?? item.title} draggable={false} style={{ objectPosition: item.objectPosition }} /></button>}
+            {item.href && !onOpen ? <a href={item.href} className="works-wheel-image" aria-label={item.title}><img width={item.width} height={item.height} srcSet={item.srcSet} sizes="(min-width: 768px) 34vw, 78vw" loading="lazy" decoding="async" src={item.image} alt={item.alt ?? item.title} draggable={false} style={{ objectPosition: item.objectPosition }} /></a> :
+              <button type="button" className="works-wheel-image" tabIndex={reduced || active === i ? 0 : -1} aria-label={t('{title}. Große Ansicht öffnen.', { title: item.title })} onClick={event => open(i, event.currentTarget)}><img width={item.width} height={item.height} srcSet={item.srcSet} sizes="(min-width: 768px) 34vw, 78vw" loading="lazy" decoding="async" src={item.image} alt={item.alt ?? item.title} draggable={false} style={{ objectPosition: item.objectPosition }} /></button>}
             {(item.href || onOpen) && action && <span className="works-wheel-action" aria-hidden><ArrowUpRight size={14} />{action}</span>}
           </div>
         </div>)}

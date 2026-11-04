@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/LanguageProvider'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+
 import { Magnetic } from '@/components/motion/Magnetic'
 import { cn } from '@/lib/cn'
 

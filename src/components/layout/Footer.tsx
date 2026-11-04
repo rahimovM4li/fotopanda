@@ -1,5 +1,7 @@
+import { basePath } from '@/seo/paths'
 import { useTranslation } from '@/i18n/LanguageProvider'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from '@/i18n/LocalizedLink'
+import { useLocation } from 'react-router-dom'
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Wordmark } from '@/components/Wordmark'
@@ -8,13 +10,13 @@ import { CONTACT_PATH, CTA_PRIMARY, navigation } from '@/data/content'
 
 export function Footer() {
   const { t } = useTranslation()
-  const year = new Date().getFullYear()
+  const year = import.meta.env.VITE_BUILD_YEAR
   const { pathname } = useLocation()
 
   return (
     <footer data-tone="ink" className="relative border-t border-ink-line bg-ink text-on-ink">
       <div className="mx-auto w-full max-w-[92rem] px-5 pt-12 pb-8 sm:px-8 lg:px-12 lg:pt-18">
-        {pathname !== CONTACT_PATH && (
+        {basePath(pathname) !== CONTACT_PATH && (
           <div className="flex flex-col items-start gap-7 border-b border-ink-line pb-10 lg:flex-row lg:items-center lg:justify-between lg:gap-14 lg:pb-14">
             <div>
               <p className="mb-4 text-xs font-medium tracking-[0.14em] text-on-ink-muted uppercase">{t("Aus einer Idee wird ein Erlebnis")}</p>

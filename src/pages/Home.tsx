@@ -1,4 +1,3 @@
-import { useSeo } from '@/hooks/useSeo'
 import { MomentStory } from '@/sections/MomentStory'
 import { Hero } from '@/sections/Hero'
 import { LivingStory } from '@/sections/LivingStory'
@@ -15,7 +14,6 @@ import { Faq } from '@/sections/Faq'
  * Unterseiten, nicht in der Länge dieser Seite.
  */
 export function Home() {
-  useSeo({ title: 'Foto Panda | Professionelle Fotografie & lebendige Erinnerungen', description: 'Fotos, Videos und lebendige Medien für Hochzeiten, Unternehmen, Restaurants, Schulen und besondere Veranstaltungen. Foto Panda aus Osnabrück – bundesweit.', path: '/' })
   return (
     <>
       <Hero />

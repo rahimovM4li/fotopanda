@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/LanguageProvider'
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from '@/i18n/LocalizedLink'
+import { useLocation } from 'react-router-dom'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowUpRight, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'

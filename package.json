@@ -5,17 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check": "node scripts/check-site.mjs",
     "prepare-assets": "node scripts/prepare-new-assets.mjs && node scripts/prepare-brand.mjs",
-    "check:i18n": "node scripts/check-i18n.mjs"
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "preview:seo": "node scripts/serve-seo.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
+    "@vercel/functions": "^3.10.6",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.7",
     "react": "^19.0.0",
@@ -36,6 +39,7 @@
     "ffmpeg-static": "^5.2.0",
     "ffprobe-static": "^3.1.0",
     "globals": "^16.0.0",
+    "parse5": "^8.1.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.9",
     "typescript": "^5.7.3",

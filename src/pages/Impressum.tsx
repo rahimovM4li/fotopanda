@@ -3,16 +3,9 @@ import { Container } from '@/components/ui/Container'
 import { PendingData } from '@/components/PendingData'
 import { Reveal } from '@/components/motion/Reveal'
 import { hasLegalData, siteConfig } from '@/config/siteConfig'
-import { useSeo } from '@/hooks/useSeo'
 
 export function Impressum() {
   const { t } = useTranslation()
-  useSeo({
-    title: `Impressum | ${siteConfig.brandName}`,
-    description: `Impressum und Anbieterkennzeichnung von ${siteConfig.brandName}.`,
-    path: '/impressum',
-    noIndex: true,
-  })
 
   return (
     <article data-tone="ink"

@@ -6,6 +6,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 export default defineConfig(({ command }) => ({
+  define: { 'import.meta.env.VITE_BUILD_YEAR': JSON.stringify(new Date().getFullYear()), 'import.meta.env.VITE_DEPLOY_ENV': JSON.stringify(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production' ? 'preview' : process.env.SEO_PREVIEW === '1' ? 'preview' : 'production') },
   // Customer originals remain local and never enter the production output.
   publicDir: command === 'build' ? false : 'public',
   plugins: [react(), tailwindcss(), {
@@ -25,11 +26,12 @@ export default defineConfig(({ command }) => ({
         }
       }
       await walk('assets')
-      for (const fileName of ['robots.txt', 'sitemap.xml', 'site.webmanifest']) {
+      for (const fileName of ['site.webmanifest']) {
         this.emitFile({ type: 'asset', fileName, source: await readFile(path.join(publicRoot, fileName)) })
       }
     },
   }],
+  ssr: { noExternal: ['react-router-dom', 'react-router'], resolve: { conditions: ['module', 'import'] } },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

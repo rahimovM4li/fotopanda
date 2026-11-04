@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { access, readFile, readdir } from 'node:fs/promises'
 import { createServer } from 'vite'
 
-const server = await createServer({ server: { middlewareMode: true }, appType: 'custom' })
+const server = await createServer({ server: { middlewareMode: true, ws: false }, appType: 'custom' })
 try {
   const { photos, livingMedia } = await server.ssrLoadModule('/src/data/media.ts')
   const { portfolio, processSteps, inquiryTopics, faq } = await server.ssrLoadModule('/src/data/content.ts')

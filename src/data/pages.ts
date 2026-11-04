@@ -6,11 +6,6 @@
  */
 
 export const fotografie = {
-  seo: {
-    title: 'Fotografie | Foto Panda',
-    description:
-      'Fotos und Videos für Hochzeiten, Familien, Unternehmen, Schulen und Veranstaltungen. Foto Panda aus Osnabrück – bundesweit für euch da.',
-  },
   eyebrow: 'Fotografie',
   headlineLines: ['Momente,'],
   headlineAccent: 'die bleiben.',
@@ -72,11 +67,6 @@ export const fotografie = {
 }
 
 export const lebendigeMedien = {
-  seo: {
-    title: 'Lebendige Medien | Foto Panda',
-    description:
-      'Aus Foto und Video wird ein Erlebnis: lebendige Fotobücher, Alben und Printprodukte von Foto Panda.',
-  },
   eyebrow: 'Lebendige Medien',
   headlineLines: ['Ein Foto.', 'Viele Geschichten.'],
   headlineAccent: 'Ein Erlebnis.',
@@ -146,11 +136,6 @@ export const lebendigeMedien = {
 }
 
 export const gastronomie = {
-  seo: {
-    title: 'Gastronomie | Foto Panda',
-    description:
-      'Ihr Menü wird lebendig: QR-Code scannen, Gericht auswählen und Fotos oder Videos direkt auf dem Smartphone erleben. Ohne App-Installation.',
-  },
   eyebrow: 'Lebendiges Menü',
   headlineLines: ['Ihr Menü wird'],
   headlineAccent: 'lebendig.',
@@ -184,11 +169,6 @@ export const gastronomie = {
 }
 
 export const unternehmen = {
-  seo: {
-    title: 'Für Unternehmen | Foto Panda',
-    description:
-      'Business-Porträts, Produkt- und Unternehmensaufnahmen aus Osnabrück. Foto, Video und Gestaltung für Unternehmen in ganz Deutschland.',
-  },
   eyebrow: 'Für Unternehmen',
   headlineLines: ['Ihr Unternehmen.', 'Ihre Geschichte.'],
   headlineAccent: 'Stark präsentiert.',
@@ -273,10 +253,6 @@ export const unternehmen = {
 }
 
 export const ueberUns = {
-  seo: {
-    title: 'Über uns | Foto Panda',
-    description: 'Foto Panda aus Osnabrück: Fotografie und Videoproduktion in einer Hand.',
-  },
   eyebrow: 'Über Foto Panda',
   headlineLines: ['Ihre Momente.'],
   headlineAccent: 'Unsere Leidenschaft.',
@@ -307,10 +283,6 @@ export const ueberUns = {
 }
 
 export const kontakt = {
-  seo: {
-    title: 'Kontakt | Foto Panda',
-    description: 'Anfrage an Foto Panda: Fotografie und Videoproduktion aus Osnabrück.',
-  },
   eyebrow: 'Kontakt',
   headlineLines: ['Erzählen Sie uns'],
   headlineAccent: 'von Ihrem Projekt.',

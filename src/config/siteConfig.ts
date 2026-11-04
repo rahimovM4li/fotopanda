@@ -37,7 +37,7 @@ export interface LegalEntity {
 export const siteConfig = {
   brandName: 'Foto Panda',
   tagline: 'Fotos. Videos. Erlebnisse.',
-  domain: 'https://fotopandastudio.de',
+  domain: 'https://www.fotopandastudio.de',
 
   email: 'info@fotopandastudio.de',
   phone: '+49 176 84506657',

@@ -13,7 +13,6 @@ import { PortfolioGrid } from '@/components/portfolio/PortfolioGrid'
 import { CONTACT_PATH, CTA_PRIMARY } from '@/data/content'
 import { fotografie as page } from '@/data/pages'
 import { livingMedia } from '@/data/media'
-import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/cn'
 import { Faq } from '@/sections/Faq'
 import { Process } from '@/sections/Process'
@@ -43,7 +42,6 @@ const wide = page.categories.filter((c) => c.weight === 'wide')
 
 export function Fotografie() {
   const { t } = useTranslation()
-  useSeo({ ...page.seo, path: '/fotografie' })
 
   return (
     <>

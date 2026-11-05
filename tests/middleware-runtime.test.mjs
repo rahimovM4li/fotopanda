@@ -45,7 +45,7 @@ try {
   }
   assert.equal(middleware(new Request('https://preview.vercel.app/ru')).headers.get('x-robots-tag'), 'noindex, follow')
   const matchers = [config.matcher].flat().map(pattern => new RegExp(`^${pattern}$`))
-  for (const path of ['/robots.txt', '/sitemap.xml', '/site.webmanifest', '/assets/brand/mark.svg', '/_vercel/test']) {
+  for (const path of ['/robots.txt', '/sitemap.xml', '/favicon.ico', '/favicon.png', '/site.webmanifest', '/assets/brand/mark.svg', '/_vercel/test']) {
     assert.equal(matchers.some(matcher => matcher.test(path)), false, `${path}: serve without middleware`)
   }
   for (const path of ['/', '/ru/fotografie', '/missing', '/ru/missing', '/robots.txt/nested']) {

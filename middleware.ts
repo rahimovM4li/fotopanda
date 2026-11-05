@@ -17,4 +17,4 @@ export default function middleware(request: Request) {
   return rewrite(error, { status: 404, headers: { ...headers, 'X-Robots-Tag': 'noindex, follow' } })
 }
 // Keep crawler files available even when page middleware cannot start.
-export const config = { matcher: ['/((?!assets/|_vercel/|robots\\.txt$|sitemap\\.xml$|site\\.webmanifest$).*)'] }
+export const config = { matcher: ['/((?!assets/|_vercel/|robots\\.txt$|sitemap\\.xml$|site\\.webmanifest$|favicon\\.ico$|favicon\\.png$).*)'] }

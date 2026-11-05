@@ -26,7 +26,7 @@ export default defineConfig(({ command }) => ({
         }
       }
       await walk('assets')
-      for (const fileName of ['site.webmanifest']) {
+      for (const fileName of ['site.webmanifest', 'favicon.ico', 'favicon.png']) {
         this.emitFile({ type: 'asset', fileName, source: await readFile(path.join(publicRoot, fileName)) })
       }
     },

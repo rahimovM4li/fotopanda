@@ -2,6 +2,7 @@ import sharp from 'sharp'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { prepareFavicons } from './prepare-favicons.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -33,6 +34,7 @@ export async function prepareBrand() {
   // Stable favicon URL embeds exact customer artwork, not a guessed vector.
   const embedded = (await sharp(mark).resize(96, 96).png().toBuffer()).toString('base64')
   await writeFile(path.join(out, 'mark.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 680"><image width="680" height="680" href="data:image/png;base64,${embedded}"/></svg>`)
+  await prepareFavicons()
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

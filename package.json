@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "build": "tsc --noEmit && npm run check:middleware && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -13,6 +13,7 @@
     "prepare-assets": "node scripts/prepare-new-assets.mjs && node scripts/prepare-brand.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:seo": "node scripts/check-seo.mjs",
+    "check:middleware": "node tests/middleware-runtime.test.mjs",
     "preview:seo": "node scripts/serve-seo.mjs"
   },
   "dependencies": {

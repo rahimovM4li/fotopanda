@@ -1,6 +1,6 @@
-import { pages } from './pages'
-import { basePath, languagePath, pathLanguage } from './paths'
-import { siteConfig } from '../config/siteConfig'
+import { pages } from './pages.js'
+import { basePath, languagePath, pathLanguage } from './paths.js'
+import { siteConfig } from '../config/siteConfig.js'
 
 /** One redirect combines legacy language, HTML, slash and production-host normalization. */
 export function canonicalRedirect(input: URL): URL | null {

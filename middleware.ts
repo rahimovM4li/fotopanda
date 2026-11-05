@@ -1,7 +1,7 @@
 import { next, rewrite } from '@vercel/functions'
-import { canonicalRedirect } from './src/seo/redirects'
-import { pages } from './src/seo/pages'
-import { basePath, pathLanguage } from './src/seo/paths'
+import { canonicalRedirect } from './src/seo/redirects.js'
+import { pages } from './src/seo/pages.js'
+import { basePath, pathLanguage } from './src/seo/paths.js'
 
 export default function middleware(request: Request) {
   const url = new URL(request.url)
@@ -16,4 +16,5 @@ export default function middleware(request: Request) {
   const error = new URL(pathLanguage(url.pathname) === 'ru' ? '/ru/404.html' : '/404.html', url)
   return rewrite(error, { status: 404, headers: { ...headers, 'X-Robots-Tag': 'noindex, follow' } })
 }
-export const config = { matcher: ['/((?!assets/|_vercel/).*)'] }
+// Keep crawler files available even when page middleware cannot start.
+export const config = { matcher: ['/((?!assets/|_vercel/|robots\\.txt$|sitemap\\.xml$|site\\.webmanifest$).*)'] }

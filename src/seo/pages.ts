@@ -1,4 +1,4 @@
-import type { Language } from './paths'
+import type { Language } from './paths.js'
 
 export interface SeoPage {
   path: string
